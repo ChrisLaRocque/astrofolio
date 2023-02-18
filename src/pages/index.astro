@@ -1,0 +1,45 @@
+---
+import Layout from "../components/Layout.astro";
+import { Picture } from "@astrojs/image/components";
+import headshot from "../images/headshot.jpg";
+
+// import { getCollection, getEntryBySlug } from "astro:content";
+// const allProjects = await getCollection("projects");
+// const oneProject = await getEntryBySlug(
+// 	"projects",
+// 	"content-search-on-larocque-dev"
+// );
+// const { Content } = await oneProject.render();
+---
+
+<Layout
+	tags={{
+		title: "Chris LaRocque | Web Developer",
+		description:
+			"Chris LaRocque is a web developer from Boston, MA. He specializes in tactical agile development aimed at delivering user-centric software at scale and at speed.",
+	}}
+>
+	<main>
+		<section class="lg:flex justify-center gap-7">
+			<div class="text-wrapper flex justify-center items-center">
+				<div class="text py-7">
+					<h1 class="">Hey, I'm Chris</h1>
+					<p class="max-w-[50ch]">
+						I'm a full-stack web developer/engineer building
+						responsive, user-first websites. Check out the things
+						I've built or the tech I've used to build them below.
+					</p>
+				</div>
+			</div>
+			<Picture
+				src={headshot}
+				widths={[200, 400, 600]}
+				sizes="(max-width: 600px) 100vw, 600px"
+				formats={["avif", "jpeg", "png", "webp"]}
+				alt="Chris LaRocque headshot"
+				aspectRatio="1:1"
+				class="rounded-full"
+			/>
+		</section>
+	</main>
+</Layout>

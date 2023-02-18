@@ -1,0 +1,26 @@
+.content {
+}
+.content h2,
+.content h3,
+.content h4,
+.content h5 {
+	@apply mt-12 mb-3 tracking-tight;
+}
+.content h2 {
+	@apply font-extrabold text-3xl;
+}
+.content h3 {
+	@apply font-extrabold text-2xl;
+}
+.content h4 {
+	@apply font-extrabold text-xl;
+}
+.content h5 {
+	@apply font-extrabold text-lg;
+}
+.content p {
+	@apply pr-7 mb-4;
+}
+.content a {
+	@apply font-medium text-blue-600 dark:text-blue-500 hover:underline;
+}

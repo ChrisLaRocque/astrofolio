@@ -1,0 +1,6 @@
+main > section {
+	@apply max-w-7xl mx-auto py-7;
+}
+main > section h1 {
+	@apply lg:text-6xl text-5xl font-bold mb-5 tracking-tight;
+}

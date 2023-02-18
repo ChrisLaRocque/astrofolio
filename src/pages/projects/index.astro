@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+const allProjects = await getCollection("projects");
+
+const tags = {
+	title: "Projects | Chris LaRocque",
+	description:
+		"All the various web development projects I've worked on. Includes guides for implementing things yourself, as well as general findings I found helpful and wanted to share.",
+};
+---
+
+<Layout tags={tags}>
+	<main>
+		<section>
+			<h1 class="border-b-2 border-white py-4">Projects</h1>
+			<p class="max-w-[66 ch]">
+				All the various web development projects I've worked on.
+				Includes guides for implementing things yourself, as well as
+				general findings I found helpful and wanted to share.
+			</p>
+		</section>
+		<section class="flex gap-7">
+			{
+				allProjects.map(({ slug, data }) => {
+					const { title, description } = data;
+					return (
+						<div class="basis-0 flex-grow">
+							<a href={`/projects/${slug}`}>
+								<h2 class="text-2xl font-bold tracking-tight mb-4">
+									{title}
+								</h2>
+								<p>{description}</p>
+							</a>
+						</div>
+					);
+				})
+			}
+		</section>
+	</main>
+</Layout>

@@ -1,0 +1,44 @@
+---
+import Nav from "./Nav.astro";
+import "../styles/content.css";
+import "../styles/main.css";
+const { tags } = Astro.props;
+const { title, description, imageUrl } = tags;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="/site.webmanifest" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta
+			property="og:image"
+			content={imageUrl || `${Astro.url.origin}/headshot.jpg`}
+		/>
+	</head>
+	<body class="bg-zinc-800 text-white p-2 lg:p-0">
+		<Nav />
+		<slot />
+	</body>
+</html>
