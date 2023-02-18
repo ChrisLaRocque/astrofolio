@@ -34,7 +34,6 @@ const techCollection = defineCollection({
 		title: z.string(),
 		description: z.string(),
 		homepage: z.string().url(),
-		projects: z.array(z.string()),
 	}),
 });
 // 3. Export multiple collections to register them
