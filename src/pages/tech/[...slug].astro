@@ -19,12 +19,33 @@ const relatedProjects = await getCollection("projects", ({ data }) => {
 ---
 
 <Layout tags={{ title, description }}>
-	<main class="max-w-7xl mx-auto">
-		<div class="lg:flex">
+	<main>
+		<section class="lg:flex">
 			<div class="content lg:max-w-[75%]">
 				<h1 class="font-extrabold text-4xl">{title}</h1>
 				<p>{description}</p>
 			</div>
-		</div>
+			<div class="related-projects">
+				<h3 class="font-bold border-b-2 border-zinc-600 pb-2 mb-2">
+					{`Projects using ${title}`}
+				</h3>
+				<ul>
+					{
+						relatedProjects.map((project) => {
+							return (
+								<li>
+									<a
+										href={`${Astro.url.origin}/projects/${project.slug}`}
+										class="font-medium text-blue-600 dark:text-blue-500 hover:underline;"
+									>
+										{project.data.title}
+									</a>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</div>
+		</section>
 	</main>
 </Layout>

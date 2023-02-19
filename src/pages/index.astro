@@ -5,7 +5,23 @@ import { Picture } from "@astrojs/image/components";
 import headshot from "../images/headshot.jpg";
 import { getCollection } from "astro:content";
 const allProjects = await getCollection("projects");
+if (allProjects) {
+	allProjects.sort(function (a, b) {
+		return new Date(b.data.updatedAt) - new Date(a.data.updatedAt);
+	});
+}
 const allTech = await getCollection("tech");
+if (allTech) {
+	allTech.forEach((tech) => {
+		let relatedProjectCount = 0;
+		for (let i = 0; i < allProjects.length; i++) {
+			if (allProjects[i]?.data.tech.includes(tech.slug)) {
+				relatedProjectCount += 1;
+			}
+		}
+		return (tech.relatedProjectCount = relatedProjectCount);
+	});
+}
 ---
 
 <Layout
@@ -51,7 +67,7 @@ const allTech = await getCollection("tech");
 								href={`/projects/${project.slug}`}
 								class="p-9 border-zinc-600 border-b-2 hover:bg-zinc-600 block"
 							>
-								<h3 class="text-2xl font-bold tracking-tight mb-2">
+								<h3 class="text-2xl font-bold tracking-tight mb-2 mt-0">
 									{project.data.title}
 								</h3>
 								<p>{project.data.description}</p>
@@ -71,13 +87,24 @@ const allTech = await getCollection("tech");
 						return (
 							<a
 								href={`/tech/${tech.slug}`}
-								class="p-9 block border-zinc-600 border-b-2 hover:bg-zinc-600"
+								class="p-9 block relative border-zinc-600 border-b-2 hover:bg-zinc-600"
 							>
-								<h3 class="text-2xl font-bold tracking-tight mb-2 flex justify-between">
+								<h3 class="text-2xl font-bold tracking-tight mb-2 mt-0 flex justify-between">
 									{tech.data.title}
 									<Icon icon={tech.slug} />
 								</h3>
-								<p>{tech.data.description}</p>
+								<p class="max-w-[49ch]">
+									{tech.data.description}
+								</p>
+								{tech.relatedProjectCount && (
+									<div class="count absolute bottom-0 right-0 text-zinc- p-3">
+										{`${tech.relatedProjectCount} project${
+											tech.relatedProjectCount === 1
+												? ""
+												: "s"
+										}`}
+									</div>
+								)}
 							</a>
 						);
 					})

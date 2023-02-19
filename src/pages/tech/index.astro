@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import Icon from "../../components/Icon.astro";
+const allTech = await getCollection("tech");
+
+const tags = {
+	title: "Tech | Chris LaRocque",
+	description:
+		"All the various pieces of tech I've picked up building stuff. Includes related projects for each piece of tech to show where and when I've used it.",
+};
+---
+
+<Layout tags={tags}>
+	<main>
+		<section>
+			<h1 class="border-b-2 border-white py-4">Tech</h1>
+			<p class="max-w-[66 ch]">
+				All the various pieces of tech I've picked up building stuff.
+				Includes related projects for each piece of tech to show where
+				and when I've used it.
+			</p>
+		</section>
+		<section class="lg:flex lg:flex-wrap">
+			{
+				allTech.map(({ slug, data }) => {
+					const { title, description } = data;
+					return (
+						<div class="basis-1/3 group p-5 py-7 hover:bg-zinc-600 rounded-md relative">
+							<a href={`/tech/${slug}`}>
+								<h2 class="text-2xl font-bold tracking-tight mb-4 flex justify-between align-middle">
+									<span>{title}</span>
+									<Icon icon={slug} />
+								</h2>
+								<p class="mb-5">{description}</p>
+								<Icon
+									icon="arrow"
+									className="group-hover:translate-x-3 transition-all duration-300"
+								/>
+							</a>
+							<div />
+						</div>
+					);
+				})
+			}
+		</section>
+	</main>
+</Layout>

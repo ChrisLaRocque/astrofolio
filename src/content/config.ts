@@ -20,14 +20,19 @@ const techItem = z.enum([
 	"sass",
 	"bulma",
 	"next-js",
+	"astro",
+	"typescript",
+	"yarn",
 ]);
 // 2. Define your collections
 const projectCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
-		site: z.string().url(),
+		site: z.string().url().optional(),
 		tech: z.array(techItem),
+		updatedAt: z.date(),
+		gitHub: z.string().url().optional(),
 	}),
 });
 const techCollection = defineCollection({

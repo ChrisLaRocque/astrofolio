@@ -18,6 +18,7 @@ tech:
         sass,
         graphql,
     ]
+updatedAt: 2021-12-05
 ---
 
 Brightcove has been the home of most of my significant web development experience. This page gives an overview of some of the projects I've done in my time there.

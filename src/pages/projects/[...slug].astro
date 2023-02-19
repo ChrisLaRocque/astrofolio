@@ -11,12 +11,12 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 const { title, description } = entry.data;
-// console.log(headings);
+console.log(headings);
 ---
 
 <Layout tags={{ title, description }}>
-	<main class="max-w-7xl mx-auto">
-		<div class="lg:flex">
+	<main>
+		<section class="lg:flex">
 			<div class="content lg:max-w-[75%]">
 				<h1 class="font-extrabold text-4xl">{title}</h1>
 				<p>{description}</p>
@@ -28,6 +28,6 @@ const { title, description } = entry.data;
 					<li><a>yhes</a></li>
 				</ul>
 			</div>
-		</div>
+		</section>
 	</main>
 </Layout>

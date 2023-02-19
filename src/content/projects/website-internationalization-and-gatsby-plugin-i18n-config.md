@@ -1,8 +1,9 @@
 ---
 title: Website internationalization and gatsby-plugin-i18n-config
 description: I wanted to get a better understanding of how the 'pro' sites do localization, while building a Gatsby plugin that tries to emulate Next's i18n config.
-site: https://github.com/ChrisLaRocque/gatsby-plugin-i18n-config
-tech: [nodejs]
+gitHubUrl: https://github.com/ChrisLaRocque/gatsby-plugin-i18n-config
+tech: [nodejs, yarn]
+updatedAt: 2022-11-01
 ---
 
 ## TLDR
