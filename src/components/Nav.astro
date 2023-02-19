@@ -17,11 +17,11 @@ const links = [
 			links.map((link) => {
 				const isSearch = link.text === "search";
 				return (
-					<a
-						href={isSearch ? null : link.href}
-						id={isSearch ? "search-button" : ""}
-					>
-						<li class="lg:ml-4 tracking-tight">
+					<li class="lg:ml-4 tracking-tight">
+						<a
+							href={isSearch ? null : link.href}
+							id={isSearch ? "search-button" : ""}
+						>
 							{link.text !== "search" ? (
 								link.text
 							) : (
@@ -40,8 +40,8 @@ const links = [
 									/>
 								</svg>
 							)}
-						</li>
-					</a>
+						</a>
+					</li>
 				);
 			})
 		}
