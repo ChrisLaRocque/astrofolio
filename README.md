@@ -6,3 +6,4 @@
 -   Search
 -   Mobile nav
 -   Nav dropdowns
+-   Analytics
