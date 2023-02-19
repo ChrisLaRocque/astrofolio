@@ -19,6 +19,7 @@ const techItem = z.enum([
 	"gatsby",
 	"sass",
 	"bulma",
+	"next-js",
 ]);
 // 2. Define your collections
 const projectCollection = defineCollection({

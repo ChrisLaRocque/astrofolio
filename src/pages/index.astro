@@ -1,15 +1,11 @@
 ---
 import Layout from "../components/Layout.astro";
+import Icon from "../components/Icon.astro";
 import { Picture } from "@astrojs/image/components";
 import headshot from "../images/headshot.jpg";
-
-// import { getCollection, getEntryBySlug } from "astro:content";
-// const allProjects = await getCollection("projects");
-// const oneProject = await getEntryBySlug(
-// 	"projects",
-// 	"content-search-on-larocque-dev"
-// );
-// const { Content } = await oneProject.render();
+import { getCollection } from "astro:content";
+const allProjects = await getCollection("projects");
+const allTech = await getCollection("tech");
 ---
 
 <Layout
@@ -25,9 +21,9 @@ import headshot from "../images/headshot.jpg";
 				<div class="text py-7">
 					<h1 class="">Hey, I'm Chris</h1>
 					<p class="max-w-[50ch]">
-						I'm a full-stack web developer/engineer building
-						responsive, user-first websites. Check out the things
-						I've built or the tech I've used to build them below.
+						I'm a full-stack web developer building responsive,
+						user-first websites. Check out the things I've built or
+						the tech I've used to build them below.
 					</p>
 				</div>
 			</div>
@@ -40,6 +36,53 @@ import headshot from "../images/headshot.jpg";
 				aspectRatio="1:1"
 				class="rounded-full"
 			/>
+		</section>
+		<section class="lg:flex gap-7">
+			<div class="lg:flex-1">
+				<h2
+					class="text-3xl font-bold tracking-tight border-b-2 border-white py-5"
+				>
+					Projects
+				</h2>
+				{
+					allProjects.map((project) => {
+						return (
+							<a
+								href={`/projects/${project.slug}`}
+								class="p-9 border-zinc-600 border-b-2 hover:bg-zinc-600 block"
+							>
+								<h3 class="text-2xl font-bold tracking-tight mb-2">
+									{project.data.title}
+								</h3>
+								<p>{project.data.description}</p>
+							</a>
+						);
+					})
+				}
+			</div>
+			<div class="lg:flex-1">
+				<h2
+					class="text-3xl font-bold tracking-tight border-b-2 border-white py-5"
+				>
+					Tech
+				</h2>
+				{
+					allTech.map((tech) => {
+						return (
+							<a
+								href={`/tech/${tech.slug}`}
+								class="p-9 block border-zinc-600 border-b-2 hover:bg-zinc-600"
+							>
+								<h3 class="text-2xl font-bold tracking-tight mb-2 flex justify-between">
+									{tech.data.title}
+									<Icon icon={tech.slug} />
+								</h3>
+								<p>{tech.data.description}</p>
+							</a>
+						);
+					})
+				}
+			</div>
 		</section>
 	</main>
 </Layout>

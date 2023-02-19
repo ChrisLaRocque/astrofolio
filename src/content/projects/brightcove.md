@@ -16,6 +16,7 @@ tech:
         github,
         npm,
         sass,
+        graphql,
     ]
 ---
 

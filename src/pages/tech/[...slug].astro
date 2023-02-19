@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+export async function getStaticPaths() {
+	const allTech = await getCollection("tech");
+	return allTech.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+const { title, description } = entry.data;
+// console.log(headings);
+const relatedProjects = await getCollection("projects", ({ data }) => {
+	return data.tech.includes(entry.slug);
+});
+---
+
+<Layout tags={{ title, description }}>
+	<main class="max-w-7xl mx-auto">
+		<div class="lg:flex">
+			<div class="content lg:max-w-[75%]">
+				<h1 class="font-extrabold text-4xl">{title}</h1>
+				<p>{description}</p>
+			</div>
+		</div>
+	</main>
+</Layout>
