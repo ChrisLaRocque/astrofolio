@@ -12,12 +12,12 @@ const links = [
 	<a href="/">
 		<strong class="text-xl tracking-tight">Chris LaRocque</strong>
 	</a>
-	<ul class="lg:flex justify-between">
+	<ul class="lg:flex justify-between text-right lg:text-left">
 		{
 			links.map((link) => {
 				const isSearch = link.text === "search";
 				return (
-					<li class="lg:ml-4 tracking-tight">
+					<li class="lg:ml-4 tracking-tight p-5 lg:p-0">
 						<a
 							href={isSearch ? null : link.href}
 							id={isSearch ? "search-button" : ""}
