@@ -4,4 +4,8 @@ description: Harnessed for productivity. Designed for collaboration. Celebrated 
 homepage: https://github.com/
 ---
 
-Confession: I've had to make some whacky merges happen and have had my life saved by the git GUI GitKraken, so I lean on that bad Larry every day.
+Basically everyone in tech has been thrown through the gears of GitHub.
+
+## GitKraken + GitHub Desktop
+
+I feel like the discourse on CLI vs GUI for git has died down enough for me to say: I love having a GUI for git and for major merges/refactoring I will never go back - they've dug me out of so many holes in my career.

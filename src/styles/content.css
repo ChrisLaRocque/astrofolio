@@ -7,10 +7,10 @@
 	@apply mt-12 mb-3 tracking-tight;
 }
 .content h2 {
-	@apply font-extrabold text-3xl;
+	@apply font-extrabold text-3xl mt-12;
 }
 .content h3 {
-	@apply font-extrabold text-2xl;
+	@apply font-extrabold text-2xl mt-9;
 }
 .content h4 {
 	@apply font-extrabold text-xl;
@@ -19,8 +19,14 @@
 	@apply font-extrabold text-lg;
 }
 .content p {
-	@apply pr-7 mb-4;
+	@apply pr-7 mb-2;
 }
 .content a {
 	@apply font-medium text-blue-600 dark:text-blue-500 hover:underline;
+}
+.content ol {
+	@apply list-decimal;
+}
+.content ol > li {
+	@apply mb-2;
 }

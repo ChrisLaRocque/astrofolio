@@ -1,5 +1,6 @@
 // 1. Import your utilities and schemas
 import { z, defineCollection } from "astro:content";
+
 const techItem = z.enum([
 	"graphql",
 	"html",
@@ -24,6 +25,7 @@ const techItem = z.enum([
 	"typescript",
 	"yarn",
 ]);
+
 // 2. Define your collections
 const projectCollection = defineCollection({
 	schema: z.object({

@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
-const { title, description } = entry.data;
+const { title, description, homepage } = entry.data;
 // console.log(headings);
 const relatedProjects = await getCollection("projects", ({ data }) => {
 	return data.tech.includes(entry.slug);
@@ -20,10 +20,15 @@ const relatedProjects = await getCollection("projects", ({ data }) => {
 
 <Layout tags={{ title, description }}>
 	<main>
-		<section class="lg:flex">
-			<div class="content lg:max-w-[75%]">
-				<h1 class="font-extrabold text-4xl">{title}</h1>
-				<p>{description}</p>
+		<section class="lg:flex lg:justify-between">
+			<div class="content lg:max-w-[70%]">
+				<h1 class="font-extrabold text-4xl mb-2">{title}</h1>
+				<small class="mb-5 block text-zinc-300 max-w-[76ch]"
+					>From <a href={homepage}>{homepage}</a>: <span
+						>{description}</span
+					></small
+				>
+				<Content />
 			</div>
 			<div class="related-projects">
 				<h3 class="font-bold border-b-2 border-zinc-600 pb-2 mb-2">
