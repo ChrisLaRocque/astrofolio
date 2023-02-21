@@ -8,3 +8,4 @@
 -   ~~Mobile nav~~
 -   Nav dropdowns
 -   ~~Analytics~~
+-   Tech used on project pages
