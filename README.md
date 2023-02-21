@@ -3,7 +3,8 @@
 -   JSONLD
 -   Table of contents
 -   OG image generation
+-   Contact form
 -   Search
--   Mobile nav
+-   ~~Mobile nav~~
 -   Nav dropdowns
 -   ~~Analytics~~

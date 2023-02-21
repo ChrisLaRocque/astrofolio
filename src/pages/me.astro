@@ -1,0 +1,63 @@
+---
+import Layout from "../components/Layout.astro";
+import { Picture } from "@astrojs/image/components";
+import headshot from "../images/headshot.jpg";
+---
+
+<Layout
+	tags={{
+		title: "About | Chris LaRocque",
+		description:
+			"Chris LaRocque is a web developer from Boston, MA. He specializes in tactical agile development aimed at delivering user-centric software at scale and at speed.",
+	}}
+>
+	<main>
+		<section class="justify-center gap-7 lg:flex">
+			<div class="text-wrapper content flex items-center justify-center">
+				<div class="text py-7">
+					<h1 class="">About me</h1>
+					<p class="max-w-[70ch]">
+						I'm a full-stack web developer building responsive,
+						user-first websites. I started working in tech at
+						Spartan Race, followed by Brightcove. From there I made
+						my way to Gatsby as a Senior Solutions Engineer, and
+						then eventually to Netlify via aquisition.
+						<br /><br />
+						I consider myself fortunate to be able to hear how so many
+						different teams solve the problems presented by the modern
+						web. I get to do as my friend and coworker <a
+							href="https://www.chrishannaby.com/"
+							>Chris Hannaby</a
+						> says and bring all these best-in-class practices not only
+						into my own work but to the customers of Netlify/Gatsby in
+						an effort to 'uplevel everyone'.
+						<br /><br />
+						Outside of slinging the future of web tech I am usually (honestly)
+						checking out whats new in web tooling, watching old NFL Films
+						docs, and chilling with my partner Becca and our insufferable
+						bulldog, Alby.
+					</p>
+				</div>
+			</div>
+			<Picture
+				src={headshot}
+				widths={[200, 400, 600]}
+				sizes="(max-width: 600px) 100vw, 600px"
+				alt="Chris LaRocque headshot"
+				aspectRatio="1:1"
+				class="rounded-full"
+				loading={"eager"}
+			/>
+		</section>
+		<section class="justify-center lg:flex">
+			<div>
+				<h2
+					class="border-b-2 border-white p-2 text-4xl font-bold tracking-tight"
+				>
+					Get in touch
+				</h2>
+				<div class="m-4 flex justify-center"></div>
+			</div>
+		</section>
+	</main>
+</Layout>

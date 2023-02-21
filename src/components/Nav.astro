@@ -1,23 +1,41 @@
 ---
-import Dialog from "./Dialog.astro";
+// import Dialog from "./Dialog.astro";
 const links = [
 	{ text: "Projects", href: "/projects" },
 	{ text: "Tech", href: "/tech" },
-	{ text: "About + Contact", href: "/about" },
-	{ text: "search", href: "/search" },
+	{ text: "About + Contact", href: "/me" },
+	// { text: "search", href: "/search" },
 ];
 ---
 
-<nav class="flex w-full max-w-7xl justify-between mx-auto py-7">
+<nav class="mx-auto flex w-full max-w-7xl justify-between py-7">
 	<a href="/">
 		<strong class="text-xl tracking-tight">Chris LaRocque</strong>
 	</a>
-	<ul class="lg:flex justify-between text-right lg:text-left">
+	<button class="lg:hidden" id="mobileNav-toggle"
+		><svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			class="h-6 w-6"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+		</svg>
+	</button>
+	<ul
+		id="nav-list"
+		class="fixed right-0 top-24 hidden justify-between text-right backdrop-blur-md lg:static lg:flex lg:text-left lg:backdrop-blur-none"
+	>
 		{
 			links.map((link) => {
 				const isSearch = link.text === "search";
 				return (
-					<li class="lg:ml-4 tracking-tight p-5 lg:p-0">
+					<li class="p-5 tracking-tight lg:ml-4 lg:p-0">
 						{isSearch ? (
 							<button id={"search-button"} aria-label="search">
 								<svg
@@ -26,7 +44,7 @@ const links = [
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="w-6 h-6"
+									class="h-6 w-6"
 								>
 									<path
 										stroke-linecap="round"
@@ -43,29 +61,36 @@ const links = [
 			})
 		}
 	</ul>
-	<Dialog />
+	<!-- <Dialog /> -->
 </nav>
 <script>
+	// Mobile menu toggle
+	const toggle = document.getElementById("mobileNav-toggle");
+	const list = document.getElementById("nav-list");
+	toggle.addEventListener("click", () => {
+		list.classList.toggle("hidden");
+	});
+
 	// Determine if cmd + K are being pushed at the same time to show search modal
-	const keys = { Meta: { pressed: false }, k: { pressed: false } };
-	const searchButton = document.getElementById("search-button");
-	const dialog = document.getElementById("search-modal") as HTMLDialogElement;
-	searchButton.addEventListener("click", () => {
-		dialog.showModal();
-	});
-	document.addEventListener("keydown", (e) => {
-		const { key } = e;
-		if (keys.hasOwnProperty(key)) {
-			keys[key].pressed = true;
-		}
-		if (keys.Meta.pressed && keys.k.pressed && !dialog.open) {
-			dialog.showModal();
-		}
-	});
-	document.addEventListener("keyup", (e) => {
-		const { key } = e;
-		if (keys.hasOwnProperty(key)) {
-			keys[key].pressed = false;
-		}
-	});
+	// const keys = { Meta: { pressed: false }, k: { pressed: false } };
+	// const searchButton = document.getElementById("search-button");
+	// const dialog = document.getElementById("search-modal") as HTMLDialogElement;
+	// searchButton.addEventListener("click", () => {
+	// 	dialog.showModal();
+	// });
+	// document.addEventListener("keydown", (e) => {
+	// 	const { key } = e;
+	// 	if (keys.hasOwnProperty(key)) {
+	// 		keys[key].pressed = true;
+	// 	}
+	// 	if (keys.Meta.pressed && keys.k.pressed && !dialog.open) {
+	// 		dialog.showModal();
+	// 	}
+	// });
+	// document.addEventListener("keyup", (e) => {
+	// 	const { key } = e;
+	// 	if (keys.hasOwnProperty(key)) {
+	// 		keys[key].pressed = false;
+	// 	}
+	// });
 </script>
