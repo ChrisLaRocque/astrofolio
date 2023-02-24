@@ -22,8 +22,8 @@ const relatedProjects = await getCollection("projects", ({ data }) => {
 	<main>
 		<section class="lg:flex lg:justify-between">
 			<div class="content lg:max-w-[70%]">
-				<h1 class="font-extrabold text-4xl mb-2">{title}</h1>
-				<small class="mb-5 block text-zinc-300 max-w-[76ch]"
+				<h1 class="mb-2 text-4xl font-extrabold">{title}</h1>
+				<small class="mb-5 block max-w-[76ch] text-zinc-300"
 					>From <a href={homepage}>{homepage}</a>: <span
 						>{description}</span
 					></small
@@ -31,7 +31,7 @@ const relatedProjects = await getCollection("projects", ({ data }) => {
 				<Content />
 			</div>
 			<div class="related-projects">
-				<h3 class="font-bold border-b-2 border-zinc-600 pb-2 mb-2">
+				<h3 class="mb-2 border-b-2 border-zinc-600 pb-2 font-bold">
 					{`Projects using ${title}`}
 				</h3>
 				<ul>
@@ -40,8 +40,8 @@ const relatedProjects = await getCollection("projects", ({ data }) => {
 							return (
 								<li>
 									<a
-										href={`${Astro.url.origin}/projects/${project.slug}`}
-										class="font-medium text-blue-600 dark:text-blue-500 hover:underline;"
+										href={`/projects/${project.slug}`}
+										class="hover:underline; font-medium text-blue-600 dark:text-blue-500"
 									>
 										{project.data.title}
 									</a>
