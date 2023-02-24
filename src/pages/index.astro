@@ -2,7 +2,7 @@
 import Layout from "../components/Layout.astro";
 import Icon from "../components/Icon.astro";
 import { Image } from "@astrojs/image/components";
-import headshot from "../images/chuck.jpg";
+import headshot from "../images/headshot.jpg";
 import { getCollection } from "astro:content";
 const allProjects = await getCollection("projects");
 if (allProjects) {
@@ -48,6 +48,7 @@ if (allTech) {
 				alt="Chris LaRocque headshot"
 				aspectRatio="1:1"
 				class="rounded-full mx-auto"
+				loading={"eager"}
 				width={500}
 				height={500}
 			/>
