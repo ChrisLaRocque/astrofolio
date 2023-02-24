@@ -32,8 +32,8 @@ if (allTech) {
 	}}
 >
 	<main>
-		<section class="lg:flex justify-center gap-7">
-			<div class="text-wrapper flex justify-center items-center">
+		<section class="justify-center gap-7 lg:flex">
+			<div class="text-wrapper flex items-center justify-center">
 				<div class="text py-7">
 					<h1 class="">Hey, I'm Chris</h1>
 					<p class="max-w-[50ch]">
@@ -49,14 +49,16 @@ if (allTech) {
 				sizes="(max-width: 600px) 100vw, 600px"
 				alt="Chris LaRocque headshot"
 				aspectRatio="1:1"
-				class="rounded-full"
+				class="rounded-full mx-auto"
 				loading={"eager"}
+				width={600}
+				height={600}
 			/>
 		</section>
-		<section class="lg:flex gap-7">
+		<section class="gap-7 lg:flex">
 			<div class="lg:flex-1">
 				<h2
-					class="text-3xl font-bold tracking-tight border-b-2 border-white py-5"
+					class="border-b-2 border-white py-5 text-3xl font-bold tracking-tight"
 				>
 					Projects
 				</h2>
@@ -65,9 +67,9 @@ if (allTech) {
 						return (
 							<a
 								href={`/projects/${project.slug}`}
-								class="p-9 border-zinc-600 border-b-2 hover:bg-zinc-600 block"
+								class="block border-b-2 border-zinc-600 p-9 hover:bg-zinc-600"
 							>
-								<h3 class="text-2xl font-bold tracking-tight mb-2 mt-0">
+								<h3 class="mb-2 mt-0 text-2xl font-bold tracking-tight">
 									{project.data.title}
 								</h3>
 								<p>{project.data.description}</p>
@@ -78,7 +80,7 @@ if (allTech) {
 			</div>
 			<div class="lg:flex-1">
 				<h2
-					class="text-3xl font-bold tracking-tight border-b-2 border-white py-5"
+					class="border-b-2 border-white py-5 text-3xl font-bold tracking-tight"
 				>
 					Tech
 				</h2>
@@ -87,9 +89,9 @@ if (allTech) {
 						return (
 							<a
 								href={`/tech/${tech.slug}`}
-								class="p-9 block relative border-zinc-600 border-b-2 hover:bg-zinc-600"
+								class="relative block border-b-2 border-zinc-600 p-9 hover:bg-zinc-600"
 							>
-								<h3 class="text-2xl font-bold tracking-tight mb-2 mt-0 flex justify-between">
+								<h3 class="mb-2 mt-0 flex justify-between text-2xl font-bold tracking-tight">
 									{tech.data.title}
 									<Icon icon={tech.slug} />
 								</h3>
@@ -97,7 +99,7 @@ if (allTech) {
 									{tech.data.description}
 								</p>
 								{tech.relatedProjectCount && (
-									<div class="count absolute bottom-0 right-0 text-zinc- p-3">
+									<div class="count  absolute bottom-0 right-0 p-3">
 										{`${tech.relatedProjectCount} project${
 											tech.relatedProjectCount === 1
 												? ""
