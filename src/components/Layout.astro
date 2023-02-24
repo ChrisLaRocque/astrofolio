@@ -46,12 +46,10 @@ const { title, description, imageUrl } = tags;
 		<link rel="manifest" href="/site.webmanifest" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta
-			property="og:image"
-			content={imageUrl || `${Astro.url.origin}/headshot.jpg`}
-		/>
+		<meta property="og:image" content={imageUrl || `/headshot.jpg`} />
+		<meta name="theme-color" content="#27272A" />
 	</head>
-	<body class="bg-zinc-800 text-white p-2 lg:p-0">
+	<body class="bg-zinc-800 p-2 text-white lg:p-0">
 		<Nav />
 		<slot />
 	</body>
