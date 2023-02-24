@@ -37,4 +37,10 @@ I hosted the site on Netlify, partly because its a bitchin option, partly becaus
 
 ### Netlify forms
 
+Netlify gives you the option to use their platform to [capture form submits](https://docs.netlify.com/forms/setup/). If you site is built on Netlify they crawl your rendered code for forms, and if any of those forms in clude the attribute `data-netlify` they set up the POST call and provision storage for your form submits.
+
+I think this is maybe one of the most underrated featuers of Netlify. There are plenty of ways to build forms with JavaScript and get that information where it needs to go, and frameworks like [Remix are even trying to re-contextualize how most developers think of forms](https://remix.run/docs/en/v1/components/form), but for a basic 'contact' form I love Netlify forms for taking one more chunk of boilerplate of my literal plate.
+
 ### Netlify redirects
+
+There were a few paths on the old site that while not 'incorrect', were just formatted in unexpected/inconsistent ways. As I 'slugified' the paths as part of this rebuild Netlify made it easy to make sure those old paths don't create 404s.
