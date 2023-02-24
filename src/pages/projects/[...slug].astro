@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 const { title, description } = entry.data;
-console.log(headings);
+// console.log(headings);
 // const mappedHeadings = headings.map((heading)=>{
 
 // })
