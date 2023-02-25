@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import sortByUpdatedAt from "../../../utils/sortByUpdatedAt";
 import Layout from "../../components/Layout.astro";
 export async function getStaticPaths() {
 	const allTech = await getCollection("tech");
@@ -16,6 +17,9 @@ const { title, description, homepage } = entry.data;
 const relatedProjects = await getCollection("projects", ({ data }) => {
 	return data.tech.includes(entry.slug);
 });
+if (relatedProjects) {
+	sortByUpdatedAt(relatedProjects);
+}
 ---
 
 <Layout tags={{ title, description }}>

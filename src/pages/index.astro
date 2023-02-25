@@ -4,11 +4,10 @@ import Icon from "../components/Icon.astro";
 import { Image } from "@astrojs/image/components";
 import headshot from "../images/headshot.jpg";
 import { getCollection } from "astro:content";
+import sortByUpdatedAt from "../../utils/sortByUpdatedAt";
 const allProjects = await getCollection("projects");
 if (allProjects) {
-	allProjects.sort(function (a, b) {
-		return new Date(b.data.updatedAt) - new Date(a.data.updatedAt);
-	});
+	sortByUpdatedAt(allProjects);
 }
 const allTech = await getCollection("tech");
 if (allTech) {
