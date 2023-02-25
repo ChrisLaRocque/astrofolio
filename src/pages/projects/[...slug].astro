@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
+import Icon from "../../components/Icon.astro";
 export async function getStaticPaths() {
 	const allProjects = await getCollection("projects");
 	return allProjects.map((entry) => ({
@@ -10,7 +11,11 @@ export async function getStaticPaths() {
 }
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
-const { title, description } = entry.data;
+const { title, description, tech } = entry.data;
+const relatedTech = await getCollection("tech", ({ slug }) => {
+	return tech.includes(slug);
+});
+console.log(relatedTech);
 // console.log(headings);
 // const mappedHeadings = headings.map((heading)=>{
 
@@ -25,12 +30,32 @@ const { title, description } = entry.data;
 				<p>{description}</p>
 				<Content />
 			</div>
-			<!-- <div class="table-of-contents">
-				<strong class="tracking-tight">Table of contents</strong>
-				<ul>
-					<li><a>yhes</a></li>
-				</ul>
-			</div> -->
+			{
+				relatedTech && (
+					<div class="table-of-contents">
+						<strong class="tracking-tight">Related tech</strong>
+						<ul id="related-tech">
+							{relatedTech.map((tech) => {
+								return (
+									<li class="mb-2">
+										<a
+											href={`/tech/${tech.slug}`}
+											class="flex items-center justify-between font-medium text-blue-600 hover:underline dark:text-blue-500"
+										>
+											<div class="flex basis-5 items-center justify-center">
+												<Icon icon={tech.slug} />
+											</div>
+											<div class="ml-2 basis-24">
+												{tech.data.title}
+											</div>
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
+				)
+			}
 		</section>
 	</main>
 </Layout>
