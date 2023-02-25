@@ -19,18 +19,18 @@ const relatedTech = await getCollection("tech", ({ slug }) => {
 
 <Layout tags={{ title, description }}>
 	<main>
-		<section class="lg:flex">
-			<div class="content lg:max-w-[75%]">
+		<section class="lg:flex lg:justify-between">
+			<div class="content lg:max-w-[70%]">
 				<h1 class="text-4xl font-extrabold">{title}</h1>
 				<p>{description}</p>
 				<Content />
 			</div>
 			{
 				relatedTech && (
-					<div class="table-of-contents mt-9 lg:mt-0">
-						<strong class="mb-4 block border-b-2 border-white pb-2 tracking-tight">
+					<div class="table-of-contents mt-9 lg:mt-0 lg:min-w-[20%]">
+						<h3 class="mb-4 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight">
 							Related tech
-						</strong>
+						</h3>
 						<ul id="related-tech">
 							{relatedTech.map((tech) => {
 								return (
