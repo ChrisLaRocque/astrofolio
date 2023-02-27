@@ -2,6 +2,7 @@
 import Layout from "../components/Layout.astro";
 import { Picture } from "@astrojs/image/components";
 import headshot from "../images/headshot.jpg";
+import ogImageURL from "../../utils/ogImageURL";
 ---
 
 <Layout
@@ -9,6 +10,10 @@ import headshot from "../images/headshot.jpg";
 		title: "About | Chris LaRocque",
 		description:
 			"Chris LaRocque is a web developer from Boston, MA. He specializes in tactical agile development aimed at delivering user-centric software at scale and at speed.",
+		imageURL: ogImageURL({
+			title: "About",
+			subtitle: "About me, Chris LaRocque, and how to get in touch.",
+		}),
 	}}
 >
 	<main>

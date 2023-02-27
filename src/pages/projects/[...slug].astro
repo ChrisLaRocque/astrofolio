@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
+import ogImageURL from "../../../utils/ogImageURL";
 export async function getStaticPaths() {
 	const allProjects = await getCollection("projects");
 	return allProjects.map((entry) => ({
@@ -16,9 +17,10 @@ const { title, description, tech } = entry.data;
 const relatedTech = await getCollection("tech", ({ slug }) => {
 	return tech.includes(slug);
 });
+const imageURL = ogImageURL({ title, subtitle: description });
 ---
 
-<Layout tags={{ title, description }}>
+<Layout tags={{ title, description, imageURL }}>
 	<main>
 		<section class="lg:flex lg:justify-between">
 			<div class="content lg:max-w-[70%]">
