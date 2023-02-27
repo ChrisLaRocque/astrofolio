@@ -26,7 +26,7 @@
 	@apply mb-2 pr-7;
 }
 .content a {
-	@apply font-medium text-blue-500 hover:underline;
+	@apply font-medium text-blue-300 hover:underline;
 }
 .content ol {
 	@apply list-decimal;
