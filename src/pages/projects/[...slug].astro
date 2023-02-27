@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import Icon from "../../components/Icon.astro";
+import TableOfContents from "../../components/TableOfContents.astro";
 export async function getStaticPaths() {
 	const allProjects = await getCollection("projects");
 	return allProjects.map((entry) => ({
@@ -25,34 +26,37 @@ const relatedTech = await getCollection("tech", ({ slug }) => {
 				<p>{description}</p>
 				<Content />
 			</div>
-			{
-				relatedTech && (
-					<div class="table-of-contents mt-9 lg:mt-0 lg:min-w-[20%]">
-						<h3 class="mb-4 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight">
-							Related tech
-						</h3>
-						<ul id="related-tech">
-							{relatedTech.map((tech) => {
-								return (
-									<li class="mb-2">
-										<a
-											href={`/tech/${tech.slug}`}
-											class="flex items-center font-medium text-blue-600 hover:underline dark:text-blue-500"
-										>
-											<div class="flex basis-7 items-center justify-center">
-												<Icon icon={tech.slug} />
-											</div>
-											<div class="ml-2 basis-36">
-												{tech.data.title}
-											</div>
-										</a>
-									</li>
-								);
-							})}
-						</ul>
-					</div>
-				)
-			}
+			<div>
+				<TableOfContents headings={headings} />
+				{
+					relatedTech && (
+						<div class="table-of-contents mt-9 lg:mt-0 lg:min-w-[20%]">
+							<h3 class="mb-4 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight">
+								Related tech
+							</h3>
+							<ul id="related-tech">
+								{relatedTech.map((tech) => {
+									return (
+										<li class="mb-2">
+											<a
+												href={`/tech/${tech.slug}`}
+												class="flex items-center font-medium text-blue-600 hover:underline dark:text-blue-500"
+											>
+												<div class="flex basis-7 items-center justify-center">
+													<Icon icon={tech.slug} />
+												</div>
+												<div class="ml-2 basis-36">
+													{tech.data.title}
+												</div>
+											</a>
+										</li>
+									);
+								})}
+							</ul>
+						</div>
+					)
+				}
+			</div>
 		</section>
 	</main>
 </Layout>

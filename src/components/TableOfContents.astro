@@ -1,0 +1,43 @@
+---
+const { headings } = Astro.props;
+---
+
+<>
+	{
+		headings && (
+			<div class="table-of-contents mt-9 mb-9 lg:mt-0 lg:min-w-[20%]">
+				<h3 class="mb-4 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight">
+					Table of contents
+				</h3>
+				<ul id="table-of-contents" class="list-inside space-y-4 ">
+					{headings.map((heading) => {
+						const { depth, slug, text } = heading;
+						return (
+							<>
+								{depth === 2 && (
+									<li class="">
+										<a href={`#${slug}`}>{text}</a>
+									</li>
+								)}
+								{depth === 3 && (
+									<ul class="mt-2 list-inside list-disc space-y-1 pl-5">
+										<li>
+											<a href={`#${slug}`}>{text}</a>
+										</li>
+									</ul>
+								)}
+								{depth === 4 && (
+									<ul class="mt-2 list-inside list-disc space-y-1 pl-9">
+										<li>
+											<a href={`#${slug}`}>{text}</a>
+										</li>
+									</ul>
+								)}
+							</>
+						);
+					})}
+				</ul>
+			</div>
+		)
+	}
+</>

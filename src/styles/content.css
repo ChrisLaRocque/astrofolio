@@ -26,11 +26,14 @@
 	@apply mb-2 pr-7;
 }
 .content a {
-	@apply font-medium text-blue-600 hover:underline dark:text-blue-500;
+	@apply font-medium text-blue-500 hover:underline;
 }
 .content ol {
 	@apply list-decimal;
 }
 .content ol > li {
 	@apply mb-2;
+}
+#table-of-contents a {
+	@apply font-medium text-zinc-300 hover:text-zinc-100 hover:underline;
 }
