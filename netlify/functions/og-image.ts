@@ -2,17 +2,16 @@ import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import satori from "satori";
 import { readFileSync } from "fs";
 import path from "path";
-
 const handler: Handler = async (
 	event: HandlerEvent,
 	context: HandlerContext
 ) => {
 	const { queryStringParameters, headers } = event;
 	const { title, subtitle } = queryStringParameters;
-	const interBold = readFileSync(`https://larocque.dev/Inter-Bold.ttf`);
-	const spaceMono = readFileSync(
-		`https://larocque.dev/SpaceMono-Regular.ttf`
-	);
+	const interTTF = require(`./Inter-Bold.ttf`);
+	const spaceMonoTTF = require(`./SpaceMono-Regular.ttf`);
+	const interBold = readFileSync(interTTF);
+	const spaceMono = readFileSync(spaceMonoTTF);
 	const body = await satori(
 		{
 			type: "div",
@@ -101,7 +100,7 @@ const handler: Handler = async (
 			],
 		}
 	);
-	// console.log("body", body);
+	console.log("body", body);
 	return {
 		statusCode: 200,
 		headers: {
