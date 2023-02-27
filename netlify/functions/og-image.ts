@@ -9,12 +9,8 @@ const handler: Handler = async (
 ) => {
 	const { queryStringParameters, headers } = event;
 	const { title, subtitle } = queryStringParameters;
-	const interBold = readFileSync(
-		path.resolve(`https://${headers.host}/Inter-Bold.ttf`)
-	);
-	const spaceMono = readFileSync(
-		path.resolve(`https://${headers.host}/SpaceMono-Regular.ttf`)
-	);
+	const interBold = readFileSync(path.resolve(`./Inter-Bold.ttf`));
+	const spaceMono = readFileSync(path.resolve(`./SpaceMono-Regular.ttf`));
 	const body = await satori(
 		{
 			type: "div",
