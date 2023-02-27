@@ -1,6 +1,6 @@
 ---
 title: Brightcove
-description: An overview of what I build for brightcove.com.
+description: An overview of what I built for brightcove.com.
 site: https://brightcove.com
 tech:
     [

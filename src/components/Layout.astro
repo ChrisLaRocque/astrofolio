@@ -51,6 +51,20 @@ const imageURL = ogImageURL({ ...ogInfo, origin });
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta property="og:image" content={imageURL || `/headshot.jpg`} />
+		<!-- Facebook -->
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta property="twitter:domain" content="larocque.dev" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageURL || `/headshot.jpg`} />
+
 		<meta name="theme-color" content="#27272A" />
 	</head>
 	<body class="bg-zinc-800 p-2 text-white lg:p-0">
