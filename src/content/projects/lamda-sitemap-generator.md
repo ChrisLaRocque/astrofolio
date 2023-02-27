@@ -1,6 +1,6 @@
 ---
 title: Lambda sitemap generator
-description: Brightcove.com needed a reliable modern sitemap, and I didn't want it to add time to our Gatsby builds, so I made it a Netlify function!
+description: How to make a modern sitemap with Netlify functions.
 site: https://www.brightcove.com/sitemap-index.xml
 tech: [aws, contentful, gatsby, javascript, netlify, nodejs, npm]
 updatedAt: 2021-12-20

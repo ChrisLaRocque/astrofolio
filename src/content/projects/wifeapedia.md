@@ -1,6 +1,6 @@
 ---
 title: Wifeapedia
-description: With brightcove.com being on Gatsby (statically generated React site), Nuxt (SSG/SSR Vue) seemed like an appropriate side project.
+description: Building a wiki for TV show Wifeswap in Nuxt backed by Contentful.
 updatedAt: 2022-01-17
 gitHub: https://github.com/ChrisLaRocque/wifeapedia
 site: https://wifeapedia.com/

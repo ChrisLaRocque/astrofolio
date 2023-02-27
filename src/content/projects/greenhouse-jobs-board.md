@@ -1,6 +1,6 @@
 ---
 title: Greenhouse jobs board
-description: I created a client-side rendered job board on top of the otherwise statically-generated brightcove.com, fed from Greenhouse.
+description: How to create a client-side Greenhouse jobs board inside a Gatsby site.
 tech: [gatsby, github, html, javascript, netlify, npm, react, sass]
 site: https://www.brightcove.com/en/company/careers/open-positions/
 updatedAt: 2021-12-09

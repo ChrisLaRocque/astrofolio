@@ -1,6 +1,6 @@
 ---
 title: Content search with Nuxt, Algolia, and Contentful
-description: I wanted folks to be able to search for pages on my website
+description: Integrating Algolia into a Nuxt+Contentful stack.
 site: https://larocque.dev
 tech:
     [

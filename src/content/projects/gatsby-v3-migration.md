@@ -1,6 +1,6 @@
 ---
 title: Gatsby v3 migration
-description: The migration from Gatsby v2 to v3 was mostly a matter of following the migration guide with some surprises sprinkled in to make me feel alive/doubt everything I am.
+description: Migrating a Gatsby v2 site to v3 and pitfalls to look out for.
 site: https://www.brightcove.com/en/
 tech:
     [

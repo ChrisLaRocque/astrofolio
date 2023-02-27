@@ -1,6 +1,6 @@
 ---
 title: LaRocque.dev v1
-description: Version 1 of my portfolio website, built on Nuxt and fed from Contentful.
+description: Building a portfolio site with Nuxt, Bulma, and Contentful.
 tech: [nuxt, contentful, github, netlify, vue, bulma, html, css, npm, sass]
 updatedAt: 2022-05-08
 site: https://nuxt.larocque.dev/

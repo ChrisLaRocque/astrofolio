@@ -1,6 +1,6 @@
 ---
 title: Porting LaRocque.dev from Nuxt to Gatsby
-description: I wanted to compare performance between the two platforms.
+description: How to migrate a Nuxt app over to Gatsby.
 tech:
     [
         gatsby,

@@ -1,6 +1,6 @@
 ---
 title: Building theconvergencebooks.com with Astro
-description: My partner and her sister are in the middle of writing and self-publishing a YA book series, and I got to build their website with Astro and Tailwind.
+description: Migrating theconvergencebooks.com from Wix to Astro+Tailwind
 site: https://theconvergencebooks.com/
 tech:
     [

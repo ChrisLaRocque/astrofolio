@@ -1,6 +1,6 @@
 ---
 title: Switching my site from Nuxt to Astro
-description: Astro is tight as fuck. I had built a few small static sites with it, but content collections seemed like a great way to manage my personal site content moving forward.
+description: The process of taking my site from Nuxt to Astro, and how content collections replaced Contentful.
 github: https://github.com/ChrisLaRocque/astrofolio
 site: https://www.larocque.dev/
 updatedAt: 2023-02-18

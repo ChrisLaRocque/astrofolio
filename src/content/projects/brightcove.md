@@ -1,6 +1,6 @@
 ---
 title: Brightcove
-description: Brightcove has been the home of most of my significant web development experience. This page gives an overview of some of the projects I've done in my time there.
+description: An overview of what I build for brightcove.com.
 site: https://brightcove.com
 tech:
     [
