@@ -2,8 +2,12 @@
 import Nav from "./Nav.astro";
 import "../styles/content.css";
 import "../styles/main.css";
+import ogImageURL from "../../utils/ogImageURL";
 const { tags } = Astro.props;
-const { title, description, imageURL } = tags;
+const { title, description, ogInfo } = tags;
+
+const { origin } = Astro.url;
+const imageURL = ogImageURL({ ...ogInfo, origin });
 ---
 
 <html lang="en">

@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import sortByUpdatedAt from "../../../utils/sortByUpdatedAt";
-import ogImageURL from "../../../utils/ogImageURL";
 const allProjects = await getCollection("projects");
 if (allProjects) {
 	sortByUpdatedAt(allProjects);
@@ -12,7 +11,7 @@ const tags = {
 	title: "Projects | Chris LaRocque",
 	description:
 		"All the various web development projects I've worked on. Includes guides for implementing things yourself, as well as general findings I found helpful and wanted to share.",
-	imageURL: ogImageURL({ title: "Projects", subtitle: "larocque.dev" }),
+	ogInfo: { title: "Projects", subtitle: "larocque.dev" },
 };
 ---
 

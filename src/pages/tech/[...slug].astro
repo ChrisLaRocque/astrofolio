@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content } = await entry.render();
 const { title, description, homepage } = entry.data;
 // console.log(headings);
 const relatedProjects = await getCollection("projects", ({ data }) => {
@@ -21,10 +21,10 @@ const relatedProjects = await getCollection("projects", ({ data }) => {
 if (relatedProjects) {
 	sortByUpdatedAt(relatedProjects);
 }
-const imageURL = ogImageURL({ title, subtitle: description });
+const ogInfo = { title, subtitle: description };
 ---
 
-<Layout tags={{ title, description, imageURL }}>
+<Layout tags={{ title, description, ogInfo }}>
 	<main>
 		<section class="lg:flex lg:justify-between">
 			<div class="content lg:max-w-[70%]">

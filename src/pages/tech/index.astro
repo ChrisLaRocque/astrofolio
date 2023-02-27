@@ -2,14 +2,14 @@
 import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import Icon from "../../components/Icon.astro";
-import ogImageURL from "../../../utils/ogImageURL";
+
 const allTech = await getCollection("tech");
 
 const tags = {
 	title: "Tech | Chris LaRocque",
 	description:
 		"All the various pieces of tech I've picked up building stuff. Includes related projects for each piece of tech to show where and when I've used it.",
-	imageURL: ogImageURL({ title: "Tech", subtitle: "larocque.dev" }),
+	ogInfo: { title: "Tech", subtitle: "larocque.dev" },
 };
 ---
 
