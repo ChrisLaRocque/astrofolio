@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import ogImageURL from "../../../utils/ogImageURL";
 import sortByUpdatedAt from "../../../utils/sortByUpdatedAt";
 import Layout from "../../components/Layout.astro";
 export async function getStaticPaths() {
@@ -11,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content } = await entry.render();
 const { title, description, homepage } = entry.data;
 // console.log(headings);
 const relatedProjects = await getCollection("projects", ({ data }) => {
@@ -20,9 +21,10 @@ const relatedProjects = await getCollection("projects", ({ data }) => {
 if (relatedProjects) {
 	sortByUpdatedAt(relatedProjects);
 }
+const ogInfo = { title, subtitle: description };
 ---
 
-<Layout tags={{ title, description }}>
+<Layout tags={{ title, description, ogInfo }}>
 	<main>
 		<section class="lg:flex lg:justify-between">
 			<div class="content lg:max-w-[70%]">

@@ -5,6 +5,7 @@ import { Image } from "@astrojs/image/components";
 import headshot from "../images/headshot.jpg";
 import { getCollection } from "astro:content";
 import sortByUpdatedAt from "../../utils/sortByUpdatedAt";
+
 const allProjects = await getCollection("projects");
 if (allProjects) {
 	sortByUpdatedAt(allProjects);
@@ -28,6 +29,10 @@ if (allTech) {
 		title: "Chris LaRocque | Web Developer",
 		description:
 			"Chris LaRocque is a web developer from Boston, MA. He specializes in tactical agile development aimed at delivering user-centric software at scale and at speed.",
+		ogInfo: {
+			title: "LaRocque.dev",
+			subtitle: "The various web-based tomfoolery of Chris LaRocque",
+		}
 	}}
 >
 	<main>

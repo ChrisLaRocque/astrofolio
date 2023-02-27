@@ -14,4 +14,5 @@ export default defineConfig({
 		partytown(),
 		serviceWorker(),
 	],
+	site: "https://larocque.dev",
 });
