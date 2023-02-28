@@ -180,7 +180,7 @@ I found myself occasionally getting lost between the 4 different-but-similar obj
 The main 2 difficulties I faced were issues importing font files (my own fault) and getting used to Satori's syntax (also technically my fault).
 ### Font files
 
-I had no issues getting things running locally, but when I pushed live I got a warning letting me know the font files couldn't be found. Some googling revealed that Netlify has a built in configuration option `included_files` that somehow I got into my head was only for specific file types. I posted a question in our Slack, was thankfully told I was wrong, and was on my way with fonts properly imported.
+I had no issues getting things running locally, but when I pushed live I got a warning letting me know the font files couldn't be found. Some googling revealed that Netlify has a built in configuration option `included_files` that somehow I got into my head was only for specific file types. I posted my confusion in our Slack, and was promptly + politely corrected by [Marcus Weiner](https://github.com/mraerino), Sr. Staff Software Engineer at Netlify. Now fonts load!
 
 ### Satori syntax
 
