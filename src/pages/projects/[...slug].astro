@@ -25,7 +25,7 @@ const localeString = new Date(updatedAt).toLocaleDateString();
 		<section class="lg:flex lg:justify-between">
 			<div class="content lg:max-w-[70%]">
 				<h1 class="mb-2 text-4xl font-extrabold">{title}</h1>
-				<p>{description}</p>
+				<p class="italic">{description}</p>
 				<Content />
 				<small class="my-12 block w-full text-right italic"
 					>{`Last updated: ${localeString}`}</small
