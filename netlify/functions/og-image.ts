@@ -1,18 +1,18 @@
-import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
-import satori from "satori";
+import type { Handler, HandlerEvent } from "@netlify/functions";
 import { readFileSync } from "fs";
 import path from "path";
-const handler: Handler = async (
-	event: HandlerEvent,
-	context: HandlerContext
-) => {
-	const { queryStringParameters, headers } = event;
+import satori from "satori";
+
+const handler: Handler = async (event: HandlerEvent) => {
+	const { queryStringParameters } = event;
 	const { title, subtitle } = queryStringParameters;
 
+	/** Font file import */
 	const interBold = readFileSync(path.resolve(`./public/Inter-Bold.ttf`));
 	const spaceMono = readFileSync(
 		path.resolve(`./public/SpaceMono-Regular.ttf`)
 	);
+
 	const body = await satori(
 		{
 			type: "div",
@@ -78,16 +78,8 @@ const handler: Handler = async (
 			width: 600,
 			height: 400,
 			fonts: [
-				// {
-				// 	name: "Inter",
-				// 	// Use `fs` (Node.js only) or `fetch` to read the font as Buffer/ArrayBuffer and provide `data` here.
-				// 	data: interRegular,
-				// 	weight: 400,
-				// 	style: "normal",
-				// },
 				{
 					name: "Inter",
-					// Use `fs` (Node.js only) or `fetch` to read the font as Buffer/ArrayBuffer and provide `data` here.
 					data: interBold,
 					weight: 700,
 					style: "normal",
@@ -101,7 +93,7 @@ const handler: Handler = async (
 			],
 		}
 	);
-	console.log("body", body);
+
 	return {
 		statusCode: 200,
 		headers: {

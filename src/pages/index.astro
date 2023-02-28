@@ -32,7 +32,7 @@ if (allTech) {
 		ogInfo: {
 			title: "LaRocque.dev",
 			subtitle: "The various web-based tomfoolery of Chris LaRocque",
-		}
+		},
 	}}
 >
 	<main>
@@ -66,15 +66,21 @@ if (allTech) {
 				</h2>
 				{
 					allProjects.map((project) => {
+						const localeString = new Date(
+							project.data.updatedAt
+						).toLocaleDateString();
 						return (
 							<a
 								href={`/projects/${project.slug}`}
-								class="block border-b-2 border-zinc-600 p-9 hover:bg-zinc-600"
+								class="relative block border-b-2 border-zinc-600 p-9 hover:bg-zinc-600"
 							>
 								<h3 class="mb-2 mt-0 text-2xl font-bold tracking-tight">
 									{project.data.title}
 								</h3>
 								<p>{project.data.description}</p>
+								<small class="absolute bottom-0 right-0 block p-5 italic">
+									{localeString}
+								</small>
 							</a>
 						);
 					})

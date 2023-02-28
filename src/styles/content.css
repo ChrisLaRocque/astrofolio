@@ -34,6 +34,12 @@
 .content ol > li {
 	@apply mb-2;
 }
+.content pre {
+	@apply my-5 p-5;
+}
+.content img {
+	@apply my-4;
+}
 #table-of-contents a {
 	@apply font-medium text-zinc-300 hover:text-zinc-100 hover:underline;
 }
