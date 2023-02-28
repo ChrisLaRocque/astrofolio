@@ -185,3 +185,6 @@ I had no issues getting things running locally, but when I pushed live I got a w
 ### Satori syntax
 
 Satori _does_ allow you to use JSX if you have a parser set up, but what am I, some kind of nerd with that kind of time? I relied on their fallback object-based syntax for defining elements (outlined above). Once you get used to it, its pretty easy to start putting together what you need, but there were a few moments spent on trial and error to get going.
+
+### content-type header
+Kind of a 'no duh' but forgot it on the first pass. Stole the header settings from Vercel's doc [@vercel/og](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation/og-image-api)
