@@ -1,7 +1,7 @@
 ---
 title: Generating open graph images with Netlify functions.
 description: How to leverage Netlify functions and Satori to generate open graph images for your site.
-tech: [nodejs, css, javascript, html, aws, netlify, npm]
+tech: [nodejs, css, javascript, html, aws, netlify, npm, typescript]
 updatedAt: 2023-02-28
 ---
 ## TLDR
