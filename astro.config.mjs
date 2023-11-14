@@ -6,13 +6,13 @@ import serviceWorker from "astrojs-service-worker";
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [
-		tailwind(),
-		image({
-			serviceEntryPoint: "@astrojs/image/sharp",
-		}),
-		partytown(),
-		serviceWorker(),
-	],
-	site: "https://larocque.dev",
+  integrations: [
+    tailwind(),
+    image({
+      serviceEntryPoint: "@astrojs/image/sharp",
+    }),
+    partytown(),
+    serviceWorker(),
+  ],
+  site: "https://larocque.dev",
 });

@@ -1,0 +1,24 @@
+---
+import Layout from "../components/Layout.astro";
+import HexTailwind from "../components/HexTailwind.astro";
+import ColorSwatches from "../components/ColorSwatches.astro";
+---
+
+<Layout
+  tags={{
+    title: "Hex to Tailwind | larocque.dev",
+    description: "A tool to convert hex codes to the nearest Tailwind class",
+    ogInfo: {
+      title: "Hex to Tailwind class",
+      subtitle: "Get the nearest Tailwind color class to a given hex code",
+    },
+  }}
+>
+  <main>
+    <section class="">
+      <h1 class="text-4xl font-extrabold">Hex to Tailwind class</h1>
+      <HexTailwind />
+      <ColorSwatches />
+    </section>
+  </main>
+</Layout>

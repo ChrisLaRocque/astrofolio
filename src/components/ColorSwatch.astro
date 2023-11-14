@@ -1,0 +1,13 @@
+---
+import { twMerge } from "tailwind-merge";
+const { twClassName, id } = Astro.props;
+const bgClassName = `bg-${twClassName}`;
+const classList = twMerge(
+  bgClassName,
+  "color-swatch h-48 w-48 flex items-end justify-end"
+);
+---
+
+<div class={classList} id={id || bgClassName} data-bg-class-name={bgClassName}>
+  <p class="bg-black p-2 font-mono">{bgClassName}</p>
+</div>

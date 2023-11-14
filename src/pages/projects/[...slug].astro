@@ -4,64 +4,62 @@ import Layout from "../../components/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
 export async function getStaticPaths() {
-	const allProjects = await getCollection("projects");
-	return allProjects.map((entry) => ({
-		params: { slug: entry.slug },
-		props: { entry },
-	}));
+  const allProjects = await getCollection("projects");
+  return allProjects.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
 }
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 const { title, description, tech, updatedAt } = entry.data;
 const relatedTech = await getCollection("tech", ({ slug }) => {
-	return tech.includes(slug);
+  return tech.includes(slug);
 });
 const ogInfo = { title, subtitle: description };
 const localeString = new Date(updatedAt).toLocaleDateString();
 ---
 
 <Layout tags={{ title, description, ogInfo }}>
-	<main>
-		<section class="lg:flex lg:justify-between">
-			<div class="content lg:max-w-[70%]">
-				<h1 class="mb-2 text-4xl font-extrabold">{title}</h1>
-				<p class="italic">{description}</p>
-				<Content />
-				<small class="my-12 block w-full text-right italic"
-					>{`Last updated: ${localeString}`}</small
-				>
-			</div>
-			<div>
-				<TableOfContents headings={headings} />
-				{
-					relatedTech && (
-						<div class="table-of-contents mt-9 lg:mt-0 lg:min-w-[20%]">
-							<h3 class="mb-4 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight">
-								Related tech
-							</h3>
-							<ul id="related-tech">
-								{relatedTech.map((tech) => {
-									return (
-										<li class="mb-2">
-											<a
-												href={`/tech/${tech.slug}`}
-												class="flex items-center font-medium text-blue-300 hover:underline "
-											>
-												<div class="flex basis-7 items-center justify-center">
-													<Icon icon={tech.slug} />
-												</div>
-												<div class="ml-2 basis-36">
-													{tech.data.title}
-												</div>
-											</a>
-										</li>
-									);
-								})}
-							</ul>
-						</div>
-					)
-				}
-			</div>
-		</section>
-	</main>
+  <main>
+    <section class="lg:flex lg:justify-between">
+      <div class="content lg:max-w-[70%]">
+        <h1 class="mb-2 text-4xl font-extrabold">{title}</h1>
+        <p class="italic">{description}</p>
+        <Content />
+        <small class="my-12 block w-full text-right italic"
+          >{`Last updated: ${localeString}`}</small
+        >
+      </div>
+      <div>
+        <TableOfContents headings={headings} />
+        {
+          relatedTech && (
+            <div class="table-of-contents mt-9 lg:mt-0 lg:min-w-[20%]">
+              <h3 class="mb-4 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight">
+                Related tech
+              </h3>
+              <ul id="related-tech">
+                {relatedTech.map((tech) => {
+                  return (
+                    <li class="mb-2">
+                      <a
+                        href={`/tech/${tech.slug}`}
+                        class="flex items-center font-medium text-blue-300 hover:underline "
+                      >
+                        <div class="flex basis-7 items-center justify-center">
+                          <Icon icon={tech.slug} />
+                        </div>
+                        <div class="ml-2 basis-36">{tech.data.title}</div>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+    </section>
+  </main>
 </Layout>
