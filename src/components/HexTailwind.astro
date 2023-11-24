@@ -15,6 +15,7 @@ import ColorSwatch from "./ColorSwatch.astro";
   <ColorSwatch twClassName="black" id="main-swatch" />
 </div>
 <script>
+  const origin = window.location.origin;
   const mainSwatch = document.getElementById("main-swatch");
   const colorSelect = document.getElementById("color-select");
   colorSelect?.addEventListener("change", async (e) => {
@@ -23,16 +24,16 @@ import ColorSwatch from "./ColorSwatch.astro";
     } = e;
     // Get tw class from netlify function
     const hex = await fetch(
-      `http://localhost:8888/.netlify/functions/tailwind-hex?hex=${encodeURIComponent(
+      `${origin}/.netlify/functions/tailwind-hex?hex=${encodeURIComponent(
         value
       )}`
     ).then((res) => res.json());
     const { twClass } = hex;
     const bgClassName = `bg-${twClass}`;
     const currentBg = mainSwatch?.dataset.bgClassName;
-    mainSwatch.classList.replace(currentBg, bgClassName);
+    mainSwatch?.classList.replace(currentBg, bgClassName);
     mainSwatch.dataset.bgClassName = bgClassName;
-    const p = mainSwatch.querySelector("p");
+    const p = mainSwatch?.querySelector("p");
     p.innerText = bgClassName;
   });
 </script>
