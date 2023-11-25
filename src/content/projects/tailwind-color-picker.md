@@ -7,9 +7,11 @@ updatedAt: 2023-11-24
 
 ## What is this
 
-I set up a little UI in Astro for using a color picker to get the closest Tailwind color class name. Initially I was just looking for a way to get a Tailwind class name from a hex code, but eventually putting together a UI for the color picker felt like the best way to illustrate everything.
+A general guide on taking a hex code and getting an equivalent Tailwind color class. Initially this project came to mind when checking out [Sanity's image palette information](https://www.sanity.io/docs/image-metadata#5bb0c7e96f42) which provides hex codes for varying complimenting and contrasting colors for a given image. I thought it would be cool to extend that information with Tailwind classes but that's for another day!
 
 ### Try it out
+
+I set up a little UI in Astro for using a color picker to get the closest Tailwind color class name, and I'll detail how I built it in this post.
 
 You can see this color picker in action [here.](/tailwind-color-picker)
 
