@@ -29,7 +29,7 @@
   @apply font-medium text-blue-300 hover:underline;
 }
 .content ol {
-  @apply list-decimal;
+  @apply list-inside list-decimal;
 }
 .content ul {
   @apply list-inside list-disc;

@@ -3,7 +3,7 @@ title: Switching my site from Nuxt to Astro
 description: The process of taking my site from Nuxt to Astro, and how content collections replaced Contentful.
 github: https://github.com/ChrisLaRocque/astrofolio
 site: https://www.larocque.dev/
-updatedAt: 2023-02-18
+updatedAt: 2023-11-25
 tech: [tailwind-css, astro, github, netlify, html, css, typescript]
 ---
 
@@ -19,7 +19,7 @@ I think its worth mentioning that my previous site was built with Nuxt 2 and I h
 
 ### Why?
 
-When I first set up my portfolio site I built it with Contentful, and frankly, why wouldn't I? It's arguably the best headless CMS available, and I've been able to squeeze more than my fair share of free accounts out of their free plan for all the projects I cook up. Frankly, I love Contentful.
+When I first set up my portfolio site I built it with Contentful, as it was the CMS I had used most at that point and I've been able to squeeze more than my fair share of free accounts out of their free plan for all the projects I cook up. Frankly, I love Contentful when I just need a simple CMS.
 
 My reason for pulling my site content out of Contentful and into my site repo's filesystem was purely about my own personal workflow preference. When my portfolio content was in a CMS I found myself not incredibly motivated to author posts frequently. I felt that having my posts be alongside my codebase would encourage me to write more as well as prompt more creative projects to be done on my personal site.
 
@@ -45,6 +45,22 @@ The main relationship I needed to recreate was between the only two content type
 
 I had 2 collections, one for each content type. In an ideal world I'd be able to read the entires in the `tech` collection and create an enum in `config.ts` to limit the options available to Frontmatter, and I mean techncially I could do that with `fs` but it also took all of 30 seconds to manually type them out, and probably about 30s of confusion when adding new pieces of tech in the future.
 
+Here is the function I used to relate projects to different tech used on them:
+
+```typescript
+export function relatedProjects(allTech, allProjects) {
+  allTech.forEach((tech) => {
+    let relatedProjectCount = 0;
+    for (let i = 0; i < allProjects.length; i++) {
+      if (allProjects[i]?.data.tech.includes(tech.slug)) {
+        relatedProjectCount += 1;
+      }
+    }
+    return (tech.relatedProjectCount = relatedProjectCount);
+  });
+}
+```
+
 ## Building a front-end
 
 Good old Astro and Tailwind, baby!
@@ -61,6 +77,10 @@ Tailwind once again was the tool of choice for me to style a website. In my opin
 
 All the UI-related icons are from [heroicons](https://heroicons.com/), made by the makers of Tailwind! They have libraries available for React and Vue, but my unhinged pursuit of no runtime framework led me to just copy and paste the SVGs.
 
+#### Simple Icons
+
+For all the brand logo SVGs I snagged what I could from [simpleicons.org](https://simpleicons.org/)
+
 ### Astro components
 
 #### Built-in components
@@ -75,13 +95,17 @@ This site has 4 components: `Dialog.astro`, `Icon.astro`, `Layout.astro`, and `N
 
 Currently not in use until I figure out a way to index my collections with Algolia, but the Dialog component will show the search UI.
 
+##### Footer.astro
+
+Holds links to my social accounts at the bottom of every page
+
 ##### Icon.astro
 
-Used exclusively on the tech cards on the homepage, a nauseatingly verbose component that returns an SVG given a 'name'.
+Used exclusively on the tech cards on the homepage, a nauseatingly verbose component that returns an SVG given a 'name'. I believe the performant way to do this would be an SVG sprite
 
 ##### Layout.astro
 
-Exactly what you might imagine, adds the `Nav` to every page, includes some top-level classes for the body, and contains all the SEO meta tags.
+Exactly what you might imagine, adds the `Nav` and `Footer` to every page, includes some top-level classes for the body, and contains all the SEO meta tags.
 
 ##### Nav.astro
 
