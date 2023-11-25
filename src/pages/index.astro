@@ -4,7 +4,7 @@ import Icon from "../components/Icon.astro";
 import { Image } from "@astrojs/image/components";
 import headshot from "../images/headshot.jpg";
 import { getCollection } from "astro:content";
-import sortByUpdatedAt from "../../utils/sortByUpdatedAt";
+import { sortByUpdatedAt, relatedProjects } from "../../utils/collections";
 
 const allProjects = await getCollection("projects");
 if (allProjects) {
@@ -12,14 +12,10 @@ if (allProjects) {
 }
 const allTech = await getCollection("tech");
 if (allTech) {
-  allTech.forEach((tech) => {
-    let relatedProjectCount = 0;
-    for (let i = 0; i < allProjects.length; i++) {
-      if (allProjects[i]?.data.tech.includes(tech.slug)) {
-        relatedProjectCount += 1;
-      }
-    }
-    return (tech.relatedProjectCount = relatedProjectCount);
+  relatedProjects(allTech, allProjects);
+  // Sort by most related projects
+  allTech.sort((a, b) => {
+    return b.relatedProjectCount - a.relatedProjectCount;
   });
 }
 ---
@@ -43,8 +39,17 @@ if (allTech) {
           <p class="max-w-[50ch]">
             I'm a full-stack web developer obsessed with making the web easier
             to build for everyone. For the last few years I've been a solutions
-            engineer at Gatsby, Netlify, and now Sanity. Check out the things
-            I've built or the tech I've used to build them below.
+            engineer at <a
+              class="font-medium text-blue-400 hover:underline"
+              href="https://www.gatsbyjs.com/">Gatsby</a
+            >, <a
+              class="font-medium text-blue-400 hover:underline"
+              href="https://www.netlify.com/">Netlify</a
+            >, and now <a
+              class="font-medium text-blue-400 hover:underline"
+              href="https://sanity.io">Sanity</a
+            >. Check out the things I've built or the tech I've used to build
+            them below.
           </p>
         </div>
       </div>
@@ -75,10 +80,10 @@ if (allTech) {
                 href={`/projects/${project.slug}`}
                 class="relative block border-b-2 border-zinc-600 p-9 hover:bg-zinc-600"
               >
-                <h3 class="mb-2 mt-0 text-2xl font-bold tracking-tight">
+                <h3 class="mb-2 mt-0  text-2xl font-bold tracking-tight">
                   {project.data.title}
                 </h3>
-                <p>{project.data.description}</p>
+                <p class="my-2 max-w-[49ch]">{project.data.description}</p>
                 <small class="absolute bottom-0 right-0 block p-5 italic">
                   {localeString}
                 </small>
@@ -94,7 +99,7 @@ if (allTech) {
           Tech
         </h2>
         {
-          allTech.map((tech) => {
+          allTech.slice(0, allProjects.length - 1).map((tech) => {
             return (
               <a
                 href={`/tech/${tech.slug}`}
@@ -106,16 +111,25 @@ if (allTech) {
                 </h3>
                 <p class="max-w-[49ch]">{tech.data.description}</p>
                 {tech.relatedProjectCount && (
-                  <div class="count  absolute bottom-0 right-0 p-3">
+                  <small class="count absolute bottom-0 right-0 block p-5 italic">
                     {`${tech.relatedProjectCount} project${
                       tech.relatedProjectCount === 1 ? "" : "s"
                     }`}
-                  </div>
+                  </small>
                 )}
               </a>
             );
           })
         }
+        <hr />
+        <div class="flex justify-end">
+          <a href="/tech" class="group my-7 flex items-center gap-2"
+            >See all tech <Icon
+              className="inline transition-all duration-300 group-hover:translate-x-1"
+              icon="arrow"
+            /></a
+          >
+        </div>
       </div>
     </section>
   </main>

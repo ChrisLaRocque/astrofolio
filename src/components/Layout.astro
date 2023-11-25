@@ -1,5 +1,6 @@
 ---
 import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
 import "../styles/content.css";
 import "../styles/main.css";
 import ogImageURL from "../../utils/ogImageURL";
@@ -11,64 +12,51 @@ const imageURL = ogImageURL({ ...ogInfo, origin });
 ---
 
 <html lang="en">
-	<head>
-		<!-- Google tag (gtag.js) -->
-		<script
-			async
-			type="text/partytown"
-			src="https://www.googletagmanager.com/gtag/js?id=G-YH5X1FXFKW"
-		></script>
-		<script type="text/partytown">
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=G-YH5X1FXFKW"
+    ></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-			gtag("config", "G-YH5X1FXFKW");
-		</script>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="/favicon-16x16.png"
-		/>
-		<link rel="manifest" href="/site.webmanifest" />
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<meta property="og:image" content={imageURL || `/headshot.jpg`} />
-		<!-- Facebook -->
-		<meta property="og:url" content={Astro.url} />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
+      gtag("config", "G-YH5X1FXFKW");
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:image" content={imageURL || `/headshot.jpg`} />
+    <!-- Facebook -->
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
 
-		<!-- Twitter -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta property="twitter:domain" content="larocque.dev" />
-		<meta property="twitter:url" content={Astro.url} />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={imageURL || `/headshot.jpg`} />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="larocque.dev" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL || `/headshot.jpg`} />
 
-		<meta name="theme-color" content="#27272A" />
-	</head>
-	<body class="bg-zinc-800 p-2 text-white lg:p-0">
-		<Nav />
-		<slot />
-	</body>
+    <meta name="theme-color" content="#27272A" />
+  </head>
+  <body class="bg-zinc-800 p-2 text-white lg:p-0">
+    <Nav />
+    <slot />
+    <Footer />
+  </body>
 </html>

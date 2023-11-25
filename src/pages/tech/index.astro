@@ -2,49 +2,53 @@
 import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import Icon from "../../components/Icon.astro";
+import { relatedProjects } from "../../../utils/collections";
 
+const allProjects = await getCollection("projects");
 const allTech = await getCollection("tech");
+relatedProjects(allTech, allProjects);
 
 const tags = {
-	title: "Tech | Chris LaRocque",
-	description:
-		"All the various pieces of tech I've picked up building stuff. Includes related projects for each piece of tech to show where and when I've used it.",
-	ogInfo: { title: "Tech", subtitle: "larocque.dev" },
+  title: "Tech | Chris LaRocque",
+  description:
+    "All the various pieces of tech I've picked up building stuff. Includes related projects for each piece of tech to show where and when I've used it.",
+  ogInfo: { title: "Tech", subtitle: "larocque.dev" },
 };
 ---
 
 <Layout tags={tags}>
-	<main>
-		<section>
-			<h1 class="border-b-2 border-white py-4">Tech</h1>
-			<p class="max-w-[66 ch]">
-				All the various pieces of tech I've picked up building stuff.
-				Includes related projects for each piece of tech to show where
-				and when I've used it.
-			</p>
-		</section>
-		<section class="lg:flex lg:flex-wrap">
-			{
-				allTech.map(({ slug, data }) => {
-					const { title, description } = data;
-					return (
-						<div class="group relative basis-1/3 rounded-md p-5 py-7 hover:bg-zinc-600">
-							<a href={`/tech/${slug}`}>
-								<h2 class="mb-4 flex justify-between align-middle text-2xl font-bold tracking-tight">
-									<span>{title}</span>
-									<Icon icon={slug} />
-								</h2>
-								<p class="mb-5">{description}</p>
-								<Icon
-									icon="arrow"
-									className="transition-all duration-300 group-hover:translate-x-3"
-								/>
-							</a>
-							<div />
-						</div>
-					);
-				})
-			}
-		</section>
-	</main>
+  <main>
+    <section>
+      <h1 class="border-b-2 border-white py-4">Tech</h1>
+      <p class="max-w-[66 ch]">
+        All the various pieces of tech I've picked up building stuff. Includes
+        related projects for each piece of tech to show where and when I've used
+        it.
+      </p>
+    </section>
+    <section class="lg:flex lg:flex-wrap">
+      {
+        allTech.map(({ slug, data, relatedProjectCount }) => {
+          const { title, description } = data;
+          return (
+            <div class="group relative basis-1/3 rounded-md p-5 py-7 hover:bg-zinc-600">
+              <a href={`/tech/${slug}`}>
+                <h2 class="flex justify-between align-middle text-2xl font-bold tracking-tight">
+                  <span>{title}</span>
+                  <Icon icon={slug} />
+                </h2>
+                <em class="my-1 block text-xs text-slate-400">{`${relatedProjectCount} related projects`}</em>
+                <p class="mb-5">{description}</p>
+                <Icon
+                  icon="arrow"
+                  className="transition-all duration-300 group-hover:translate-x-3"
+                />
+              </a>
+              <div />
+            </div>
+          );
+        })
+      }
+    </section>
+  </main>
 </Layout>

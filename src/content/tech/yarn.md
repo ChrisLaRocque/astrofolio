@@ -1,6 +1,6 @@
 ---
 title: Yarn
-description: Yarn is a package manager that doubles down as project manager. Whether you work on one-shot projects or large monorepos, as a hobbyist or an enterprise user, Yarn has you covered.
+description: Yarn is a package manager that doubles down as project manager.
 homepage: https://yarnpkg.com/
 ---
 

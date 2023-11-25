@@ -1,14 +1,14 @@
 ---
 import { getCollection } from "astro:content";
 import ogImageURL from "../../../utils/ogImageURL";
-import sortByUpdatedAt from "../../../utils/sortByUpdatedAt";
+import sortByUpdatedAt from "../../../utils/sort";
 import Layout from "../../components/Layout.astro";
 export async function getStaticPaths() {
-	const allTech = await getCollection("tech");
-	return allTech.map((entry) => ({
-		params: { slug: entry.slug },
-		props: { entry },
-	}));
+  const allTech = await getCollection("tech");
+  return allTech.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
 }
 
 const { entry } = Astro.props;
@@ -16,49 +16,48 @@ const { Content } = await entry.render();
 const { title, description, homepage } = entry.data;
 // console.log(headings);
 const relatedProjects = await getCollection("projects", ({ data }) => {
-	return data.tech.includes(entry.slug);
+  return data.tech.includes(entry.slug);
 });
 if (relatedProjects) {
-	sortByUpdatedAt(relatedProjects);
+  sortByUpdatedAt(relatedProjects);
 }
 const ogInfo = { title, subtitle: description };
 ---
 
 <Layout tags={{ title, description, ogInfo }}>
-	<main>
-		<section class="lg:flex lg:justify-between">
-			<div class="content lg:max-w-[70%]">
-				<h1 class="mb-2 text-4xl font-extrabold">{title}</h1>
-				<small class="mb-5 block max-w-[76ch] text-zinc-300"
-					>From <a href={homepage}>{homepage}</a>: <span
-						>{description}</span
-					></small
-				>
-				<Content />
-			</div>
-			<div class="related-projects">
-				<h3
-					class="mb-2 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight"
-				>
-					{`Projects using ${title}`}
-				</h3>
-				<ul>
-					{
-						relatedProjects.map((project) => {
-							return (
-								<li>
-									<a
-										href={`/projects/${project.slug}`}
-										class="hover:underline; font-medium text-blue-300"
-									>
-										{project.data.title}
-									</a>
-								</li>
-							);
-						})
-					}
-				</ul>
-			</div>
-		</section>
-	</main>
+  <main>
+    <section class="lg:flex lg:justify-between">
+      <div class="content lg:max-w-[70%]">
+        <h1 class="mb-2 text-4xl font-extrabold">{title}</h1>
+        <small class="mb-5 block max-w-[76ch] text-zinc-300"
+          >From <a href={homepage}>{homepage}</a>: <span>{description}</span
+          ></small
+        >
+        <Content />
+      </div>
+      <div class="related-projects mt-12 lg:mt-0">
+        <h3
+          class="mb-2 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight"
+        >
+          {`Projects using ${title}`}
+        </h3>
+        <ul>
+          {
+            relatedProjects.map((project) => {
+              return (
+                <li>
+                  <a
+                    href={`/projects/${project.slug}`}
+                    class="hover:underline; font-medium text-blue-300"
+                  >
+                    {project.data.title}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
 </Layout>

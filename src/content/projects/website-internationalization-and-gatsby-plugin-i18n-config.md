@@ -1,6 +1,6 @@
 ---
 title: Website internationalization and gatsby-plugin-i18n-config
-description: Building a Gatsby plugin that tries to emulate Next's i18n config.
+description: Notes on website internationalization for a Gatsby plugin that never was.
 gitHubUrl: https://github.com/ChrisLaRocque/gatsby-plugin-i18n-config
 tech: [nodejs, yarn]
 updatedAt: 2022-11-01
@@ -8,16 +8,20 @@ updatedAt: 2022-11-01
 
 ## TLDR
 
--   While Google doesn’t have a preference, using subdirectories to specify internationalization (gatsby.com/en-us vs gatsby.com/fr-CA) will prevent having to modify down the road if site localization needs get to that point.
--   Using a CMS with built-in localization capabilities will get you farther faster.
--   Use `rel=”alternate”` links to tell Google about the alternate versions of your page as [outlined by Google](https://developers.google.com/search/docs/specialty/international/localized-versions#html) as well as `rel=”canonical”` where applicable.
--   The URL and HTML `lang` attribute are indicators but Google fundamentally uses your page content to infer the language of the page
+Most of this research is through the lens of SEO and ease of management for a technical team
+
+- While Google doesn’t have a preference, using subdirectories to specify internationalization (gatsby.com/en-us vs gatsby.com/fr-CA) will prevent having to modify down the road if site localization needs get to that point.
+- Using a CMS with built-in localization capabilities will get you farther faster.
+- Use `rel=”alternate”` links to tell Google about the alternate versions of your page as [outlined by Google](https://developers.google.com/search/docs/specialty/international/localized-versions#html) as well as `rel=”canonical”` where applicable.
+- The URL and HTML `lang` attribute are indicators but Google fundamentally uses your page content to infer the language of the page
 
 ## Considerations
 
 ### URL structure for internationalization
 
-Pulled from [https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites#locale-specific-urls](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites#locale-specific-urls)
+Pulled from [Gogole's docs on locale specific URLs](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites#locale-specific-urls)
+
+#### URL not used by Google to infer localization
 
 Google (I believe) states that the URL is not used to infer anything about the locale information, rather the actual content on the page is analyzed
 
@@ -54,15 +58,13 @@ Several CMS’s come ‘out of the box’ with localization, allowing users to w
 <link rel="alternate" href="https://example.com/en-us" hreflang="en-us" />
 <link rel="alternate" href="https://example.com/en-au" hreflang="en-au" />
 <link
-	rel="alternate"
-	href="https://example.com/country-selector"
-	hreflang="x-default"
+  rel="alternate"
+  href="https://example.com/country-selector"
+  hreflang="x-default"
 />
 ```
 
-`x-default` is used to specify a fallback if your site doesn’t have the user’s language.
-
-[https://developers.google.com/search/docs/specialty/international/localized-versions#html](https://developers.google.com/search/docs/specialty/international/localized-versions#html)
+[`x-default` is used to specify a fallback if your site doesn’t have the user’s language.](https://developers.google.com/search/docs/specialty/international/localized-versions#html)
 
 ### Use canonical links when content is duplicated
 
@@ -124,7 +126,7 @@ ccTLDs for regions, language set by URL params
 
 ### Helpful Links
 
-[https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites)
+- [Mozilla docs on managing multi-regional sites](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites)
 
 ### Terminology + standards
 
