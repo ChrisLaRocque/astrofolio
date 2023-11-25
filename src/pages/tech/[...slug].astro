@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import ogImageURL from "../../../utils/ogImageURL";
-import sortByUpdatedAt from "../../../utils/sort";
+import { sortByUpdatedAt } from "../../../utils/collections";
 import Layout from "../../components/Layout.astro";
 export async function getStaticPaths() {
   const allTech = await getCollection("tech");
