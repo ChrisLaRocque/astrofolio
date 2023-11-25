@@ -1,0 +1,150 @@
+---
+title: Creating a Tailwind color picker
+description: A little helper function I found useful in a recent project that allows you to get the Tailwind color closest to a given CSS color value.
+tech: [nodejs, javascript, tailwind-css, typescript, netlify, astro]
+updatedAt: 2023-11-24
+---
+
+## What is this
+
+I set up a little UI in Astro for using a color picker to get the closest Tailwind color class name. Initially I was just looking for a way to get a Tailwind class name from a hex code, but eventually putting together a UI for the color picker felt like the best way to illustrate everything.
+
+### Try it out
+
+You can see this color picker in action [here.](/tailwind-color-picker)
+
+## Thanks to the hex2tailwind package
+
+Most of this helper is just the [hex2tailwind](https://www.npmjs.com/package/hex2tailwind) package, I simply updated the logic for deleting classes that don't apply to the lookup.
+
+## Code
+
+### ColorPicker component
+
+Here's our Astro component for selecting a color:
+
+```astro
+<div>
+  <fieldset>
+    <label for="color-select">Select color:</label>
+    <input
+      type="color"
+      id="color-select"
+      class="mx-3 h-48 w-48 hover:cursor-pointer"
+    />
+  </fieldset>
+  // Custom Astro component for showing a swatch given a Tailwind color class
+  name
+  <ColorSwatch twClassName="black" id="main-swatch" />
+</div>
+<script>
+  // Get the 2 elements above
+  const mainSwatch = document.getElementById("main-swatch");
+  const colorSelect = document.getElementById("color-select");
+  colorSelect?.addEventListener("change", async (e) => {
+    const {
+      target: { value }, // Color input element returns a hex value regardless of what format is chosen by user
+    } = e;
+
+    // Get tw class from netlify function
+    // I happened to put this in a serverless function but the logic could also be placed directly inline
+    const hex = await fetch(
+      `http://localhost:8888/.netlify/functions/tailwind-hex?hex=${encodeURIComponent(
+        value
+      )}`
+    ).then((res) => res.json());
+
+    // Update DOM with new TW class
+    const { twClass } = hex; // Get class from function response
+    const bgClassName = `bg-${twClass}`; // Construct Tailwind background class
+    const currentBg = mainSwatch?.dataset.bgClassName; // ColorSwatch component has a data attribute to pass current class name
+    mainSwatch?.classList.replace(currentBg, bgClassName); // Swap our background classes
+    mainSwatch.dataset.bgClassName = bgClassName; // Update ColorSwatch data attribute
+    // Update text inside main swatch
+    const p = mainSwatch?.querySelector("p");
+    p.innerText = bgClassName;
+  });
+</script>
+```
+
+### ColorSwatch component
+
+Just used to render a square of whatever Tailwind color class you give it
+
+```astro
+---
+import { twMerge } from "tailwind-merge";
+const { twClassName, id } = Astro.props;
+const bgClassName = `bg-${twClassName}`;
+const classList = twMerge(
+  bgClassName,
+  "color-swatch h-48 w-48 flex items-end justify-end hover:cursor-pointer"
+);
+---
+
+<div class={classList} id={id || bgClassName} data-bg-class-name={bgClassName}>
+  <p class="bg-black p-2 font-mono">{bgClassName}</p>
+</div>
+```
+
+### Logic for parsing hex value
+
+Here's the function comparing the hex code from the color picker to Tailwind classes. As stated above most of this logic is thanks to the hex2tailwind package
+
+```typescript
+import colors from "tailwindcss/colors";
+import { flatten } from "flat";
+
+function tailwindReference() {
+  // Flattens the color object and adds a "-" delimiter for exact TailwindCSS match
+  const flat = flatten(colors, { delimiter: "-" });
+  // Collect all colors that aren't hex codes
+  const notHex = Object.entries(flat).filter(
+    ([key, value]) =>
+      !/^#([0-9A-F]{3}){1,2}$/i.test(value) || key !== key.toLowerCase()
+  );
+
+  // Delete colors without matching hex codes
+  notHex.forEach(([key]) => delete flat[key]);
+
+  return flat;
+}
+
+function tailwindMatcher(color: string) {
+  // Initialize the color matcher on the flattened Tailwind colors object
+  const nearestColor = require("nearest-color").from(tailwindReference());
+
+  // Check if the hex color is correctly formatted and return the closest match, otherwise throw an error.
+  if (/^#([0-9A-F]{3}){1,2}$/i.test(color)) {
+    return nearestColor(color).name;
+  } else {
+    throw new Error("Wrong Hex syntax. Please use #xxx or #xxxxxx.");
+  }
+}
+export { tailwindReference, tailwindMatcher };
+```
+
+### Serverless function
+
+As shows in the `ColorPicker` component above, I call the parsing logic from a Netlify function like so
+
+```typescript
+import type { Handler, HandlerEvent } from "@netlify/functions";
+import { tailwindMatcher } from "../../utils/tailwind-hex";
+
+const handler: Handler = async (event: HandlerEvent) => {
+  const { queryStringParameters } = event;
+  const { hex } = queryStringParameters;
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ twClass: tailwindMatcher(hex) }),
+  };
+};
+
+export { handler };
+```
+
+## Gotchas
+
+Some hex values just don't have reasonable matches in Tailwind, so your results may vary.

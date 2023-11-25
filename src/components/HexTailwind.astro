@@ -1,0 +1,39 @@
+---
+import ColorSwatch from "./ColorSwatch.astro";
+---
+
+<div class="my-11 flex justify-around">
+  <fieldset class="flex basis-[33%] items-center">
+    <label for="color-select" class="text-lg">Select color:</label>
+    <input
+      type="color"
+      id="color-select"
+      style="background: none;"
+      class="mx-3 h-48 w-48 appearance-none outline-none hover:cursor-pointer"
+    />
+  </fieldset>
+  <ColorSwatch twClassName="black" id="main-swatch" />
+</div>
+<script>
+  const origin = window.location.origin;
+  const mainSwatch = document.getElementById("main-swatch");
+  const colorSelect = document.getElementById("color-select");
+  colorSelect?.addEventListener("change", async (e) => {
+    const {
+      target: { value },
+    } = e;
+    // Get tw class from netlify function
+    const hex = await fetch(
+      `${origin}/.netlify/functions/tailwind-hex?hex=${encodeURIComponent(
+        value
+      )}`
+    ).then((res) => res.json());
+    const { twClass } = hex;
+    const bgClassName = `bg-${twClass}`;
+    const currentBg = mainSwatch?.dataset.bgClassName;
+    mainSwatch?.classList.replace(currentBg, bgClassName);
+    mainSwatch.dataset.bgClassName = bgClassName;
+    const p = mainSwatch?.querySelector("p");
+    p.innerText = bgClassName;
+  });
+</script>
