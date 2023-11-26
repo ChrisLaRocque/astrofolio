@@ -149,4 +149,5 @@ export { handler };
 
 ## Gotchas
 
-Some hex values just don't have reasonable matches in Tailwind, so your results may vary.
+- Some hex values just don't have reasonable matches in Tailwind, so your results may vary.
+- The less saturated a hex, the more likely to get a variation of gray you are
