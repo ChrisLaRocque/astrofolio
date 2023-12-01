@@ -18,6 +18,7 @@
     "astrojs-service-worker": "^0.0.9",
     "flat": "^6.0.1",
     "nearest-color": "^0.4.4",
+    "octokit": "^3.1.2",
     "satori": "^0.4.0",
     "sharp": "^0.31.3",
     "tailwind-merge": "^2.0.0",
