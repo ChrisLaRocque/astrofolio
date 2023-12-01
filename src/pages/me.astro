@@ -75,15 +75,96 @@ import headshot from "../images/headshot.jpg";
         height={600}
       />
     </section>
-    <!-- <section class="justify-center lg:flex">
-			<div>
-				<h2
-					class="border-b-2 border-white p-2 text-4xl font-bold tracking-tight"
-				>
-					Get in touch
-				</h2>
-				<div class="m-4 flex justify-center"></div>
-			</div>
-		</section> -->
+    <section>
+      <h3 class="">Commits to public GitHub repos</h3>
+      <div class="flex items-center justify-center">
+        <div id="contributions" class="flex gap-1"></div>
+      </div>
+    </section>
   </main>
 </Layout>
+<script>
+  async function getContributions(token, username) {
+    const headers = {
+      Authorization: `bearer ${token}`,
+    };
+    const body = {
+      query: `query {
+            user(login: "${username}") {
+              name
+              contributionsCollection {
+                contributionCalendar {
+                  colors
+                  totalContributions
+                  weeks {
+                    contributionDays {
+                      color
+                      contributionCount
+                      date
+                      weekday
+                    }
+                    firstDay
+                  }
+                }
+              }
+            }
+          }`,
+    };
+    const response = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: headers,
+    });
+    const data = await response.json();
+    return data;
+  }
+
+  const { data } = await getContributions(
+    import.meta.env.PUBLIC_GITHUB_TOKEN,
+    "ChrisLaRocque"
+  );
+  const contributions = document.getElementById("contributions");
+
+  if (!data || !data.user) {
+    const oops = document.createElement("p");
+    oops.innerText = "Oops, couldn't load commits from GitHub";
+    contributions?.appendChild(oops);
+    throw "Error fetching from Github";
+  }
+  const {
+    user: {
+      contributionsCollection: { contributionCalendar },
+    },
+  } = data;
+  const { weeks } = contributionCalendar;
+  const insertAtIndex = (
+    parent: HTMLDivElement,
+    child: HTMLDivElement,
+    i: number
+  ) => {
+    if (i >= parent.children.length) {
+      parent.appendChild(child);
+    } else {
+      parent.insertBefore(child, parent.children[i]);
+    }
+  };
+  weeks.forEach(({ contributionDays, firstDay }, i) => {
+    const weekDiv = document.createElement("div");
+    weekDiv.setAttribute("id", `week-${i}`);
+    weekDiv.setAttribute(
+      "class",
+      `flex-col gap-1 ${i > 30 ? "hidden lg:flex" : "flex"}`
+    );
+    weekDiv.setAttribute("title", firstDay);
+    contributionDays.forEach(({ color, date }, i) => {
+      const bgColor = color === "#ebedf0" ? "rgba(235,	237,	240, 0.15)" : color; // Make white squares a more pleasing gray
+      const dayDiv = document.createElement("div");
+      dayDiv.setAttribute("id", date);
+      dayDiv.setAttribute("class", `lg:w-5 lg:h-5 w-2 h-2`);
+      dayDiv.setAttribute("style", `background-color: ${bgColor}`);
+      dayDiv.setAttribute("title", date);
+      insertAtIndex(weekDiv, dayDiv, i);
+    });
+    insertAtIndex(contributions, weekDiv, i);
+  });
+</script>
