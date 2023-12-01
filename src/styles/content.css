@@ -38,7 +38,7 @@
   @apply mb-2;
 }
 .content pre {
-  @apply my-5 p-5;
+  @apply my-5 max-w-[95%] p-5;
 }
 .content img {
   @apply my-4;

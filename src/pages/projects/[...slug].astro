@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 }
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
+
 const { title, description, tech, updatedAt } = entry.data;
 const relatedTech = await getCollection("tech", ({ slug }) => {
   return tech.includes(slug);

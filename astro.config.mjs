@@ -3,6 +3,7 @@ import tailwind from "@astrojs/tailwind";
 import image from "@astrojs/image";
 import partytown from "@astrojs/partytown";
 import serviceWorker from "astrojs-service-worker";
+import { remarkReadingTime } from "./utils/remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,4 +16,7 @@ export default defineConfig({
     serviceWorker(),
   ],
   site: "https://larocque.dev",
+  markdown: {
+    remarkPlugins: [remarkReadingTime],
+  },
 });

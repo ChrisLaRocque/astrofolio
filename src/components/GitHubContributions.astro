@@ -5,7 +5,39 @@
   </div>
 </section>
 <script>
-  async function getContributions(token, username) {
+  /**
+   * Types for our data
+   */
+  type ContributionDay = {
+    color: string;
+    contributionCount: number;
+    date: string;
+    weekday: number;
+  };
+  type Week = {
+    contributionDays: ContributionDay[];
+    firstDay: string;
+  };
+  type Weeks = Week[];
+  type GraphQLRes = {
+    user: {
+      contributionsCollection: {
+        contributionCalendar: {
+          weeks: Weeks;
+        };
+      };
+    };
+  };
+
+  /**
+   * Get container for our grid
+   */
+  const contributions = document.getElementById("contributions");
+
+  /**
+   * Fetch against GitHub GraphQL API
+   */
+  async function getContributions(token: string, username: string) {
     const headers = {
       Authorization: `bearer ${token}`,
     };
@@ -40,52 +72,76 @@
     return data;
   }
 
+  /**
+   * Run fetch from above
+   */
   const { data } = await getContributions(
-    import.meta.env.PUBLIC_GITHUB_TOKEN,
-    "ChrisLaRocque"
+    import.meta.env.PUBLIC_GITHUB_TOKEN, // token in .env file
+    "ChrisLaRocque" // your GitHub account name
   );
-  const contributions = document.getElementById("contributions");
 
+  /**
+   * If there's an error with the fetch or the user doesn't exist, show error text
+   */
   if (!data || !data.user) {
     const oops = document.createElement("p");
     oops.innerText = "Oops, couldn't load commits from GitHub";
     contributions?.appendChild(oops);
     throw "Error fetching from Github";
   }
-  const {
-    user: {
-      contributionsCollection: { contributionCalendar },
-    },
-  } = data;
-  const { weeks } = contributionCalendar;
-  const insertAtIndex = (
+
+  /**
+   *  Helper to add our new elements into their parent at the correct spot
+   */
+  function insertAtIndex(
     parent: HTMLDivElement,
     child: HTMLDivElement,
     i: number
-  ) => {
+  ) {
     if (i >= parent.children.length) {
       parent.appendChild(child);
     } else {
       parent.insertBefore(child, parent.children[i]);
     }
-  };
+  }
+
+  /**
+   * Drill down to data from fetch request
+   */
+  const {
+    user: {
+      contributionsCollection: {
+        contributionCalendar: { weeks },
+      },
+    },
+  }: GraphQLRes = data;
+
+  /**
+   * Loop through the weeks + add them to the parent div
+   */
   weeks.forEach(({ contributionDays, firstDay }, i) => {
+    // Create + modify a div per week
     const weekDiv = document.createElement("div");
     weekDiv.setAttribute("id", `week-${i}`);
     weekDiv.setAttribute(
       "class",
-      `flex-col gap-1 ${i > 30 ? "hidden md:flex" : "flex"}`
-    );
-    weekDiv.setAttribute("title", firstDay);
+      `flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`
+    ); // Add tailwind classes + hide older weeks on mobile
+    weekDiv.setAttribute("title", firstDay); // Allow folks to see date on hover
+
+    // Loop through each week's days + add them to their week
     contributionDays.forEach(({ color, date }, i) => {
       const bgColor = color === "#ebedf0" ? "rgba(235,	237,	240, 0.15)" : color; // Make white squares a more pleasing gray
+      // Create + modify a div per day
       const dayDiv = document.createElement("div");
       dayDiv.setAttribute("id", date);
       dayDiv.setAttribute("class", `lg:w-5 lg:h-5 w-2 h-2`);
       dayDiv.setAttribute("style", `background-color: ${bgColor}`);
       dayDiv.setAttribute("title", date);
+      // Add day to parent week div
       insertAtIndex(weekDiv, dayDiv, i);
     });
+    // Add week to parent div
     insertAtIndex(contributions, weekDiv, i);
   });
 </script>
