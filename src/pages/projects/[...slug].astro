@@ -4,7 +4,9 @@ import Layout from "../../components/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
 export async function getStaticPaths() {
-  const allProjects = await getCollection("projects");
+  const allProjects = await getCollection("projects", ({ data }) => {
+    return data.draft !== true;
+  });
   return allProjects.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },

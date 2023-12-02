@@ -1,7 +1,7 @@
 ---
 import Layout from "../components/Layout.astro";
 import Icon from "../components/Icon.astro";
-import { Picture } from "@astrojs/image/components";
+import { Picture } from "astro:assets";
 import headshot from "../images/headshot.jpg";
 import GitHubContributions from "../components/GitHubContributions.astro";
 import GitHubGists from "../components/GitHubGists.astro";
@@ -71,7 +71,7 @@ import GitHubGists from "../components/GitHubGists.astro";
         sizes="(max-width: 600px) 100vw, 600px"
         alt="Chris LaRocque headshot"
         aspectRatio="1:1"
-        class="rounded-full"
+        class="rounded-xl mx-auto"
         loading={"eager"}
         width={600}
         height={600}

@@ -130,14 +130,17 @@
     weekDiv.setAttribute("title", firstDay); // Allow folks to see date on hover
 
     // Loop through each week's days + add them to their week
-    contributionDays.forEach(({ color, date }, i) => {
+    contributionDays.forEach(({ color, date, contributionCount }, i) => {
       const bgColor = color === "#ebedf0" ? "rgba(235,	237,	240, 0.15)" : color; // Make white squares a more pleasing gray
       // Create + modify a div per day
       const dayDiv = document.createElement("div");
       dayDiv.setAttribute("id", date);
       dayDiv.setAttribute("class", `lg:w-5 lg:h-5 w-2 h-2`);
       dayDiv.setAttribute("style", `background-color: ${bgColor}`);
-      dayDiv.setAttribute("title", date);
+      dayDiv.setAttribute(
+        "title",
+        `${date} - ${contributionCount} public commits`
+      );
       // Add day to parent week div
       insertAtIndex(weekDiv, dayDiv, i);
     });

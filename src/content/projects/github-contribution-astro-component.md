@@ -185,7 +185,7 @@ To generate a token:
 
 In my example I named the token `PUBLIC_GITHUB_KEY`. Note that in Astro specifically if we want to use an environment variable on the client we need to prefix it with `PUBLIC_`, if using another framework you may need to follow a similar convention.
 
-### The `getContributions` function and request request
+### The `getContributions` function and fetch request
 
 We start by defining the header to pass our token, followed by the query. I happened to steal the query from the Stack Overflow discussion linked above.
 

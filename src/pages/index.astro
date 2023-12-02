@@ -1,12 +1,14 @@
 ---
 import Layout from "../components/Layout.astro";
 import Icon from "../components/Icon.astro";
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 import headshot from "../images/headshot.jpg";
 import { getCollection } from "astro:content";
 import { sortByUpdatedAt, relatedProjects } from "../../utils/collections";
 
-const allProjects = await getCollection("projects");
+const allProjects = await getCollection("projects", ({ data }) => {
+  return data.draft !== true;
+});
 if (allProjects) {
   sortByUpdatedAt(allProjects);
 }
@@ -57,7 +59,7 @@ if (allTech) {
         src={headshot}
         alt="Chris LaRocque headshot"
         aspectRatio="1:1"
-        class="rounded-full mx-auto"
+        class="mx-auto rounded-xl"
         loading={"eager"}
         width={500}
         height={500}

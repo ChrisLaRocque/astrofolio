@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import { sortByUpdatedAt } from "../../../utils/collections";
-const allProjects = await getCollection("projects");
+const allProjects = await getCollection("projects", ({ data }) => {
+  return data.draft !== true;
+});
 if (allProjects) {
   sortByUpdatedAt(allProjects);
 }

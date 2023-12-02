@@ -7,14 +7,7 @@ import { remarkReadingTime } from "./utils/remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    tailwind(),
-    image({
-      serviceEntryPoint: "@astrojs/image/sharp",
-    }),
-    partytown(),
-    serviceWorker(),
-  ],
+  integrations: [tailwind(), partytown(), serviceWorker()],
   site: "https://larocque.dev",
   markdown: {
     remarkPlugins: [remarkReadingTime],

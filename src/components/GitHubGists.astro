@@ -54,7 +54,8 @@
     //   return fileNames;
     // };
     // languages(fileNames);
-    // Create card div
+
+    // Create card anchor tag
     const gistCard = document.createElement("a");
     gistCard.setAttribute("id", id);
     gistCard.setAttribute("href", html_url);
@@ -77,6 +78,7 @@
     text.setAttribute("class", "text-sm");
     text.innerText = description;
     gistCard.appendChild(text);
+
     // Create + append update at text
     const updatedAt = document.createElement("small");
     updatedAt.setAttribute("class", "text-slate-400");
@@ -86,6 +88,7 @@
       year: "numeric",
     });
     gistCard.appendChild(updatedAt);
+
     // Add card div to parent
     gistsDiv?.appendChild(gistCard);
   }
