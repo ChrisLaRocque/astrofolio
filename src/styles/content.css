@@ -40,6 +40,9 @@
 .content pre {
   @apply my-5 max-w-[95%] p-5;
 }
+.content p > code {
+  @apply rounded bg-slate-700 p-1;
+}
 .content img {
   @apply my-4;
 }
