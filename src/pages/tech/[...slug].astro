@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import ogImageURL from "../../../utils/ogImageURL";
 import { sortByUpdatedAt } from "../../../utils/collections";
 import Layout from "../../components/Layout.astro";
 export async function getStaticPaths() {
@@ -16,7 +15,7 @@ const { Content } = await entry.render();
 const { title, description, homepage } = entry.data;
 // console.log(headings);
 const relatedProjects = await getCollection("projects", ({ data }) => {
-  return data.tech.includes(entry.slug);
+  return !data.draft && data.tech.includes(entry.slug);
 });
 if (relatedProjects) {
   sortByUpdatedAt(relatedProjects);

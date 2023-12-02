@@ -22,7 +22,7 @@ gitHub: https://github.com/ChrisLaRocque/jortfolio
 
 ## Intro
 
-If you&apos;re looking to cut to the nitty gritty of indexing Contentful content in Aloglia and then searching that index in your Nuxt site I've included the links to the guides I followed below. There should also be a &quot;Github for project&quot; link in the sidebar.
+If you&apos;re looking to cut to the nitty gritty of indexing Contentful content in Aloglia and then searching that index in your Nuxt site I've included the links to the guides I followed below. 
 
 -   [Index Contentful content with Algolia](https://www.contentful.com/developers/docs/tutorials/general/enhancing-search-experience-with-algolia/)
 -   [Getting started with Vue Instantsearch](https://www.algolia.com/doc/guides/building-search-ui/getting-started/vue/#build-a-simple-ui)
