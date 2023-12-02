@@ -3,59 +3,43 @@
   <div class="grid grid-cols-1 gap-2 lg:grid-cols-3" id="gists"></div>
 </section>
 <script>
+  // https://github.com/octokit/octokit.js
   import { Octokit } from "octokit";
 
+  // To generate token: https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
   const octokit = new Octokit({
     auth: import.meta.env.PUBLIC_GITHUB_TOKEN,
   });
+
+  // Fetch our gists with Octokit + handle error if fetch fails
   async function getGists() {
+    // Modify username here
     return await octokit
       .request("GET /users/ChrisLaRocque/gists", {
         headers: {
           "X-GitHub-Api-Version": "2022-11-28",
         },
       })
-      .catch((e) => {
+      .catch(() => {
+        // Show error in UI if fetch fails
         const oops = document.createElement("p");
         oops.innerText = "Oops, couldn't fetch gists from GitHub";
         gistsDiv?.appendChild(oops);
       });
   }
+  // Get the parent element we'll add our gists to
   const gistsDiv = document.getElementById("gists");
-  const gistsData = await getGists();
 
-  const { data } = gistsData;
+  // Run fetch above
+  const { data } = await getGists();
+
+  // Loop through each returned gist and create a card for it
   for (let i = 0; i < data.length; i++) {
     const { id, description, updated_at, html_url, files } = data[i];
+    // The 'files' array contains objects where the key is the file name, so we get each key to show the names of the file
     const fileNames = Object.keys(files);
-    // const languages = (fileNames) => {
-    //   const usedLangs: string[] = [];
-    //   const extensionMap = (extension) => {
-    //     switch (extension) {
-    //       case "ts":
-    //       case "tsx":
-    //         return "typescript";
-    //       case "js":
-    //       case "jsx":
-    //         return "javascript";
-    //       default:
-    //         return null;
-    //     }
-    //   };
-    //   fileNames.forEach((fileName) => {
-    //     const extension = fileName.split(".")[fileName.split(".").length - 1];
-    //     if (
-    //       extensionMap(extension) &&
-    //       !usedLangs.includes(extensionMap(extension))
-    //     ) {
-    //       usedLangs.push(extensionMap(extension));
-    //     }
-    //   });
-    //   return fileNames;
-    // };
-    // languages(fileNames);
 
-    // Create card anchor tag
+    // Create card as an anchor tag
     const gistCard = document.createElement("a");
     gistCard.setAttribute("id", id);
     gistCard.setAttribute("href", html_url);
@@ -64,7 +48,7 @@
       "p-4 border-2 border-white rounded flex flex-col justify-between"
     );
 
-    // Create + append file name
+    // Create + append file name heading
     const heading = document.createElement("h4");
     heading.setAttribute(
       "class",

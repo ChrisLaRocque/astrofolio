@@ -14,7 +14,7 @@ I built a component that fetches contribution for a given user from the GitHub G
 ### How it looks
 
 You can see it on the [about me page](/me) of this site, but here's a screenshot:
-![Another local image](/contribution-grid.png)
+![Screenshot of custom Astro GitHub contribution component](/contribution-grid.png)
 One day I'll set up MDX on this site and just put the actual component there...
 
 ### The code
