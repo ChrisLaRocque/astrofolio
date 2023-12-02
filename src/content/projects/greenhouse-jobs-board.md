@@ -3,7 +3,7 @@ title: Greenhouse jobs board
 description: How to create a client-side Greenhouse jobs board inside a Gatsby site.
 tech: [gatsby, github, html, javascript, netlify, npm, react, sass]
 site: https://www.brightcove.com/en/company/careers/open-positions/
-updatedAt: 2021-12-09
+updatedAt: 2021-12-09T00:00:00-05:00
 ---
 
 Brightcove's talent acquisition team needed a way to update the [open positions page on brightcove.com](https://www.brightcove.com/en/company/careers/open-positions "Brightcove.com open positions page") automatically any time they made changes in Greenhouse. I technically _could_ have set up a build webhook in Netlify that watched Greenhouse for changes and built the site as things were published, but there are like 12 people in Greenhouse making updates at any one time, and Netlify bills per build minute so...

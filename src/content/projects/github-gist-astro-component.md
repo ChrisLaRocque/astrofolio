@@ -3,7 +3,7 @@ title: Astro component for a list of GitHub gists
 description: Using the GitHub JS client Octokit to fetch all gists for a user and render them using an Astro component.
 site: https://larocque.dev/me
 tech: [astro, tailwind-css, typescript, npm, github, html, css, javascript]
-updatedAt: 2023-12-02
+updatedAt: 2023-12-02T00:00:00-05:00
 draft: true
 ---
 

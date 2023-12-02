@@ -3,7 +3,7 @@ title: Lambda sitemap generator
 description: How to make a modern sitemap with Netlify functions.
 site: https://www.brightcove.com/sitemap-index.xml
 tech: [aws, contentful, gatsby, javascript, netlify, nodejs, npm]
-updatedAt: 2021-12-20
+updatedAt: 2021-12-20T00:00:00-05:00
 ---
 
 When [migrating to Gatsby v3](https://larocque.dev/projects/gatsby-v3-migration "Gatsby v2 to v3 migration project") we ended up needing to swap our sitemap plugin because it was outdated both for our version of Gatsby, and Google had updated the fields they look for when crawling sitemaps. The `gatsby-plugin-advanced-sitemap-modest` Gatsby plugin I built during the v2 to v3 migration was a solid holdover, but if we ever want to move to v4 basically every convention the plugin relies upon will be deprecated, might as well fix it now.

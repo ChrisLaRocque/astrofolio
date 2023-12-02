@@ -6,20 +6,32 @@ import headshot from "../images/headshot.jpg";
 import { getCollection } from "astro:content";
 import { sortByUpdatedAt, relatedProjects } from "../../utils/collections";
 
+// Limit number of items listed under each column
+const itemsPerPage = 12;
+
+// Get projects collection that aren't draft
 const allProjects = await getCollection("projects", ({ data }) => {
   return data.draft !== true;
 });
 if (allProjects) {
   sortByUpdatedAt(allProjects);
 }
+// Slice allProjects to get us just what we need for the list
+const projectList = allProjects.slice(0, itemsPerPage);
+
+// Get the tech colletion
 const allTech = await getCollection("tech");
 if (allTech) {
+  // Create relationships to projects
+  // TODO: remove this now that collection types can reference each other
   relatedProjects(allTech, allProjects);
   // Sort by most related projects
   allTech.sort((a, b) => {
     return b.relatedProjectCount - a.relatedProjectCount;
   });
 }
+// Slice allTech to get us just what we need for the list
+const techList = allTech.slice(0, itemsPerPage);
 ---
 
 <Layout
@@ -73,7 +85,7 @@ if (allTech) {
           Projects
         </h2>
         {
-          allProjects.map((project) => {
+          projectList.map((project) => {
             const localeString = new Date(
               project.data.updatedAt
             ).toLocaleDateString();
@@ -93,6 +105,15 @@ if (allTech) {
             );
           })
         }
+        <hr />
+        <div class="flex justify-end">
+          <a href="/projects" class="group my-7 flex items-center gap-2"
+            >See all projects <Icon
+              className="inline transition-all duration-300 group-hover:translate-x-1"
+              icon="arrow"
+            /></a
+          >
+        </div>
       </div>
       <div class="lg:flex-1">
         <h2
@@ -101,7 +122,7 @@ if (allTech) {
           Tech
         </h2>
         {
-          allTech.slice(0, allProjects.length - 1).map((tech) => {
+          techList.map((tech) => {
             return (
               <a
                 href={`/tech/${tech.slug}`}

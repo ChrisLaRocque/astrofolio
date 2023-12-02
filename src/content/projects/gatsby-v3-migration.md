@@ -3,20 +3,20 @@ title: Gatsby v3 migration
 description: Migrating a Gatsby v2 site to v3 and pitfalls to look out for.
 site: https://www.brightcove.com/en/
 tech:
-    [
-        contentful,
-        css,
-        gatsby,
-        github,
-        html,
-        javascript,
-        netlify,
-        nodejs,
-        npm,
-        react,
-        sass,
-    ]
-updatedAt: 2021-12-12
+  [
+    contentful,
+    css,
+    gatsby,
+    github,
+    html,
+    javascript,
+    netlify,
+    nodejs,
+    npm,
+    react,
+    sass,
+  ]
+updatedAt: 2021-12-12T00:00:00-05:00
 ---
 
 The migration from Gatsby v2 to v3 was mostly a matter of following the [migration guide](https://www.gatsbyjs.com/docs/reference/release-notes/migrating-from-v2-to-v3/ "Gatsby v2 to v3 migration guide") with some surprises sprinkled in to make me feel alive/doubt everything I am.

@@ -3,7 +3,7 @@ title: Website internationalization and gatsby-plugin-i18n-config
 description: Notes on website internationalization for a Gatsby plugin that never was.
 gitHubUrl: https://github.com/ChrisLaRocque/gatsby-plugin-i18n-config
 tech: [nodejs, yarn]
-updatedAt: 2022-11-01
+updatedAt: 2022-11-01T00:00:00-05:00
 ---
 
 ## TLDR

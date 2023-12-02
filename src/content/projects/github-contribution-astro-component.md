@@ -4,7 +4,7 @@ description: Using the GitHub GraphQL API to recreate their contribution graph i
 site: https://larocque.dev/me
 tech:
   [astro, tailwind-css, typescript, npm, github, html, css, graphql, javascript]
-updatedAt: 2023-12-01
+updatedAt: 2023-12-01T00:00:00-05:00
 ---
 
 ## TLDR

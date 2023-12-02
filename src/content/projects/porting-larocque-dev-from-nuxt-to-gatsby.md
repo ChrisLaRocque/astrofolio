@@ -2,20 +2,20 @@
 title: Porting LaRocque.dev from Nuxt to Gatsby
 description: How to migrate a Nuxt app over to Gatsby.
 tech:
-    [
-        gatsby,
-        contentful,
-        graphql,
-        html,
-        javascript,
-        github,
-        react,
-        npm,
-        nodejs,
-        sass,
-    ]
+  [
+    gatsby,
+    contentful,
+    graphql,
+    html,
+    javascript,
+    github,
+    react,
+    npm,
+    nodejs,
+    sass,
+  ]
 site: https://gatsby.larocque.dev/
-updatedAt: 2022-01-31
+updatedAt: 2022-01-31T00:00:00-05:00
 gitHub: https://github.com/ChrisLaRocque/jortfolio-port
 ---
 

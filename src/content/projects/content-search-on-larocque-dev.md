@@ -16,7 +16,7 @@ tech:
         nuxt,
         sass,
     ]
-updatedAt: 2022-11-03
+updatedAt: 2022-11-03T00:00:00-05:00
 gitHub: https://github.com/ChrisLaRocque/jortfolio
 ---
 

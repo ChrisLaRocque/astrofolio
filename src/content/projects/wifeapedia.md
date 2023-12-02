@@ -1,23 +1,23 @@
 ---
 title: Wifeapedia
 description: Building a wiki for TV show Wifeswap in Nuxt backed by Contentful.
-updatedAt: 2022-01-17
+updatedAt: 2022-01-17T00:00:00-05:00
 gitHub: https://github.com/ChrisLaRocque/wifeapedia
 site: https://wifeapedia.com/
 tech:
-    [
-        contentful,
-        css,
-        github,
-        html,
-        javascript,
-        netlify,
-        npm,
-        nuxt,
-        tailwind-css,
-        vue,
-        sass,
-    ]
+  [
+    contentful,
+    css,
+    github,
+    html,
+    javascript,
+    netlify,
+    npm,
+    nuxt,
+    tailwind-css,
+    vue,
+    sass,
+  ]
 ---
 
 I hit a bit of a reality TV kick in the summer of 2021. After being impressed by the [Love Island UK wiki](https://loveisland.fandom.com/wiki/Love_Island_Wiki) I was deeply disappointed to find Wife Swap had yet to be given the wiki treatment.

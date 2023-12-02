@@ -3,7 +3,7 @@ title: Switching my site from Nuxt to Astro
 description: The process of taking my site from Nuxt to Astro, and how content collections replaced Contentful.
 github: https://github.com/ChrisLaRocque/astrofolio
 site: https://www.larocque.dev/
-updatedAt: 2023-11-25
+updatedAt: 2023-11-25T00:00:00-05:00
 tech: [tailwind-css, astro, github, netlify, html, css, typescript]
 ---
 

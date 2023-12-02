@@ -2,7 +2,7 @@
 title: LaRocque.dev v1
 description: Building a portfolio site with Nuxt, Bulma, and Contentful.
 tech: [nuxt, contentful, github, netlify, vue, bulma, html, css, npm, sass]
-updatedAt: 2022-05-08
+updatedAt: 2022-05-08T00:00:00-05:00
 site: https://nuxt.larocque.dev/
 gitHub: https://github.com/ChrisLaRocque/jortfolio
 ---

@@ -2,7 +2,7 @@
 title: Creating a Tailwind color picker
 description: A little helper function I found useful in a recent project that allows you to get the Tailwind color closest to a given CSS color value.
 tech: [nodejs, javascript, tailwind-css, typescript, netlify, astro]
-updatedAt: 2023-11-24
+updatedAt: 2023-11-24T00:00:00-05:00
 ---
 
 ## What is this
