@@ -83,20 +83,18 @@ const techList = allTech.slice(0, itemsPerPage);
           Projects
         </h2>
         {
-          projectList.map((project) => {
-            const localeString = new Date(
-              project.data.updatedAt
-            ).toLocaleDateString();
+          projectList.map(async ({ data, slug }) => {
+            const localeString = new Date(data.updatedAt).toLocaleDateString();
             return (
               <a
-                href={`/projects/${project.slug}`}
+                href={`/projects/${slug}`}
                 class="relative block border-b-2 border-zinc-600 p-9 hover:bg-zinc-600"
               >
                 <h3 class="mb-2 mt-0  text-2xl font-bold tracking-tight">
-                  {project.data.title}
+                  {data.title}
                 </h3>
-                <p class="my-2 max-w-[49ch]">{project.data.description}</p>
-                <small class="absolute bottom-0 right-0 block p-5 italic">
+                <p class="my-2 max-w-[49ch]">{data.description}</p>
+                <small class="absolute bottom-0 right-0  flex justify-between p-5 italic">
                   {localeString}
                 </small>
               </a>
