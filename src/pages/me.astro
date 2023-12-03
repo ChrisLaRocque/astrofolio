@@ -1,7 +1,7 @@
 ---
 import Layout from "../components/Layout.astro";
 import Icon from "../components/Icon.astro";
-import { Picture } from "astro:assets";
+import { Image } from "astro:assets";
 import headshot from "../images/headshot.jpg";
 import GitHubContributions from "../components/GitHubContributions.astro";
 import GitHubGists from "../components/GitHubGists.astro";
@@ -20,7 +20,9 @@ import GitHubGists from "../components/GitHubGists.astro";
 >
   <main>
     <section class="justify-between gap-7 lg:flex">
-      <div class="text-wrapper content flex items-center justify-center">
+      <div
+        class="text-wrapper content flex items-center justify-center lg:max-w-[50%]"
+      >
         <div class="text py-7 lg:px-0">
           <h1 class="">About me</h1>
 
@@ -65,18 +67,24 @@ import GitHubGists from "../components/GitHubGists.astro";
           </div>
         </div>
       </div>
-      <Picture
-        src={headshot}
-        widths={[200, 400, 600]}
-        sizes="(max-width: 600px) 100vw, 600px"
-        alt="Chris LaRocque headshot"
-        class="rounded-xl w-full"
-        loading={"eager"}
-        width={600}
-      />
+      <div class="flex items-center justify-center lg:max-w-[50%]">
+        <Image
+          src={headshot}
+          alt="Chris LaRocque headshot"
+          class="rounded-xl w-full"
+          loading={"eager"}
+          width={600}
+          height={267}
+        />
+      </div>
     </section>
     <section>
-      <h2>Me on GitHub</h2>
+      <h2>
+        <a
+          href="https://github.com/ChrisLaRocque"
+          class="text-blue-300 hover:underline">ChrisLaRocque</a
+        > on GitHub
+      </h2>
       <GitHubContributions />
       <GitHubGists />
     </section>

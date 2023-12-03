@@ -1,6 +1,7 @@
 <section>
   <h3>My GitHub Gists</h3>
   <div class="grid grid-cols-1 gap-2 lg:grid-cols-3" id="gists"></div>
+  <p class="my-1 hidden" id="gists-error">Ooops, error fetching from GitHub.</p>
 </section>
 <script>
   // https://github.com/octokit/octokit.js
@@ -22,9 +23,9 @@
       })
       .catch(() => {
         // Show error in UI if fetch fails
-        const oops = document.createElement("p");
-        oops.innerText = "Oops, couldn't fetch gists from GitHub";
-        gistsDiv?.appendChild(oops);
+        const oops = document.getElementById("gists-error");
+        oops?.classList.remove("hidden");
+        throw "Error fetching gists from Github";
       });
   }
   // Get the parent element we'll add our gists to
