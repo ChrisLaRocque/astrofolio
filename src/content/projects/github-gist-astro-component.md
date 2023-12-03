@@ -322,3 +322,15 @@ Finally with all our child elements added, we add the card to the parent `gistsD
 ```typescript
 gistsDiv?.appendChild(gistCard);
 ```
+
+## A note on CLS
+
+If you're unaware what CLS is: [https://web.dev/articles/cls](https://web.dev/articles/cls)
+
+This component pretty recklessly starts with an empty div and pops elements in as our API response comes back. As such, this component may create a negative impact on your CLS.
+
+To counteract the pop-in of content you could create the grid of gist cards as placeholder 'dummy' content, and then update our script to simply change the text content of the 'dummy' cards.
+
+## A note on hover state
+
+This component doesn't have a hover state besides changing to `cursor: pointer`. Feel free to make it snazzier!

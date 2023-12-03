@@ -357,3 +357,10 @@ weekDiv.setAttribute(
 ```
 
 There's also a few other Tailwind classes you'll see throughout the markup to make the shift to mobile a bit nicer.
+
+## A note on CLS
+If you're unaware what CLS is: [https://web.dev/articles/cls](https://web.dev/articles/cls)
+
+This component pretty recklessly starts with an empty div and pops elements in as our API response comes back. As such, this component may create a negative impact on your CLS. 
+
+To counteract the pop-in of content you could create the grid of contributions as 'dummy' content with a neutral background color, and then update our script to simply change the color of each square to match the contributions.
