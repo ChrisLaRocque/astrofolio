@@ -1,7 +1,31 @@
 <section>
   <h3 class="">Commits to public GitHub repos</h3>
-  <div class="flex items-center justify-center">
-    <div id="contributions" class="flex gap-1"></div>
+  <div class="flex flex-col items-center justify-center">
+    <div id="contributions" class="flex gap-1">
+      {
+        Array.apply(null, Array(53)).map((week, i) => {
+          return (
+            <div
+              id={`week-${i}`}
+              class={`flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`}
+            >
+              {Array.apply(null, Array(7)).map((day, j) => {
+                return (
+                  <div
+                    id={`week-${i}-day-${j}`}
+                    class="h-2 w-2 lg:h-5 lg:w-5"
+                    style="background-color: rgba(235,	237,	240, 0.15);"
+                  />
+                );
+              })}
+            </div>
+          );
+        })
+      }
+    </div>
+    <p class="my-1 hidden" id="contribution-error">
+      Ooops, error fetching from GitHub.
+    </p>
   </div>
 </section>
 <script>
@@ -28,11 +52,6 @@
       };
     };
   };
-
-  /**
-   * Get container for our grid
-   */
-  const contributions = document.getElementById("contributions");
 
   /**
    * Fetch against GitHub GraphQL API
@@ -79,30 +98,15 @@
     import.meta.env.PUBLIC_GITHUB_TOKEN, // token in .env file
     "ChrisLaRocque" // your GitHub account name
   );
+  console.log("data", data);
 
   /**
    * If there's an error with the fetch or the user doesn't exist, show error text
    */
   if (!data || !data.user) {
-    const oops = document.createElement("p");
-    oops.innerText = "Oops, couldn't load commits from GitHub";
-    contributions?.appendChild(oops);
+    const oops = document.getElementById("contribution-error");
+    oops?.classList.remove("hidden");
     throw "Error fetching from Github";
-  }
-
-  /**
-   *  Helper to add our new elements into their parent at the correct spot
-   */
-  function insertAtIndex(
-    parent: HTMLDivElement,
-    child: HTMLDivElement,
-    i: number
-  ) {
-    if (i >= parent.children.length) {
-      parent.appendChild(child);
-    } else {
-      parent.insertBefore(child, parent.children[i]);
-    }
   }
 
   /**
@@ -119,32 +123,17 @@
   /**
    * Loop through the weeks + add them to the parent div
    */
-  weeks.forEach(({ contributionDays, firstDay }, i) => {
-    // Create + modify a div per week
-    const weekDiv = document.createElement("div");
-    weekDiv.setAttribute("id", `week-${i}`);
-    weekDiv.setAttribute(
-      "class",
-      `flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`
-    ); // Add tailwind classes + hide older weeks on mobile
-    weekDiv.setAttribute("title", firstDay); // Allow folks to see date on hover
-
+  weeks.forEach(({ contributionDays }, i) => {
     // Loop through each week's days + add them to their week
-    contributionDays.forEach(({ color, date, contributionCount }, i) => {
+    contributionDays.forEach(({ color, date, contributionCount }, j) => {
       const bgColor = color === "#ebedf0" ? "rgba(235,	237,	240, 0.15)" : color; // Make white squares a more pleasing gray
-      // Create + modify a div per day
-      const dayDiv = document.createElement("div");
-      dayDiv.setAttribute("id", date);
-      dayDiv.setAttribute("class", `lg:w-5 lg:h-5 w-2 h-2`);
-      dayDiv.setAttribute("style", `background-color: ${bgColor}`);
-      dayDiv.setAttribute(
+      // Get + update each day square
+      const dayDiv = document.getElementById(`week-${i}-day-${j}`);
+      dayDiv?.setAttribute("style", `background-color: ${bgColor}`);
+      dayDiv?.setAttribute(
         "title",
         `${date} - ${contributionCount} public commits`
       );
-      // Add day to parent week div
-      insertAtIndex(weekDiv, dayDiv, i);
     });
-    // Add week to parent div
-    insertAtIndex(contributions, weekDiv, i);
   });
 </script>

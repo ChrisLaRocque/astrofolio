@@ -22,8 +22,32 @@ One day I'll set up MDX on this site and just put the actual component there...
 ```astro
 <section>
   <h3 class="">Commits to public GitHub repos</h3>
-  <div class="flex items-center justify-center">
-    <div id="contributions" class="flex gap-1"></div>
+  <div class="flex flex-col items-center justify-center">
+    <div id="contributions" class="flex gap-1">
+      {
+        Array.apply(null, Array(53)).map((week, i) => {
+          return (
+            <div
+              id={`week-${i}`}
+              class={`flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`}
+            >
+              {Array.apply(null, Array(7)).map((day, j) => {
+                return (
+                  <div
+                    id={`week-${i}-day-${j}`}
+                    class="h-2 w-2 lg:h-5 lg:w-5"
+                    style="background-color: rgba(235,	237,	240, 0.15);"
+                  />
+                );
+              })}
+            </div>
+          );
+        })
+      }
+    </div>
+    <p class="my-1 hidden" id="contribution-error">
+      Ooops, error fetching from GitHub.
+    </p>
   </div>
 </section>
 <script>
@@ -50,11 +74,6 @@ One day I'll set up MDX on this site and just put the actual component there...
       };
     };
   };
-
-  /**
-   * Get container for our grid
-   */
-  const contributions = document.getElementById("contributions");
 
   /**
    * Fetch against GitHub GraphQL API
@@ -101,30 +120,15 @@ One day I'll set up MDX on this site and just put the actual component there...
     import.meta.env.PUBLIC_GITHUB_TOKEN, // token in .env file
     "ChrisLaRocque" // your GitHub account name
   );
+  console.log("data", data);
 
   /**
    * If there's an error with the fetch or the user doesn't exist, show error text
    */
   if (!data || !data.user) {
-    const oops = document.createElement("p");
-    oops.innerText = "Oops, couldn't load commits from GitHub";
-    contributions?.appendChild(oops);
+    const oops = document.getElementById("contribution-error");
+    oops?.classList.remove("hidden");
     throw "Error fetching from Github";
-  }
-
-  /**
-   *  Helper to add our new elements into their parent at the correct spot
-   */
-  function insertAtIndex(
-    parent: HTMLDivElement,
-    child: HTMLDivElement,
-    i: number
-  ) {
-    if (i >= parent.children.length) {
-      parent.appendChild(child);
-    } else {
-      parent.insertBefore(child, parent.children[i]);
-    }
   }
 
   /**
@@ -141,33 +145,64 @@ One day I'll set up MDX on this site and just put the actual component there...
   /**
    * Loop through the weeks + add them to the parent div
    */
-  weeks.forEach(({ contributionDays, firstDay }, i) => {
-    // Create + modify a div per week
-    const weekDiv = document.createElement("div");
-    weekDiv.setAttribute("id", `week-${i}`);
-    weekDiv.setAttribute(
-      "class",
-      `flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`
-    ); // Add tailwind classes + hide older weeks on mobile
-    weekDiv.setAttribute("title", firstDay); // Allow folks to see date on hover
-
+  weeks.forEach(({ contributionDays }, i) => {
     // Loop through each week's days + add them to their week
-    contributionDays.forEach(({ color, date }, i) => {
+    contributionDays.forEach(({ color, date, contributionCount }, j) => {
       const bgColor = color === "#ebedf0" ? "rgba(235,	237,	240, 0.15)" : color; // Make white squares a more pleasing gray
-      // Create + modify a div per day
-      const dayDiv = document.createElement("div");
-      dayDiv.setAttribute("id", date);
-      dayDiv.setAttribute("class", `lg:w-5 lg:h-5 w-2 h-2`);
-      dayDiv.setAttribute("style", `background-color: ${bgColor}`);
-      dayDiv.setAttribute("title", date);
-      // Add day to parent week div
-      insertAtIndex(weekDiv, dayDiv, i);
+      // Get + update each day square
+      const dayDiv = document.getElementById(`week-${i}-day-${j}`);
+      dayDiv?.setAttribute("style", `background-color: ${bgColor}`);
+      dayDiv?.setAttribute(
+        "title",
+        `${date} - ${contributionCount} public commits`
+      );
     });
-    // Add week to parent div
-    insertAtIndex(contributions, weekDiv, i);
   });
 </script>
 ```
+
+## The Astro component
+
+```astro
+<section>
+  <h3 class="">Commits to public GitHub repos</h3>
+  <div class="flex flex-col items-center justify-center">
+    <div id="contributions" class="flex gap-1">
+      {
+        Array.apply(null, Array(53)).map((week, i) => {
+          return (
+            <div
+              id={`week-${i}`}
+              class={`flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`}
+            >
+              {Array.apply(null, Array(7)).map((day, j) => {
+                return (
+                  <div
+                    id={`week-${i}-day-${j}`}
+                    class="h-2 w-2 lg:h-5 lg:w-5"
+                    style="background-color: rgba(235,	237,	240, 0.15);"
+                  />
+                );
+              })}
+            </div>
+          );
+        })
+      }
+    </div>
+    <p class="my-1 hidden" id="contribution-error">
+      Ooops, error fetching from GitHub.
+    </p>
+  </div>
+</section>
+```
+
+### Server render a blank grid
+
+To avoid a potential CLS penalty by having our grid 'pop-in' to the page, we'll render a blank grid on the server and have client-side Javascript simply update the color of each square. We know the GitHub API will always return 53 weeks. We use `Array.apply()` to create our 53 week columns, and then use `Array.apply()` again to create the 7 'day' squares in each column
+
+### Hidden error message
+
+At the bottom we also have a hidden error message that we'll show later on if our API request fails.
 
 ## Fetching contribution information from the GitHub GraphQL API
 
@@ -232,135 +267,85 @@ const data = await response.json();
 return data;
 ```
 
-## Adding elements to the `contributions` div
+### Handling an error
 
-Now that we have our data (`weeks`) and an element on the page to target (`contributions`), lets create some new child elements!
-
-To start I used the `flex` class on the `contributions` div so all our weeks would appear in one row, and then when we make the weeks and days we will give each 7 rows for the days. I also added `gap-1` for some spacing.
-
-```html
-<div id="contributions" class="flex gap-1"></div>
-```
-
-### A helper function for placing our elements in the right spot
-
-It was an arbitrary decision, but I used `forEach` loops for both arrays we need to loop through in this component, which doesn't necessarily put our elements into the DOM in the same order as they are in the array if using `appendChild`. There are 2 solutions:
-
-1. Use a different loop (`for`)
-2. Write a lil helper function to place the elements in the right place
-
-I hadn't ever been in a position of needing to put an element in a specific order in its parent, so I was curious what that looked like. This Stack Overflow discussion proved helpful, and I stole the 2nd answer's implementation for my own helper function:
+Finally at the bottom of the API fetch we include a way to show our error message from above in the event something goes wrong with our API request.
 
 ```typescript
-function insertAtIndex(
-  parent: HTMLDivElement,
-  child: HTMLDivElement,
-  i: number
-) {
-  if (i >= parent.children.length) {
-    parent.appendChild(child);
-  } else {
-    parent.insertBefore(child, parent.children[i]);
-  }
+/**
+ * If there's an error with the fetch or the user doesn't exist, show error text
+ */
+if (!data || !data.user) {
+  const oops = document.getElementById("contribution-error");
+  oops?.classList.remove("hidden");
+  throw "Error fetching from Github";
 }
 ```
 
-### Creating the weeks
+## Updating each `day` div's colors
 
-You might already be able to tell from the GraphQL query or the type declarations above, but our `weeks` data contains an array of objects representing the days of that week like so:
+We write a loop inside a loop to get through all our data and update each square's background color to match the contributions for that day:
 
 ```typescript
 /**
- * Types for our data
+ * Drill down to data from fetch request
  */
-type ContributionDay = {
-  color: string;
-  contributionCount: number;
-  date: string;
-  weekday: number;
-};
-type Week = {
-  contributionDays: ContributionDay[];
-  firstDay: string;
-};
-type Weeks = Week[];
-```
+const {
+  user: {
+    contributionsCollection: {
+      contributionCalendar: { weeks },
+    },
+  },
+}: GraphQLRes = data;
 
-So we'll loop through the array of `weeks`, and then loop through each week's `contributionDays`.
-
-Let look at the loop for weeks first:
-
-```typescript
 /**
  * Loop through the weeks + add them to the parent div
  */
-weeks.forEach(({ contributionDays, firstDay }, i) => {
-  // Create + modify a div per week
-  const weekDiv = document.createElement("div");
-  weekDiv.setAttribute("id", `week-${i}`);
-  weekDiv.setAttribute(
-    "class",
-    `flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`
-  ); // Add tailwind classes + hide older weeks on mobile
-  weekDiv.setAttribute("title", firstDay); // Allow folks to see date on hover
-
+weeks.forEach(({ contributionDays }, i) => {
   // Loop through each week's days + add them to their week
-  contributionDays.forEach(({ color, date }, i) => {
-    // We'll cover this in the next step
+  contributionDays.forEach(({ color, date, contributionCount }, j) => {
+    const bgColor = color === "#ebedf0" ? "rgba(235,	237,	240, 0.15)" : color; // Make white squares a more pleasing gray
+    // Get + update each day square
+    const dayDiv = document.getElementById(`week-${i}-day-${j}`);
+    dayDiv?.setAttribute("style", `background-color: ${bgColor}`);
+    dayDiv?.setAttribute(
+      "title",
+      `${date} - ${contributionCount} public commits`
+    );
   });
-  // Add week to parent div
-  insertAtIndex(contributions, weekDiv, i);
 });
 ```
-
-We essentially do the following:
-
-1. Create a div for each week `weekDiv`
-2. Add an `id` to each `weekDiv`
-3. Add some Tailwind classes, including logic to hide some weeks on mobile
-4. Give each `weekDiv` a `title` attribute so the user can hover to see the date of the contribution
-5. Loop through the `contributionDays` array to add each day as a child to our `weekDiv` (we'll cover this logic in the next step)
-6. Once we've added the days, add the entire `weekDiv` to our parent `contributions` div
-
-### Adding each day to each week
-
-The following `forEach` loop adds the days to each `weekDiv` we created above:
-
-```typescript
-// Loop through each week's days + add them to their week
-contributionDays.forEach(({ color, date }, i) => {
-  const bgColor = color === "#ebedf0" ? "rgba(235,	237,	240, 0.15)" : color; // Make white squares a more pleasing gray
-  // Create + modify a div per day
-  const dayDiv = document.createElement("div");
-  dayDiv.setAttribute("id", date);
-  dayDiv.setAttribute("class", `lg:w-5 lg:h-5 w-2 h-2`);
-  dayDiv.setAttribute("style", `background-color: ${bgColor}`);
-  dayDiv.setAttribute("title", date);
-  // Add day to parent week div
-  insertAtIndex(weekDiv, dayDiv, i);
-});
-```
-
-We essentially do the same for the days as we did for the weeks: create an element, add some attributes, and add that new element to its parent.
 
 ## What's it do on mobile?
 
 I realized I didn't know what the GitHub version of this grid did on mobile so I took a look, and they just hide some of the weeks, so I did the same!
 
-In the code where we add a `div` for each week we set a class dependent on what index the item is in the array. There are 53 weeks returned (current week + the last year), so our function cuts off the last 20 weeks to make it fit nice on a smaller screen.
+In the code where we add a `div` square for each day we set a class dependent on what index the item is in the array. There are 53 weeks returned (current week + the last year), so our function cuts off the last 20 weeks to make it fit nice on a smaller screen.
 
-```typescript
-weekDiv.setAttribute(
-  "class",
-  `flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`
-); // Add tailwind classes + hide older weeks on mobile
+```astro
+<div id="contributions" class="flex gap-1">
+  {
+    Array.apply(null, Array(53)).map((week, i) => {
+      return (
+        <!--    This divs `class` hides older weeks on mobile -->
+        <div
+          id={`week-${i}`}
+          class={`flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`}
+        >
+          {Array.apply(null, Array(7)).map((day, j) => {
+            return (
+              <div
+                id={`week-${i}-day-${j}`}
+                class="h-2 w-2 lg:h-5 lg:w-5"
+                style="background-color: rgba(235,	237,	240, 0.15);"
+              />
+            );
+          })}
+        </div>
+      );
+    })
+  }
+</div>
 ```
 
 There's also a few other Tailwind classes you'll see throughout the markup to make the shift to mobile a bit nicer.
-
-## A note on CLS
-If you're unaware what CLS is: [https://web.dev/articles/cls](https://web.dev/articles/cls)
-
-This component pretty recklessly starts with an empty div and pops elements in as our API response comes back. As such, this component may create a negative impact on your CLS. 
-
-To counteract the pop-in of content you could create the grid of contributions as 'dummy' content with a neutral background color, and then update our script to simply change the color of each square to match the contributions.
