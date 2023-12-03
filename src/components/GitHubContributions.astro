@@ -7,13 +7,15 @@
           return (
             <div
               id={`week-${i}`}
-              class={`flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`}
+              class={`flex-col gap-1 ${
+                i < 33 ? (i < 7 ? "hidden xl:flex" : "hidden md:flex") : "flex"
+              }`}
             >
               {Array.apply(null, Array(7)).map((day, j) => {
                 return (
                   <div
                     id={`week-${i}-day-${j}`}
-                    class="h-2 w-2 lg:h-5 lg:w-5"
+                    class="h-3 w-3 lg:h-4 lg:w-4 xl:h-5 xl:w-5"
                     style="background-color: rgba(235,	237,	240, 0.15);"
                   />
                 );
