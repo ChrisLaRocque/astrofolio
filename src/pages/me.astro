@@ -19,30 +19,11 @@ import GitHubGists from "../components/GitHubGists.astro";
   }}
 >
   <main>
-    <section class="justify-center gap-7 lg:flex">
+    <section class="justify-between gap-7 lg:flex">
       <div class="text-wrapper content flex items-center justify-center">
         <div class="text py-7 lg:px-0">
           <h1 class="">About me</h1>
-          <div class="my-7 flex max-w-[50%] justify-between lg:max-w-[20%]">
-            <a
-              href="https://twitter.com/TophLaRoph"
-              aria-label="My Twitter/X profile"
-            >
-              <Icon icon="x" />
-            </a>
-            <a
-              href="https://github.com/ChrisLaRocque"
-              aria-label="My GitHub profile"
-            >
-              <Icon icon="github" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/larocquechristopher/"
-              aria-label="My LinkedIn profile"
-            >
-              <Icon icon="linkedin" />
-            </a>
-          </div>
+
           <p class="lg:max-w-[70ch]">
             I'm a full-stack web developer building responsive, user-first
             websites. I started working in tech at Spartan Race, followed by
@@ -52,17 +33,36 @@ import GitHubGists from "../components/GitHubGists.astro";
             of talented folks, helping build a product I love!
             <br /><br />
             I consider myself fortunate to be able to hear how so many different
-            teams solve the problems presented by the modern web. I get to do as
-            my fellow Netlifolker <a href="https://www.chrishannaby.com/"
-              >Chris Hannaby</a
-            > says and bring all these best-in-class practices not only into my own
-            work but to the customers of Netlify/Gatsby in an effort to 'uplevel
-            everyone'.
-            <br /><br />
-            Outside of slinging the future of web tech I am usually (honestly) checking
-            out whats new in web tooling, watching old NFL Films docs, and chilling
-            with my partner Becca and our insufferable bulldog, Alby.
+            teams solve the problems presented by the modern web, and take the best
+            of what I see onward to each project I work on. Outside of slinging the
+            future of web tech I am usually (honestly) checking out whats new in
+            web tooling, watching old NFL Films docs, and chilling with my partner
+            Becca and our insufferable bulldog, Alby.
           </p>
+          <div class="flex justify-end px-9">
+            <div
+              class="my-7 flex min-w-[20%] max-w-[50%] justify-between gap-7 lg:max-w-[20%]"
+            >
+              <a
+                href="https://twitter.com/TophLaRoph"
+                aria-label="My Twitter/X profile"
+              >
+                <Icon icon="x" />
+              </a>
+              <a
+                href="https://github.com/ChrisLaRocque"
+                aria-label="My GitHub profile"
+              >
+                <Icon icon="github" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/larocquechristopher/"
+                aria-label="My LinkedIn profile"
+              >
+                <Icon icon="linkedin" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       <Picture
@@ -70,11 +70,9 @@ import GitHubGists from "../components/GitHubGists.astro";
         widths={[200, 400, 600]}
         sizes="(max-width: 600px) 100vw, 600px"
         alt="Chris LaRocque headshot"
-        aspectRatio="1:1"
-        class="rounded-xl mx-auto"
+        class="rounded-xl w-full"
         loading={"eager"}
         width={600}
-        height={600}
       />
     </section>
     <section>
