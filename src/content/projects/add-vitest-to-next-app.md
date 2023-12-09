@@ -2,7 +2,7 @@
 title: Add Vitest to a Next app
 description: Adding Vitest to a Next app and writing a simple test
 tech:
-  [next-js, typescript, npm, github, react, vitest]
+  [next-js, vitest, react, typescript, npm, github]
 updatedAt: 2023-12-09T00:00:00-05:00
 ---
 

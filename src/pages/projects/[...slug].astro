@@ -43,17 +43,18 @@ const localeString = new Date(updatedAt).toLocaleDateString();
                 Related tech
               </h3>
               <ul id="related-tech">
-                {relatedTech.map((tech) => {
+                {tech.map((item) => {
+                  const techItem = relatedTech.filter((tech)=>tech.slug == item)[0]
                   return (
                     <li class="mb-2">
                       <a
-                        href={`/tech/${tech.slug}`}
+                        href={`/tech/${techItem?.slug}`}
                         class="flex items-center font-medium text-blue-300 hover:underline "
                       >
                         <div class="flex basis-7 items-center justify-center">
-                          <Icon icon={tech.slug} />
+                          <Icon icon={techItem?.slug} />
                         </div>
-                        <div class="ml-2 basis-36">{tech.data.title}</div>
+                        <div class="ml-2 basis-36">{techItem?.data.title}</div>
                       </a>
                     </li>
                   );
