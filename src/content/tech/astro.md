@@ -20,4 +20,4 @@ Is also tight as hell. Its awesome to be able to get the page URL anywhere in yo
 
 ## Performance
 
-Every site I've build with Astro has been in the 90s of page performance. Some drawbacks: the Astro `<Picture>` defaults to lazy-loading images, even above the fold, but this is easily overridable.
+Every site I've build with Astro has been in the 90s of page performance. This site regularly hits all 100's.
