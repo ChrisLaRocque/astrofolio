@@ -44,8 +44,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
   },
-	// Resolves Next's import alias "@"
-	resolve: {
+  // Resolves Next's import alias "@"
+  resolve: {
     alias: {
       "@": path.resolve(__dirname, "./"),
     },
