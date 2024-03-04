@@ -24,7 +24,8 @@ const techItem = z.enum([
   "astro",
   "typescript",
   "yarn",
-  "vitest"
+  "vitest",
+  "sanity"
 ]);
 
 // 2. Define your collections

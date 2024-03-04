@@ -3,7 +3,7 @@ title: Building theconvergencebooks.com with Astro
 description: Migrating theconvergencebooks.com from Wix to Astro+Tailwind
 site: https://theconvergencebooks.com/
 tech:
-  [astro, netlify, tailwind-css, typescript, npm, github, html, css, javascript]
+  [astro, netlify, tailwind-css, typescript, sanity, npm, github, html, css, javascript]
 updatedAt: 2023-01-12T00:00:00-05:00
 ---
 

@@ -15,3 +15,4 @@
 - ~~404 page~~
 - Remove DIY references in favor of new content collections relationships
 - Copy button for code blocks
+- Prettier just does not work
