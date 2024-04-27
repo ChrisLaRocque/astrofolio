@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 
-const { title, description, tech, updatedAt } = entry.data;
+const { title, description, tech, updatedAt, gitHub, site } = entry.data;
 const relatedTech = await getCollection("tech", ({ slug }) => {
   return tech.includes(slug);
 });
@@ -36,6 +36,20 @@ const localeString = new Date(updatedAt).toLocaleDateString();
       </div>
       <div>
         <TableOfContents headings={headings} />
+        {(gitHub || site) && 
+          (
+            <div class="mb-7">
+              <h3 class="mb-4 border-b-2 border-zinc-600 pb-2 font-bold tracking-tight">
+                Project links
+              </h3>
+              <div>
+              {gitHub && <a class="flex items-center font-medium text-blue-300 hover:underline" href={gitHub}>Github</a>}
+              {site && <a class="flex items-center font-medium text-blue-300 hover:underline" href={site}>Site</a>}
+
+            </div>
+            </div>
+          )
+        }
         {
           relatedTech && (
             <div class="table-of-contents mt-9 lg:mt-0 lg:min-w-[20%]">

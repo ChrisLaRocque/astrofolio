@@ -11,5 +11,5 @@ main > section h2 {
   @apply mb-3 text-4xl font-bold tracking-tight lg:text-5xl;
 }
 main > section h3 {
-  @apply mb-5 text-3xl font-bold tracking-tight lg:text-4xl;
+  @apply mb-5 text-2xl font-bold tracking-tight lg:text-3xl;
 }
