@@ -1,5 +1,5 @@
 ---
-title: Switching my site from Nuxt to Astro
+title: Migrating my site from Nuxt to Astro
 description: The process of taking my site from Nuxt to Astro, and how content collections replaced Contentful.
 github: https://github.com/ChrisLaRocque/astrofolio
 site: https://www.larocque.dev/
