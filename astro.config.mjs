@@ -9,7 +9,9 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   integrations: [
     tailwind(),
-    partytown({ config: { forward: ["dataLayer.push"] } }),
+    partytown({
+      config: { forward: [["dataLayer.push", { preserveBehavior: true }]] },
+    }),
     mdx(),
   ],
   site: "https://larocque.dev",
