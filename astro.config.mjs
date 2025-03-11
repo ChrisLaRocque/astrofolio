@@ -7,9 +7,13 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), partytown(), mdx()],
+  integrations: [
+    tailwind(),
+    partytown({ config: { forward: ["dataLayer.push"] } }),
+    mdx(),
+  ],
   site: "https://larocque.dev",
   markdown: {
-    remarkPlugins: [remarkReadingTime]
-  }
+    remarkPlugins: [remarkReadingTime],
+  },
 });
