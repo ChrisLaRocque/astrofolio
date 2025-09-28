@@ -1,7 +1,9 @@
 ---
-/**
- * LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOL
- */
+interface Props {
+  icon: string;
+  className?: string;
+}
+
 const { icon, className } = Astro.props;
 const is = (name: string) => icon === name;
 ---

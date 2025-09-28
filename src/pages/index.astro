@@ -21,17 +21,26 @@ const projectList = allProjects.slice(0, itemsPerPage);
 
 // Get the tech colletion
 const allTech = await getCollection('tech');
+let techList: ((typeof allTech)[0] & { relatedProjectCount: number })[] = [];
+
 if (allTech) {
+  // Cast to include relatedProjectCount property
+  const techWithCount = allTech as ((typeof allTech)[0] & {
+    relatedProjectCount: number;
+  })[];
+
   // Create relationships to projects
   // TODO: remove this now that collection types can reference each other
-  relatedProjects(allTech, allProjects);
+  relatedProjects(techWithCount, allProjects);
+
   // Sort by most related projects
-  allTech.sort((a, b) => {
+  techWithCount.sort((a, b) => {
     return b.relatedProjectCount - a.relatedProjectCount;
   });
+
+  // Slice allTech to get us just what we need for the list
+  techList = techWithCount.slice(0, itemsPerPage);
 }
-// Slice allTech to get us just what we need for the list
-const techList = allTech.slice(0, itemsPerPage);
 ---
 
 <Layout
