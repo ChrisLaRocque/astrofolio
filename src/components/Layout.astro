@@ -54,7 +54,19 @@ const imageURL = ogImageURL({ ...ogInfo, origin });
 
   <meta name="theme-color" content="#27272A" />
 
-  <body class="bg-zinc-800 p-2 text-white">
+  <!-- Prevent flash of unstyled content -->
+  <script is:inline>
+    // Initialize theme immediately to prevent flash
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
+    
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
+  <body class="bg-white p-2 text-zinc-900 transition-colors dark:bg-zinc-800 dark:text-white">
     <Nav />
     <slot />
     <Footer />

@@ -1,0 +1,5 @@
+---
+alwaysApply: true
+---
+
+You don't need to run dev or build commands, just tell me what to check/test

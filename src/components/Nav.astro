@@ -70,9 +70,11 @@ const links = [
   // Mobile menu toggle
   const toggle = document.getElementById('mobileNav-toggle');
   const list = document.getElementById('nav-list');
-  toggle.addEventListener('click', () => {
-    list.classList.toggle('hidden');
-  });
+  if (toggle && list) {
+    toggle.addEventListener('click', () => {
+      list.classList.toggle('hidden');
+    });
+  }
 
   // Determine if cmd + K are being pushed at the same time to show search modal
   // const keys = { Meta: { pressed: false }, k: { pressed: false } };
