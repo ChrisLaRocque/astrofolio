@@ -13,7 +13,7 @@ Created an Astro component to list all the gists created by a specific GitHub us
 ### How it looks
 
 You can see it on the [about me page](/me) of this site, but here's a screenshot:
-![Example of GitHub gists component](/gist-cards.png)
+![Example of GitHub gists component](../../images/gist-cards.png)
 One day I'll set up MDX on this site and just put the actual component there...
 
 ### The code
@@ -25,31 +25,27 @@ One day I'll set up MDX on this site and just put the actual component there...
 </section>
 <script>
   // https://github.com/octokit/octokit.js
-  import { Octokit } from "octokit";
+  import { Octokit } from 'octokit';
 
   // To generate token: https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
-  const octokit = new Octokit({
-    auth: import.meta.env.PUBLIC_GITHUB_TOKEN,
-  });
+  const octokit = new Octokit({ auth: import.meta.env.PUBLIC_GITHUB_TOKEN });
 
   // Fetch our gists with Octokit + handle error if fetch fails
   async function getGists() {
     // Modify username here
     return await octokit
-      .request("GET /users/ChrisLaRocque/gists", {
-        headers: {
-          "X-GitHub-Api-Version": "2022-11-28",
-        },
+      .request('GET /users/ChrisLaRocque/gists', {
+        headers: { 'X-GitHub-Api-Version': '2022-11-28' },
       })
       .catch(() => {
         // Show error in UI if fetch fails
-        const oops = document.createElement("p");
+        const oops = document.createElement('p');
         oops.innerText = "Oops, couldn't fetch gists from GitHub";
         gistsDiv?.appendChild(oops);
       });
   }
   // Get the parent element we'll add our gists to
-  const gistsDiv = document.getElementById("gists");
+  const gistsDiv = document.getElementById('gists');
 
   // Run fetch above
   const { data } = await getGists();
@@ -61,36 +57,36 @@ One day I'll set up MDX on this site and just put the actual component there...
     const fileNames = Object.keys(files);
 
     // Create card as an anchor tag
-    const gistCard = document.createElement("a");
-    gistCard.setAttribute("id", id);
-    gistCard.setAttribute("href", html_url);
+    const gistCard = document.createElement('a');
+    gistCard.setAttribute('id', id);
+    gistCard.setAttribute('href', html_url);
     gistCard.setAttribute(
-      "class",
-      "p-4 border-2 border-white rounded flex flex-col justify-between"
+      'class',
+      'p-4 border-2 border-white rounded flex flex-col justify-between'
     );
 
     // Create + append file name heading
-    const heading = document.createElement("h4");
+    const heading = document.createElement('h4');
     heading.setAttribute(
-      "class",
-      "text-md font-bold tracking-tight text-slate-400"
+      'class',
+      'text-md font-bold tracking-tight text-slate-400'
     );
     heading.innerText = fileNames[0];
     gistCard.appendChild(heading);
 
     // Create + append description text
-    const text = document.createElement("p");
-    text.setAttribute("class", "text-sm");
+    const text = document.createElement('p');
+    text.setAttribute('class', 'text-sm');
     text.innerText = description;
     gistCard.appendChild(text);
 
     // Create + append update at text
-    const updatedAt = document.createElement("small");
-    updatedAt.setAttribute("class", "text-slate-400");
+    const updatedAt = document.createElement('small');
+    updatedAt.setAttribute('class', 'text-slate-400');
     updatedAt.innerText = new Date(updated_at).toLocaleDateString(undefined, {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
     });
     gistCard.appendChild(updatedAt);
 
@@ -123,24 +119,20 @@ In my example I named the token `PUBLIC_GITHUB_TOKEN`. Note that in Astro specif
 ### The `getGists` function
 
 ```typescript
-import { Octokit } from "octokit";
+import { Octokit } from 'octokit';
 
-const octokit = new Octokit({
-  auth: import.meta.env.PUBLIC_GITHUB_TOKEN,
-});
+const octokit = new Octokit({ auth: import.meta.env.PUBLIC_GITHUB_TOKEN });
 
 // Fetch our gists with Octokit + handle error if fetch fails
 async function getGists() {
   // Modify username here
   return await octokit
-    .request("GET /users/ChrisLaRocque/gists", {
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
+    .request('GET /users/ChrisLaRocque/gists', {
+      headers: { 'X-GitHub-Api-Version': '2022-11-28' },
     })
     .catch(() => {
       // Show error in UI if fetch fails
-      const oops = document.createElement("p");
+      const oops = document.createElement('p');
       oops.innerText = "Oops, couldn't fetch gists from GitHub";
       gistsDiv?.appendChild(oops);
     });
@@ -172,36 +164,36 @@ for (let i = 0; i < data.length; i++) {
   const fileNames = Object.keys(files);
 
   // Create card as an anchor tag
-  const gistCard = document.createElement("a");
-  gistCard.setAttribute("id", id);
-  gistCard.setAttribute("href", html_url);
+  const gistCard = document.createElement('a');
+  gistCard.setAttribute('id', id);
+  gistCard.setAttribute('href', html_url);
   gistCard.setAttribute(
-    "class",
-    "p-4 border-2 border-white rounded flex flex-col justify-between"
+    'class',
+    'p-4 border-2 border-white rounded flex flex-col justify-between'
   );
 
   // Create + append file name heading
-  const heading = document.createElement("h4");
+  const heading = document.createElement('h4');
   heading.setAttribute(
-    "class",
-    "text-md font-bold tracking-tight text-slate-400"
+    'class',
+    'text-md font-bold tracking-tight text-slate-400'
   );
   heading.innerText = fileNames[0];
   gistCard.appendChild(heading);
 
   // Create + append description text
-  const text = document.createElement("p");
-  text.setAttribute("class", "text-sm");
+  const text = document.createElement('p');
+  text.setAttribute('class', 'text-sm');
   text.innerText = description;
   gistCard.appendChild(text);
 
   // Create + append update at text
-  const updatedAt = document.createElement("small");
-  updatedAt.setAttribute("class", "text-slate-400");
+  const updatedAt = document.createElement('small');
+  updatedAt.setAttribute('class', 'text-slate-400');
   updatedAt.innerText = new Date(updated_at).toLocaleDateString(undefined, {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
   });
   gistCard.appendChild(updatedAt);
 
@@ -248,12 +240,12 @@ To start we:
 
 ```typescript
 // Create card as an anchor tag
-const gistCard = document.createElement("a");
-gistCard.setAttribute("id", id);
-gistCard.setAttribute("href", html_url);
+const gistCard = document.createElement('a');
+gistCard.setAttribute('id', id);
+gistCard.setAttribute('href', html_url);
 gistCard.setAttribute(
-  "class",
-  "p-4 border-2 border-white rounded flex flex-col justify-between"
+  'class',
+  'p-4 border-2 border-white rounded flex flex-col justify-between'
 );
 ```
 
@@ -268,10 +260,10 @@ Next we:
 
 ```typescript
 // Create + append file name heading
-const heading = document.createElement("h4");
+const heading = document.createElement('h4');
 heading.setAttribute(
-  "class",
-  "text-md font-bold tracking-tight text-slate-400"
+  'class',
+  'text-md font-bold tracking-tight text-slate-400'
 );
 heading.innerText = fileNames[0];
 gistCard.appendChild(heading);
@@ -288,8 +280,8 @@ Adding the description is similar to adding the heading:
 
 ```typescript
 // Create + append description text
-const text = document.createElement("p");
-text.setAttribute("class", "text-sm");
+const text = document.createElement('p');
+text.setAttribute('class', 'text-sm');
 text.innerText = description;
 gistCard.appendChild(text);
 ```
@@ -305,12 +297,12 @@ Finally (and similarly to our last 2 steps), we add the `updatedAt` date to our 
 
 ```typescript
 // Create + append update at text
-const updatedAt = document.createElement("small");
-updatedAt.setAttribute("class", "text-slate-400");
+const updatedAt = document.createElement('small');
+updatedAt.setAttribute('class', 'text-slate-400');
 updatedAt.innerText = new Date(updated_at).toLocaleDateString(undefined, {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
 });
 gistCard.appendChild(updatedAt);
 ```
