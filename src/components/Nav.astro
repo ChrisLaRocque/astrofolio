@@ -1,9 +1,9 @@
 ---
 // import Dialog from "./Dialog.astro";
 const links = [
-  { text: "Projects", href: "/projects" },
-  { text: "Tech", href: "/tech" },
-  { text: "About + Contact", href: "/me" },
+  { text: 'Projects', href: '/projects' },
+  { text: 'Tech', href: '/tech' },
+  { text: 'About + Contact', href: '/me' },
   // { text: "search", href: "/search" },
 ];
 ---
@@ -36,11 +36,11 @@ const links = [
   >
     {
       links.map((link) => {
-        const isSearch = link.text === "search";
+        const isSearch = link.text === 'search';
         return (
           <li class="p-5 tracking-tight lg:ml-4 lg:p-0">
             {isSearch ? (
-              <button id={"search-button"} aria-label="search">
+              <button id={'search-button'} aria-label="search">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -68,10 +68,10 @@ const links = [
 </nav>
 <script>
   // Mobile menu toggle
-  const toggle = document.getElementById("mobileNav-toggle");
-  const list = document.getElementById("nav-list");
-  toggle.addEventListener("click", () => {
-    list.classList.toggle("hidden");
+  const toggle = document.getElementById('mobileNav-toggle');
+  const list = document.getElementById('nav-list');
+  toggle.addEventListener('click', () => {
+    list.classList.toggle('hidden');
   });
 
   // Determine if cmd + K are being pushed at the same time to show search modal
