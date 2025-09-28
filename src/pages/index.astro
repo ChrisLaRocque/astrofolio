@@ -3,7 +3,7 @@ import Layout from '../components/Layout.astro';
 import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
 import headshot from '../images/headshot.jpg';
-import { getCollection } from 'astro:content';
+import { getCollection, CollectionEntry } from 'astro:content';
 import { sortByUpdatedAt, relatedProjects } from '../../utils/collections';
 
 // Limit number of items listed under each column
@@ -21,11 +21,12 @@ const projectList = allProjects.slice(0, itemsPerPage);
 
 // Get the tech colletion
 const allTech = await getCollection('tech');
-let techList: ((typeof allTech)[0] & { relatedProjectCount: number })[] = [];
+let techList: (CollectionEntry<'tech'> & { relatedProjectCount: number })[] =
+  [];
 
 if (allTech) {
   // Cast to include relatedProjectCount property
-  const techWithCount = allTech as ((typeof allTech)[0] & {
+  const techWithCount = allTech as (CollectionEntry<'tech'> & {
     relatedProjectCount: number;
   })[];
 
