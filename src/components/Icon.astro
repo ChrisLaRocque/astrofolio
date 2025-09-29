@@ -1,13 +1,15 @@
 ---
-/**
- * LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOL
- */
+interface Props {
+  icon: string;
+  className?: string;
+}
+
 const { icon, className } = Astro.props;
 const is = (name: string) => icon === name;
 ---
 
 <!-- Gatsby logo -->{
-  is("gatsby") && (
+  is('gatsby') && (
     <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
       <path
         fill="currentColor"
@@ -18,7 +20,7 @@ const is = (name: string) => icon === name;
 }
 <!-- Astro logo -->
 {
-  is("astro") && (
+  is('astro') && (
     <svg
       role="img"
       width="24"
@@ -35,7 +37,7 @@ const is = (name: string) => icon === name;
 }
 <!-- React logo -->
 {
-  is("react") && (
+  is('react') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -51,7 +53,7 @@ const is = (name: string) => icon === name;
 
 <!-- Vue logo -->
 {
-  is("vue") && (
+  is('vue') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -68,7 +70,7 @@ const is = (name: string) => icon === name;
 <!-- Nuxt logo -->
 
 {
-  is("nuxt") && (
+  is('nuxt') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -84,7 +86,7 @@ const is = (name: string) => icon === name;
 
 <!-- AWS logo -->
 {
-  is("aws") && (
+  is('aws') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -100,7 +102,7 @@ const is = (name: string) => icon === name;
 
 <!-- Node logo -->
 {
-  is("nodejs") && (
+  is('nodejs') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -116,7 +118,7 @@ const is = (name: string) => icon === name;
 
 <!-- JavaScript logo -->
 {
-  is("javascript") && (
+  is('javascript') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -132,7 +134,7 @@ const is = (name: string) => icon === name;
 
 <!-- TypeScript logo -->
 {
-  is("typescript") && (
+  is('typescript') && (
     <svg
       width="24px"
       height="24px"
@@ -159,7 +161,7 @@ const is = (name: string) => icon === name;
 }
 <!-- HTML logo -->
 {
-  is("html") && (
+  is('html') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -175,7 +177,7 @@ const is = (name: string) => icon === name;
 
 <!-- CSS logo -->
 {
-  is("css") && (
+  is('css') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -191,7 +193,7 @@ const is = (name: string) => icon === name;
 
 <!-- SASS logo -->
 {
-  is("sass") && (
+  is('sass') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -207,7 +209,7 @@ const is = (name: string) => icon === name;
 
 <!-- Github logo -->
 {
-  is("github") && (
+  is('github') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -223,7 +225,7 @@ const is = (name: string) => icon === name;
 
 <!-- Gitlab logo -->
 {
-  is("gitlab") && (
+  is('gitlab') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -239,7 +241,7 @@ const is = (name: string) => icon === name;
 
 <!-- NPM logo -->
 {
-  is("npm") && (
+  is('npm') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -255,7 +257,7 @@ const is = (name: string) => icon === name;
 
 <!-- Yarn -->
 {
-  is("yarn") && (
+  is('yarn') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -270,7 +272,7 @@ const is = (name: string) => icon === name;
 }
 <!-- Bulma logo -->
 {
-  is("bulma") && (
+  is('bulma') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -286,7 +288,7 @@ const is = (name: string) => icon === name;
 
 <!-- Contentful logo -->
 {
-  is("contentful") && (
+  is('contentful') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -302,7 +304,7 @@ const is = (name: string) => icon === name;
 
 <!-- Netlify logo -->
 {
-  is("netlify") && (
+  is('netlify') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -318,7 +320,7 @@ const is = (name: string) => icon === name;
 
 <!-- Tailwind logo -->
 {
-  is("tailwind-css") && (
+  is('tailwind-css') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -333,7 +335,7 @@ const is = (name: string) => icon === name;
 }
 <!-- Arrow -->
 {
-  is("arrow") && (
+  is('arrow') && (
     <svg
       fill="none"
       viewBox="0 0 24 24"
@@ -351,7 +353,7 @@ const is = (name: string) => icon === name;
 }
 <!-- Arrow left -->
 {
-  is("arrow-left") && (
+  is('arrow-left') && (
     <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
       <path
         fill="currentColor"
@@ -362,7 +364,7 @@ const is = (name: string) => icon === name;
 }
 <!-- Envelope -->
 {
-  is("envelope") && (
+  is('envelope') && (
     <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
       <path
         fill="currentColor"
@@ -373,7 +375,7 @@ const is = (name: string) => icon === name;
 }
 <!-- Search -->
 {
-  is("search") && (
+  is('search') && (
     <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
       <path
         fill="currentColor"
@@ -384,7 +386,7 @@ const is = (name: string) => icon === name;
 }
 <!-- graphql -->
 {
-  is("graphql") && (
+  is('graphql') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -399,7 +401,7 @@ const is = (name: string) => icon === name;
 }
 <!-- next -->
 {
-  is("next-js") && (
+  is('next-js') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -414,7 +416,7 @@ const is = (name: string) => icon === name;
 }
 <!-- sanity -->
 {
-  is("sanity") && (
+  is('sanity') && (
     <svg
       style="width: 24px; height: 24px"
       viewBox="0 0 24 24"
@@ -430,7 +432,7 @@ const is = (name: string) => icon === name;
 
 <!-- x -->
 {
-  is("x") && (
+  is('x') && (
     <svg
       viewBox="0 0 24 24"
       height="24"
@@ -446,7 +448,7 @@ const is = (name: string) => icon === name;
 }
 <!-- linkedin -->
 {
-  is("linkedin") && (
+  is('linkedin') && (
     <svg
       viewBox="0 0 24 24"
       width="24"
@@ -462,14 +464,14 @@ const is = (name: string) => icon === name;
 }
 <!-- vitest -->
 {
-  is("vitest") && (
-    <svg 
-      viewBox="0 0 24 24" 
-      style="width: 24px; height: 24px" 
+  is('vitest') && (
+    <svg
+      viewBox="0 0 24 24"
+      style="width: 24px; height: 24px"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path 
-        fill="currentColor" 
+      <path
+        fill="currentColor"
         d="M13.74024 1.05293a.49504.49504 0 0 0-.1569.02512.49338.49338 0 0 0-.25056.1876L7.59513 9.56159a.4895.4895 0 0 0-.08373.22327.48846.48846 0 0 0 .03163.23629.4893.4893 0 0 0 .13985.19319.4927.4927 0 0 0 .2149.10481l3.70685.78609-.22947 4.58007a.48834.48834 0 0 0 .08466.30017.49205.49205 0 0 0 .24931.18854c.10157.03398.21174.03444.3135.00064a.49387.49387 0 0 0 .25056-.18761l5.73735-8.29594a.4884.4884 0 0 0 .08404-.22327c.009-.08015-.0016-.16137-.03163-.23629a.48835.48835 0 0 0-.13985-.19319.49318.49318 0 0 0-.2149-.1048l-3.70686-.7861.22947-4.58008a.48802.48802 0 0 0-.08466-.30017.4913.4913 0 0 0-.24931-.18853.49439.49439 0 0 0-.1566-.02574zM1.15697 9.78795c-.30647.0012-.60009.12378-.81679.34048a1.16107 1.16107 0 0 0-.34017.81648 1.162 1.162 0 0 0 .33366.81957l10.84241 10.8421a1.15762 1.15762 0 0 0 .37677.25211 1.1583 1.1583 0 0 0 .44467.08838c.00084 0 .0016-.00031.0025-.00031.00073 0 .0014.00031.0022.00031a1.15827 1.15827 0 0 0 .44467-.08838 1.15731 1.15731 0 0 0 .37677-.2521l10.84236-10.8421a1.16272 1.16272 0 0 0 .33397-.81958c-.0013-.30647-.12376-.59976-.34048-.81648a1.1616 1.1616 0 0 0-.81679-.34048 1.16114 1.16114 0 0 0-.81926.33366l-5.4012 5.4009c-.0078.0074-.01718.01255-.02482.02015L12 20.14011l-4.59776-4.59745c-.0074-.0074-.01659-.01238-.02419-.01954l-5.4015-5.40151a1.162 1.162 0 0 0-.81958-.33366Z"
       />
     </svg>

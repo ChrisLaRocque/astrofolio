@@ -4,7 +4,7 @@
 .content h3,
 .content h4,
 .content h5 {
-  @apply mt-12 mb-3 tracking-tight;
+  @apply mb-3 mt-12 tracking-tight;
 }
 .content h4,
 .content h5 {
@@ -26,10 +26,10 @@
   @apply mb-2 pr-7;
 }
 .content a {
-  @apply font-medium text-blue-300 hover:underline;
+  @apply font-medium text-blue-700 hover:underline dark:text-blue-400;
 }
 .content ol {
-  @apply list-inside list-decimal;
+  @apply list-decimal px-4;
 }
 .content ul {
   @apply list-inside list-disc;
@@ -37,15 +37,16 @@
 .content ol > li {
   @apply mb-2;
 }
-.content pre {
-  @apply my-5 max-w-[95%] p-5;
+.content pre,
+.expressive-code {
+  @apply my-3 max-w-[95%] p-5;
 }
 .content p > code {
-  @apply rounded bg-slate-700 p-1;
+  @apply rounded bg-zinc-200 p-1 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200;
 }
 .content img {
   @apply my-4;
 }
 #table-of-contents a {
-  @apply font-medium text-zinc-300 hover:text-zinc-100 hover:underline;
+  @apply font-medium text-zinc-600 hover:text-zinc-800 hover:underline dark:text-zinc-300 dark:hover:text-zinc-100;
 }

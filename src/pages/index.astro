@@ -1,16 +1,16 @@
 ---
-import Layout from "../components/Layout.astro";
-import Icon from "../components/Icon.astro";
-import { Image } from "astro:assets";
-import headshot from "../images/headshot.jpg";
-import { getCollection } from "astro:content";
-import { sortByUpdatedAt, relatedProjects } from "../../utils/collections";
+import Layout from '../components/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { Image } from 'astro:assets';
+import headshot from '../images/headshot.jpg';
+import { getCollection, CollectionEntry } from 'astro:content';
+import { sortByUpdatedAt, relatedProjects } from '../../utils/collections';
 
 // Limit number of items listed under each column
 const itemsPerPage = 12;
 
 // Get projects collection that aren't draft
-const allProjects = await getCollection("projects", ({ data }) => {
+const allProjects = await getCollection('projects', ({ data }) => {
   return data.draft !== true;
 });
 if (allProjects) {
@@ -20,28 +20,38 @@ if (allProjects) {
 const projectList = allProjects.slice(0, itemsPerPage);
 
 // Get the tech colletion
-const allTech = await getCollection("tech");
+const allTech = await getCollection('tech');
+let techList: (CollectionEntry<'tech'> & { relatedProjectCount: number })[] =
+  [];
+
 if (allTech) {
+  // Cast to include relatedProjectCount property
+  const techWithCount = allTech as (CollectionEntry<'tech'> & {
+    relatedProjectCount: number;
+  })[];
+
   // Create relationships to projects
   // TODO: remove this now that collection types can reference each other
-  relatedProjects(allTech, allProjects);
+  relatedProjects(techWithCount, allProjects);
+
   // Sort by most related projects
-  allTech.sort((a, b) => {
+  techWithCount.sort((a, b) => {
     return b.relatedProjectCount - a.relatedProjectCount;
   });
+
+  // Slice allTech to get us just what we need for the list
+  techList = techWithCount.slice(0, itemsPerPage);
 }
-// Slice allTech to get us just what we need for the list
-const techList = allTech.slice(0, itemsPerPage);
 ---
 
 <Layout
   tags={{
-    title: "Chris LaRocque | Web Developer",
+    title: 'Chris LaRocque | Web Developer',
     description:
-      "Chris LaRocque is a web developer from Boston, MA. He specializes in tactical agile development aimed at delivering user-centric software at scale and at speed.",
+      'Chris LaRocque is a web developer from Boston, MA. He specializes in tactical agile development aimed at delivering user-centric software at scale and at speed.',
     ogInfo: {
-      title: "LaRocque.dev",
-      subtitle: "The various web-based tomfoolery of Chris LaRocque",
+      title: 'LaRocque.dev',
+      subtitle: 'The various web-based tomfoolery of Chris LaRocque',
     },
   }}
 >
@@ -54,13 +64,13 @@ const techList = allTech.slice(0, itemsPerPage);
             I'm a full-stack web developer obsessed with making the web easier
             to build for everyone. For the last few years I've been a solutions
             engineer at <a
-              class="font-medium text-blue-400 hover:underline"
+              class="font-medium text-blue-700 hover:underline dark:text-blue-400"
               href="https://www.gatsbyjs.com/">Gatsby</a
             >, <a
-              class="font-medium text-blue-400 hover:underline"
+              class="font-medium text-blue-700 hover:underline dark:text-blue-400"
               href="https://www.netlify.com/">Netlify</a
             >, and now <a
-              class="font-medium text-blue-400 hover:underline"
+              class="font-medium text-blue-700 hover:underline dark:text-blue-400"
               href="https://sanity.io">Sanity</a
             >, as well as consulting to help companies build a better web. Check
             out the things I've built or the tech I've used to build them below.
@@ -70,15 +80,15 @@ const techList = allTech.slice(0, itemsPerPage);
       <Image
         src={headshot}
         alt="Chris LaRocque headshot"
-        class="lg:mx-0 mx-auto rounded-xl"
-        loading={"eager"}
+        class="mx-auto rounded-xl lg:mx-0"
+        loading={'eager'}
         width={625}
       />
     </section>
     <section class="gap-7 lg:flex">
       <div class="lg:flex-1">
         <h2
-          class="border-b-2 border-white py-5 text-3xl font-bold tracking-tight"
+          class="border-b-2 border-zinc-700 py-5 text-3xl font-bold tracking-tight dark:border-white"
         >
           Projects
         </h2>
@@ -88,7 +98,7 @@ const techList = allTech.slice(0, itemsPerPage);
             return (
               <a
                 href={`/projects/${slug}`}
-                class="relative block border-b-2 border-zinc-600 p-9 hover:bg-zinc-600"
+                class="relative block border-b-2 border-zinc-300 p-9 hover:bg-zinc-100 dark:border-zinc-600 dark:hover:bg-zinc-600"
               >
                 <h3 class="mb-2 mt-0  text-2xl font-bold tracking-tight">
                   {data.title}
@@ -113,7 +123,7 @@ const techList = allTech.slice(0, itemsPerPage);
       </div>
       <div class="lg:flex-1">
         <h2
-          class="border-b-2 border-white py-5 text-3xl font-bold tracking-tight"
+          class="border-b-2 border-zinc-700 py-5 text-3xl font-bold tracking-tight dark:border-white"
         >
           Tech
         </h2>
@@ -122,7 +132,7 @@ const techList = allTech.slice(0, itemsPerPage);
             return (
               <a
                 href={`/tech/${tech.slug}`}
-                class="relative block border-b-2 border-zinc-600 p-9 hover:bg-zinc-600"
+                class="relative block border-b-2 border-zinc-300 p-9 hover:bg-zinc-100 dark:border-zinc-600 dark:hover:bg-zinc-600"
               >
                 <h3 class="mb-2 mt-0 flex justify-between text-2xl font-bold tracking-tight">
                   {tech.data.title}
@@ -132,7 +142,7 @@ const techList = allTech.slice(0, itemsPerPage);
                 {tech.relatedProjectCount && (
                   <small class="count absolute bottom-0 right-0 block p-5 italic">
                     {`${tech.relatedProjectCount} project${
-                      tech.relatedProjectCount === 1 ? "" : "s"
+                      tech.relatedProjectCount === 1 ? '' : 's'
                     }`}
                   </small>
                 )}

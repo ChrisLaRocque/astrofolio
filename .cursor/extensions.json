@@ -1,0 +1,26 @@
+{
+  "recommendations": [
+    // Core formatters and language support
+    "esbenp.prettier-vscode",
+    "astro-build.astro-vscode",
+
+    // Tailwind CSS support
+    "bradlc.vscode-tailwindcss",
+
+    // TypeScript and JavaScript
+    "ms-vscode.vscode-typescript-next",
+
+    // Markdown support
+    "yzhang.markdown-all-in-one",
+    "DavidAnson.vscode-markdownlint",
+
+    // Git integration
+    "eamodio.gitlens",
+
+    // Additional helpful extensions
+    "bradlc.vscode-tailwindcss",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "ms-vscode.vscode-json"
+  ]
+}

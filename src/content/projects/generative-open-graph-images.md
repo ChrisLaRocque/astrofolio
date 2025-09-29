@@ -13,7 +13,7 @@ I use a Netlify function to make OG images for every page on this site. I set th
 ### Why I like em
 
 I remember when Netlify functions were new.
-![Old man yells at cloud meme.](/old-man-yells.jpeg)
+![Old man yells at cloud meme.](../../images/old-man-yells.jpeg)
 
 Now you can do a few different _kinds_ of Netlify functions (serverless, edge, and background), for generating OG images good ol' serverless does the job.
 

@@ -1,25 +1,25 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "../../components/Layout.astro";
-import Icon from "../../components/Icon.astro";
-import { relatedProjects } from "../../../utils/collections";
+import { getCollection } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { relatedProjects } from '../../../utils/collections';
 
-const allProjects = await getCollection("projects");
-const allTech = await getCollection("tech");
+const allProjects = await getCollection('projects');
+const allTech = await getCollection('tech');
 relatedProjects(allTech, allProjects);
 
 const tags = {
-  title: "Tech | Chris LaRocque",
+  title: 'Tech | Chris LaRocque',
   description:
     "All the various pieces of tech I've picked up building stuff. Includes related projects for each piece of tech to show where and when I've used it.",
-  ogInfo: { title: "Tech", subtitle: "larocque.dev" },
+  ogInfo: { title: 'Tech', subtitle: 'larocque.dev' },
 };
 ---
 
 <Layout tags={tags}>
   <main>
     <section>
-      <h1 class="border-b-2 border-white py-4">Tech</h1>
+      <h1 class="border-b-2 border-zinc-700 py-4 dark:border-white">Tech</h1>
       <p class="max-w-[66 ch]">
         All the various pieces of tech I've picked up building stuff. Includes
         related projects for each piece of tech to show where and when I've used
@@ -31,7 +31,7 @@ const tags = {
         allTech.map(({ slug, data, relatedProjectCount }) => {
           const { title, description } = data;
           return (
-            <div class="group relative basis-1/3 rounded-md p-5 py-7 hover:bg-zinc-600">
+            <div class="group relative basis-1/3 rounded-md p-5 py-7 hover:bg-zinc-100 dark:hover:bg-zinc-600">
               <a href={`/tech/${slug}`}>
                 <h2 class="mb-1 flex justify-between align-middle text-2xl font-bold tracking-tight">
                   <span>{title}</span>

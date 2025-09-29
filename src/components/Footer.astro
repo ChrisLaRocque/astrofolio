@@ -1,11 +1,12 @@
 ---
-import Icon from "./Icon.astro";
+import Icon from './Icon.astro';
+import ThemeToggle from './ThemeToggle.astro';
 ---
 
 <footer class="mx-auto max-w-7xl">
-  <hr />
-  <div class="flex justify-end p-5 py-7">
-    <div class="flex items-center justify-between gap-5">
+  <hr class="border-zinc-300 dark:border-zinc-600" />
+  <div class="flex items-center justify-between p-5 py-7">
+    <div class="flex items-center gap-5">
       <a
         href="https://twitter.com/TophLaRoph"
         aria-label="My Twitter/X profile"
@@ -22,5 +23,6 @@ import Icon from "./Icon.astro";
         <Icon icon="linkedin" />
       </a>
     </div>
+    <ThemeToggle />
   </div>
 </footer>
