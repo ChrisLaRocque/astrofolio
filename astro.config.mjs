@@ -13,7 +13,9 @@ export default defineConfig({
     partytown({
       config: { forward: [['dataLayer.push', { preserveBehavior: true }]] },
     }),
-    expressiveCode(),
+    expressiveCode({
+      themes: ['andromeeda'],
+    }),
     mdx(),
   ],
   site: 'https://larocque.dev',
