@@ -257,6 +257,8 @@ export const frontifySelector = definePlugin({
 });
 ```
 
+Sanity plugins are defined as objects, using the `definePlugin` helper to give us proper types. Plugins in Sanity are just preset parts of the Sanity configuration file, meaning we can do things like set schema types that are then re-usable in other Studios.
+
 As you can see we declare a schema matching the data structure of Frontify assets. We also override the input component type with the `FrontifyBrowser` component from the previous step.
 
 Finally, add the plugin to your `sanity.config.ts` file:
