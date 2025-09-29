@@ -4,6 +4,8 @@ import partytown from '@astrojs/partytown';
 import { remarkReadingTime } from './utils/remark-reading-time.mjs';
 import mdx from '@astrojs/mdx';
 
+import expressiveCode from 'astro-expressive-code';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -11,6 +13,7 @@ export default defineConfig({
     partytown({
       config: { forward: [['dataLayer.push', { preserveBehavior: true }]] },
     }),
+    expressiveCode(),
     mdx(),
   ],
   site: 'https://larocque.dev',
