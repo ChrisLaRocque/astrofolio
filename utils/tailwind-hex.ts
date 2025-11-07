@@ -1,9 +1,9 @@
 import colors from "tailwindcss/colors";
 import { flatten } from "flat";
 
-function tailwindReference() {
+function tailwindReference(): Record<string, string> {
   // Flattens the color object and adds a "-" delimiter for exact TailwindCSS match
-  const flat = flatten(colors, { delimiter: "-" });
+  const flat = flatten(colors, { delimiter: "-" }) as Record<string, string>;
   // Collect all colors that aren't hex codes
   const notHex = Object.entries(flat).filter(
     ([key, value]) =>

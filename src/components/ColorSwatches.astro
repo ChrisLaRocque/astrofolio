@@ -27,19 +27,21 @@ const twClassNames = Object.keys(tailwindReference());
       console.error("Failed to copy: ", err);
     }
   };
-  const swatches = document.querySelectorAll(".color-swatch");
+  const swatches = document.querySelectorAll<HTMLElement>(".color-swatch");
   swatches.forEach((swatch) => {
-    swatch.addEventListener("click", (e) => {
-      const {
-        currentTarget: {
-          dataset: { bgClassName },
-        },
-      } = e;
+    swatch.addEventListener("click", (e: MouseEvent) => {
+      const target = e.currentTarget as HTMLElement | null;
+      if (!target) return;
+      
+      const bgClassName = target.dataset.bgClassName;
+      if (!bgClassName) return;
 
       copyContent(bgClassName);
-      const p = e.currentTarget.querySelector("p");
-      p.innerText = `Copied`;
-      setTimeout(() => (p.innerText = bgClassName), 1200);
+      const p = target.querySelector<HTMLParagraphElement>("p");
+      if (p) {
+        p.innerText = `Copied`;
+        setTimeout(() => (p.innerText = bgClassName), 1200);
+      }
     });
   });
 </script>
