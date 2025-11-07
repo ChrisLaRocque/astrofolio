@@ -3,7 +3,14 @@ import { tailwindMatcher } from "../../utils/tailwind-hex";
 
 const handler: Handler = async (event: HandlerEvent) => {
   const { queryStringParameters } = event;
-  const { hex } = queryStringParameters;
+  const hex = queryStringParameters?.hex;
+
+  if (!hex) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Missing hex query parameter" }),
+    };
+  }
 
   return {
     statusCode: 200,

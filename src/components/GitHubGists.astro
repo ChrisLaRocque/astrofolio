@@ -3,78 +3,81 @@
   <div class="grid grid-cols-1 gap-2 lg:grid-cols-3" id="gists"></div>
   <p class="my-1 hidden" id="gists-error">Ooops, error fetching from GitHub.</p>
 </section>
-<script>
-  // https://github.com/octokit/octokit.js
-  import { Octokit } from "octokit";
+  <script>
+    import { Octokit } from "octokit";
 
-  // To generate token: https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
-  const octokit = new Octokit({
-    auth: import.meta.env.PUBLIC_GITHUB_TOKEN,
-  });
+    const octokit = new Octokit({
+      auth: import.meta.env.PUBLIC_GITHUB_TOKEN,
+    });
 
-  // Fetch our gists with Octokit + handle error if fetch fails
-  async function getGists() {
-    // Modify username here
-    return await octokit
-      .request("GET /users/ChrisLaRocque/gists", {
-        headers: {
-          "X-GitHub-Api-Version": "2022-11-28",
-        },
-      })
-      .catch(() => {
-        // Show error in UI if fetch fails
+    async function getGists() {
+      try {
+        return await octokit.request("GET /users/ChrisLaRocque/gists", {
+          headers: {
+            "X-GitHub-Api-Version": "2022-11-28",
+          },
+        });
+      } catch {
         const oops = document.getElementById("gists-error");
         oops?.classList.remove("hidden");
-        throw "Error fetching gists from Github";
+        throw new Error("Error fetching gists from Github");
+      }
+    }
+
+    const gistsDiv = document.getElementById("gists");
+
+    if (!gistsDiv) {
+      console.error("Missing gists container");
+    } else {
+      const { data } = await getGists();
+
+      type Gist = {
+        id: string;
+        description: string | null;
+        updated_at: string;
+        html_url: string;
+        files: Record<string, unknown>;
+      };
+
+      const gists = (Array.isArray(data) ? data : []) as Gist[];
+
+      gists.forEach(({ id, description, updated_at, html_url, files }) => {
+        const fileNames = Object.keys(files);
+
+        const gistCard = document.createElement("a");
+        gistCard.setAttribute("id", id);
+        gistCard.setAttribute("href", html_url);
+        gistCard.setAttribute(
+          "class",
+          "p-4 border-2 border-white rounded flex flex-col justify-between"
+        );
+
+        const heading = document.createElement("h4");
+        heading.setAttribute(
+          "class",
+          "text-md font-bold tracking-tight text-slate-400"
+        );
+        heading.textContent = fileNames[0] ?? "Untitled gist";
+        gistCard.appendChild(heading);
+
+        const text = document.createElement("p");
+        text.setAttribute("class", "text-sm");
+        text.textContent = description ?? "No description provided.";
+        gistCard.appendChild(text);
+
+        const updatedAt = document.createElement("small");
+        updatedAt.setAttribute("class", "text-slate-400");
+        updatedAt.innerText = new Date(updated_at).toLocaleDateString(
+          undefined,
+          {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }
+        );
+        gistCard.appendChild(updatedAt);
+
+        gistsDiv.appendChild(gistCard);
       });
-  }
-  // Get the parent element we'll add our gists to
-  const gistsDiv = document.getElementById("gists");
-
-  // Run fetch above
-  const { data } = await getGists();
-
-  // Loop through each returned gist and create a card for it
-  for (let i = 0; i < data.length; i++) {
-    const { id, description, updated_at, html_url, files } = data[i];
-    // The 'files' array contains objects where the key is the file name, so we get each key to show the names of the file
-    const fileNames = Object.keys(files);
-
-    // Create card as an anchor tag
-    const gistCard = document.createElement("a");
-    gistCard.setAttribute("id", id);
-    gistCard.setAttribute("href", html_url);
-    gistCard.setAttribute(
-      "class",
-      "p-4 border-2 border-white rounded flex flex-col justify-between"
-    );
-
-    // Create + append file name heading
-    const heading = document.createElement("h4");
-    heading.setAttribute(
-      "class",
-      "text-md font-bold tracking-tight text-slate-400"
-    );
-    heading.innerText = fileNames[0];
-    gistCard.appendChild(heading);
-
-    // Create + append description text
-    const text = document.createElement("p");
-    text.setAttribute("class", "text-sm");
-    text.innerText = description;
-    gistCard.appendChild(text);
-
-    // Create + append update at text
-    const updatedAt = document.createElement("small");
-    updatedAt.setAttribute("class", "text-slate-400");
-    updatedAt.innerText = new Date(updated_at).toLocaleDateString(undefined, {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-    gistCard.appendChild(updatedAt);
-
-    // Add card div to parent
-    gistsDiv?.appendChild(gistCard);
-  }
-</script>
+    }
+  </script>

@@ -25,7 +25,10 @@
 <script>
 	const closeButton = document.getElementById("close-modal");
 	const modal = document.getElementById("search-modal");
-	closeButton.addEventListener("click", (e) => {
-		modal.close();
-	});
+
+	if (closeButton instanceof HTMLButtonElement && modal instanceof HTMLDialogElement) {
+		closeButton.addEventListener("click", () => {
+			modal.close();
+		});
+	}
 </script>
