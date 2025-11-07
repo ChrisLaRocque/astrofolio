@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { sortByUpdatedAt } from '../../../utils/collections';
 import Layout from '../../components/Layout.astro';
 export async function getStaticPaths() {
@@ -14,10 +15,17 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 const { title, description, homepage } = entry.data;
 // console.log(headings);
-const relatedProjects = await getCollection('projects', ({ data }) => {
-  return !data.draft && data.tech.includes(entry.slug);
-});
-if (relatedProjects) {
+const relatedProjects = await getCollection(
+  'projects',
+  ({ data }: CollectionEntry<'projects'>) => {
+    if (data.draft) {
+      return false;
+    }
+    return data.tech.includes(entry.slug as (typeof data.tech)[number]);
+  }
+);
+
+if (relatedProjects.length > 0) {
   sortByUpdatedAt(relatedProjects);
 }
 const ogInfo = { title, subtitle: description };

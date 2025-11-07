@@ -6,7 +6,7 @@ import { relatedProjects } from '../../../utils/collections';
 
 const allProjects = await getCollection('projects');
 const allTech = await getCollection('tech');
-relatedProjects(allTech, allProjects);
+const techWithCounts = relatedProjects(allTech, allProjects);
 
 const tags = {
   title: 'Tech | Chris LaRocque',
@@ -27,28 +27,28 @@ const tags = {
       </p>
     </section>
     <section class="lg:flex lg:flex-wrap">
-      {
-        allTech.map(({ slug, data, relatedProjectCount }) => {
-          const { title, description } = data;
-          return (
-            <div class="group relative basis-1/3 rounded-md p-5 py-7 hover:bg-zinc-100 dark:hover:bg-zinc-600">
-              <a href={`/tech/${slug}`}>
-                <h2 class="mb-1 flex justify-between align-middle text-2xl font-bold tracking-tight">
-                  <span>{title}</span>
-                  <Icon icon={slug} />
-                </h2>
-                <em class="my-1 block text-xs text-slate-400">{`${relatedProjectCount} related projects`}</em>
-                <p class="mb-5">{description}</p>
-                <Icon
-                  icon="arrow"
-                  className="transition-all duration-300 group-hover:translate-x-3"
-                />
-              </a>
-              <div />
-            </div>
-          );
-        })
-      }
+        {
+          techWithCounts.map(({ slug, data, relatedProjectCount }) => {
+            const { title, description } = data;
+            return (
+              <div class="group relative basis-1/3 rounded-md p-5 py-7 hover:bg-zinc-100 dark:hover:bg-zinc-600">
+                <a href={`/tech/${slug}`}>
+                  <h2 class="mb-1 flex justify-between align-middle text-2xl font-bold tracking-tight">
+                    <span>{title}</span>
+                    <Icon icon={slug} />
+                  </h2>
+                  <em class="my-1 block text-xs text-slate-400">{`${relatedProjectCount} related projects`}</em>
+                  <p class="mb-5">{description}</p>
+                  <Icon
+                    icon="arrow"
+                    className="transition-all duration-300 group-hover:translate-x-3"
+                  />
+                </a>
+                <div />
+              </div>
+            );
+          })
+        }
     </section>
   </main>
 </Layout>

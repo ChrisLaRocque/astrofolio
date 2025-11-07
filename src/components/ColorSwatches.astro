@@ -27,19 +27,29 @@ const twClassNames = Object.keys(tailwindReference());
       console.error("Failed to copy: ", err);
     }
   };
-  const swatches = document.querySelectorAll(".color-swatch");
+  const swatches = document.querySelectorAll<HTMLElement>(".color-swatch");
   swatches.forEach((swatch) => {
-    swatch.addEventListener("click", (e) => {
-      const {
-        currentTarget: {
-          dataset: { bgClassName },
-        },
-      } = e;
+    swatch.addEventListener("click", async (event) => {
+      const target = event.currentTarget;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
 
-      copyContent(bgClassName);
-      const p = e.currentTarget.querySelector("p");
-      p.innerText = `Copied`;
-      setTimeout(() => (p.innerText = bgClassName), 1200);
+      const { bgClassName } = target.dataset;
+      if (!bgClassName) {
+        return;
+      }
+
+      await copyContent(bgClassName);
+      const label = target.querySelector("p");
+      if (!label) {
+        return;
+      }
+
+      label.textContent = "Copied";
+      setTimeout(() => {
+        label.textContent = bgClassName;
+      }, 1200);
     });
   });
 </script>

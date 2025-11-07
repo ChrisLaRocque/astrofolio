@@ -1,5 +1,11 @@
 ---
-const { headings } = Astro.props;
+type Heading = {
+	depth: number;
+	slug: string;
+	text: string;
+};
+
+const { headings } = Astro.props as { headings?: Heading[] };
 ---
 
 <>

@@ -1,36 +1,34 @@
 ---
 // Create placeholder 'dummy' items
-const gridItems = Array.apply(null, Array(53)).map((week) => {
-  return Array.apply(null, Array(7).fill(0));
-});
+const gridItems = Array.from({ length: 53 }, () => Array.from({ length: 7 }, () => 0));
 ---
 
 <section>
   <h3>Commits to public GitHub repos</h3>
   <div class="flex flex-col items-center justify-center">
     <div id="contributions" class="flex gap-1">
-      {
-        gridItems.map((week, i) => {
-          return (
-            <div
-              id={`week-${i}`}
-              class={`flex-col gap-1 ${
-                i < 33 ? (i < 7 ? "hidden xl:flex" : "hidden md:flex") : "flex"
-              }`}
-            >
-              {week.map((day, j) => {
-                return (
-                  <div
-                    id={`week-${i}-day-${j}`}
-                    class="h-3 w-3 lg:h-4 lg:w-4 xl:h-5 xl:w-5"
-                    style="background-color: rgba(235,	237,	240, 0.15);"
-                  />
-                );
-              })}
-            </div>
-          );
-        })
-      }
+        {
+          gridItems.map((week, i) => {
+            return (
+              <div
+                id={`week-${i}`}
+                class={`flex-col gap-1 ${
+                  i < 33 ? (i < 7 ? "hidden xl:flex" : "hidden md:flex") : "flex"
+                }`}
+              >
+                {week.map((_day, j) => {
+                  return (
+                    <div
+                      id={`week-${i}-day-${j}`}
+                      class="h-3 w-3 lg:h-4 lg:w-4 xl:h-5 xl:w-5"
+                      style="background-color: rgba(235,	237,	240, 0.15);"
+                    />
+                  );
+                })}
+              </div>
+            );
+          })
+        }
     </div>
     <p class="my-1 hidden" id="contribution-error">
       Ooops, error fetching from GitHub.

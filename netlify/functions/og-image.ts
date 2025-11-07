@@ -5,7 +5,8 @@ import satori from "satori";
 
 const handler: Handler = async (event: HandlerEvent) => {
 	const { queryStringParameters } = event;
-	const { title, subtitle } = queryStringParameters;
+	const title = queryStringParameters?.title ?? "Chris LaRocque";
+	const subtitle = queryStringParameters?.subtitle ?? "";
 
 	/** Font file import */
 	const interBold = readFileSync(path.resolve(`./public/Inter-Bold.ttf`));

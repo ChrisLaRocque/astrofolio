@@ -18,22 +18,41 @@ import ColorSwatch from "./ColorSwatch.astro";
   const origin = window.location.origin;
   const mainSwatch = document.getElementById("main-swatch");
   const colorSelect = document.getElementById("color-select");
-  colorSelect?.addEventListener("change", async (e) => {
-    const {
-      target: { value },
-    } = e;
-    // Get tw class from netlify function
-    const hex = await fetch(
-      `${origin}/.netlify/functions/tailwind-hex?hex=${encodeURIComponent(
-        value
-      )}`
-    ).then((res) => res.json());
-    const { twClass } = hex;
-    const bgClassName = `bg-${twClass}`;
-    const currentBg = mainSwatch?.dataset.bgClassName;
-    mainSwatch?.classList.replace(currentBg, bgClassName);
-    mainSwatch.dataset.bgClassName = bgClassName;
-    const p = mainSwatch?.querySelector("p");
-    p.innerText = bgClassName;
-  });
+
+  if (colorSelect instanceof HTMLInputElement) {
+    colorSelect.addEventListener("change", async (event) => {
+      const input = event.currentTarget;
+      if (!(input instanceof HTMLInputElement)) {
+        return;
+      }
+
+      const value = input.value;
+      const response = await fetch(
+        `${origin}/.netlify/functions/tailwind-hex?hex=${encodeURIComponent(
+          value
+        )}`
+      );
+      const { twClass } = (await response.json()) as { twClass?: string };
+
+      if (!twClass || !(mainSwatch instanceof HTMLElement)) {
+        return;
+      }
+
+      const bgClassName = `bg-${twClass}`;
+      const currentBg = mainSwatch.dataset.bgClassName;
+
+      if (currentBg) {
+        mainSwatch.classList.replace(currentBg, bgClassName);
+      } else {
+        mainSwatch.classList.add(bgClassName);
+      }
+
+      mainSwatch.dataset.bgClassName = bgClassName;
+
+      const label = mainSwatch.querySelector("p");
+      if (label) {
+        label.textContent = bgClassName;
+      }
+    });
+  }
 </script>

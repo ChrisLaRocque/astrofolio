@@ -11,23 +11,24 @@ const { origin } = Astro.url;
 const imageURL = ogImageURL({ ...ogInfo, origin });
 ---
 
-<html lang="en">
-  {
-    import.meta.env.NODE_ENV !== 'development' && (
-      <>
-        <script
-          async
-          type="text/partytown"
-          src="https://www.googletagmanager.com/gtag/js?id=G-YH5X1FXFKW"
-        />
-        <script type="text/partytown">
-          window.dataLayer = window.dataLayer || []; function gtag(){' '}
-          {dataLayer.push(arguments)}
-          gtag("js", new Date()); gtag("config", "G-YH5X1FXFKW");
-        </script>
-      </>
-    )
-  }
+  <html lang="en">
+    {
+      import.meta.env.NODE_ENV !== 'development' && (
+        <>
+          <script
+            is:inline
+            async
+            type="text/partytown"
+            src="https://www.googletagmanager.com/gtag/js?id=G-YH5X1FXFKW"
+          />
+          <script is:inline type="text/partytown">
+            window.dataLayer = window.dataLayer || []; function gtag(){' '}
+            {dataLayer.push(arguments)}
+            gtag("js", new Date()); gtag("config", "G-YH5X1FXFKW");
+          </script>
+        </>
+      )
+    }
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <meta name="generator" content={Astro.generator} />

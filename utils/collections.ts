@@ -1,5 +1,4 @@
-import type { CollectionEntry, z } from 'astro:content';
-import type { techItem } from '../src/content/config';
+import type { CollectionEntry } from 'astro:content';
 
 export function sortByUpdatedAt(collection: CollectionEntry<'projects'>[]) {
   return collection.sort(function (a, b) {
@@ -11,20 +10,18 @@ export function sortByUpdatedAt(collection: CollectionEntry<'projects'>[]) {
 }
 
 export function relatedProjects(
-  allTech: (CollectionEntry<'tech'> & { relatedProjectCount: number })[],
+  allTech: CollectionEntry<'tech'>[],
   allProjects: CollectionEntry<'projects'>[]
-) {
-  allTech.forEach((tech) => {
-    let relatedProjectCount = 0;
-    for (let i = 0; i < allProjects.length; i++) {
-      if (
-        allProjects[i]?.data.tech.includes(
-          tech.slug as z.infer<typeof techItem>
-        )
-      ) {
-        relatedProjectCount += 1;
-      }
-    }
-    return (tech.relatedProjectCount = relatedProjectCount);
+): Array<CollectionEntry<'tech'> & { relatedProjectCount: number }> {
+  type ProjectTech = CollectionEntry<'projects'>['data']['tech'][number];
+
+  return allTech.map((tech) => {
+    const techSlug = tech.slug as ProjectTech;
+
+    const relatedProjectCount = allProjects.reduce((count, project) => {
+      return project.data.tech.includes(techSlug) ? count + 1 : count;
+    }, 0);
+
+    return { ...tech, relatedProjectCount };
   });
 }
