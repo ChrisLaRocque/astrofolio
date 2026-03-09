@@ -23,7 +23,7 @@
   @apply text-lg font-extrabold;
 }
 .content p {
-  @apply mb-2 pr-7;
+  @apply mb-2 pr-7 leading-relaxed;
 }
 .content a {
   @apply font-medium text-blue-700 hover:underline dark:text-blue-400;
@@ -41,8 +41,8 @@
 .expressive-code {
   @apply my-3 max-w-[95%] p-5;
 }
-.content p > code {
-  @apply rounded bg-zinc-200 p-1 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200;
+.content :not(pre) > code {
+  @apply align-middle rounded-md bg-zinc-100 px-1.5 py-0.5 font-mono text-sm text-zinc-800 ring-1 ring-zinc-300 dark:bg-zinc-700 dark:text-zinc-200 dark:ring-zinc-600;
 }
 .content img {
   @apply my-4;
