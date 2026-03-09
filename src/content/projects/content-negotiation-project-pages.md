@@ -9,7 +9,7 @@ site: https://www.larocque.dev/
 
 ## TLDR
 
-Project pages on this site now return raw markdown (no frontmatter) when you send `Accept: text/markdown`. Implemented with Astro middleware — project pages themselves didn't need to change at all.
+Project pages on this site now return raw markdown (no frontmatter) when you send `Accept: text/markdown`. Same URL, different content — the project pages themselves didn't need to change at all.
 
 ```bash
 curl -H "Accept: text/markdown" https://larocque.dev/projects/larocque-dev-astro
@@ -25,62 +25,70 @@ The project pages are prerendered at build time by Astro. Static pages don't rec
 
 The obvious fix would be to convert project pages to SSR (server-side rendering), but that felt like overkill. I'd be moving all that page-rendering complexity into a serverless function just to add a header check. There's a better way.
 
-## Middleware to the rescue
+## Two pieces that work together
 
-Astro has a middleware system that lets you intercept requests before they hit your pages. When you use the `@astrojs/netlify` adapter, that middleware gets deployed as a Netlify Edge Function — meaning it runs at the edge, before Netlify serves any response, including responses from the CDN for prerendered static files.
+### A static markdown endpoint
 
-That's the key insight: middleware can intercept requests to fully static pages.
+First, generate the markdown at build time. A static API endpoint in Astro with the right filename becomes a prerendered file served from the CDN:
 
 ```typescript
-// src/middleware.ts
-import { defineMiddleware } from 'astro:middleware';
+// src/pages/projects/[...slug].md.ts
+import { getCollection, getEntry } from 'astro:content';
+import type { APIRoute, GetStaticPaths } from 'astro';
 
-const mdFiles = import.meta.glob<string>('/src/content/projects/*.md', {
-  query: '?raw',
-  import: 'default',
-});
-const mdxFiles = import.meta.glob<string>('/src/content/projects/*.mdx', {
-  query: '?raw',
-  import: 'default',
-});
+export const getStaticPaths: GetStaticPaths = async () => {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((entry) => ({
+    params: { slug: entry.slug },
+  }));
+};
 
-function stripFrontmatter(raw: string): string {
-  if (!raw.startsWith('---')) return raw;
-  const end = raw.indexOf('\n---', 4);
-  if (end === -1) return raw;
-  return raw.slice(end + 4).replace(/^\r?\n/, '');
-}
-
-export const onRequest = defineMiddleware(async (context, next) => {
-  const { pathname } = context.url;
-  const accept = context.request.headers.get('Accept') ?? '';
-
-  if (pathname.startsWith('/projects/') && accept.includes('text/markdown')) {
-    const slug = pathname.slice('/projects/'.length);
-    const loader =
-      mdFiles[`/src/content/projects/${slug}.md`] ??
-      mdxFiles[`/src/content/projects/${slug}.mdx`];
-    if (loader) {
-      const raw = await loader();
-      return new Response(stripFrontmatter(raw), {
-        headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
-      });
-    }
-  }
-
-  return next();
-});
+export const GET: APIRoute = async ({ params }) => {
+  const entry = await getEntry('projects', params.slug as string);
+  return new Response(entry!.body, {
+    headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
+  });
+};
 ```
 
-`import.meta.glob` is a Vite feature that bundles all matching files at build time — the file contents are embedded in the edge function bundle, so there's no filesystem access needed at runtime. This matters because the Netlify Edge Runtime is Deno-based and Astro's content collection runtime (`getEntry`) isn't available there. Stripping frontmatter manually takes about four lines.
+`entry.body` is Astro's built-in property — raw markdown with frontmatter already stripped. This generates `/projects/[slug].md` files at build time, accessible as static assets on the CDN.
 
-If no loader is found for the slug, the middleware falls through to `next()` and the normal page handles it.
+### A Netlify Edge Function to intercept requests
 
-The project pages themselves are untouched.
+Static files are served before any server-side logic runs. The fix: a Netlify Edge Function that intercepts requests to `/projects/*`, checks the `Accept` header, and fetches the pre-built `.md` file if markdown was requested.
+
+```typescript
+// netlify/edge-functions/markdown-negotiation.ts
+import type { Config, Context } from '@netlify/edge-functions';
+
+export default async function handler(request: Request, context: Context) {
+  const accept = request.headers.get('Accept') ?? '';
+  if (!accept.includes('text/markdown')) {
+    return context.next();
+  }
+
+  const url = new URL(request.url);
+  const slug = url.pathname.replace(/^\/projects\//, '').replace(/\/$/, '');
+  const mdUrl = new URL(`/projects/${slug}.md`, url.origin);
+
+  const mdResponse = await fetch(mdUrl.toString());
+  if (!mdResponse.ok) {
+    return context.next();
+  }
+
+  return new Response(await mdResponse.text(), {
+    headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
+  });
+}
+
+export const config: Config = { path: '/projects/*' };
+```
+
+The edge function runs before Netlify's CDN serves any response, so it can intercept requests to fully prerendered static pages. If `Accept` doesn't include `text/markdown` — or if no `.md` file exists for the slug — it falls through to `context.next()` and the normal HTML page is served.
 
 ## What this required from the Astro config
 
-Adding `@astrojs/netlify` as an adapter. That's it — in Astro 5, `output: 'static'` is the default and already supports a mix of prerendered pages and middleware. No hybrid mode flag, no opting individual pages into SSR.
+Adding `@astrojs/netlify` as an adapter. That's it — in Astro 5, `output: 'static'` is the default and already supports a mix of prerendered pages and edge functions. No hybrid mode flag, no opting individual pages into SSR.
 
 ```js
 // astro.config.mjs
@@ -91,3 +99,5 @@ export default defineConfig({
   // ...everything else unchanged
 });
 ```
+
+The project pages themselves are untouched.
