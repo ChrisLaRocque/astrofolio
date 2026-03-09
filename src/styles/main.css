@@ -25,6 +25,9 @@
   font-display: swap;
 }
 
+body {
+  font-size-adjust: 0.5;
+}
 main > section {
   @apply mx-auto max-w-7xl py-7;
 }
