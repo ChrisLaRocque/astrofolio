@@ -9,7 +9,7 @@ site: https://www.larocque.dev/
 
 ## TLDR
 
-Project pages on this site now return raw markdown (no frontmatter) when you send `Accept: text/markdown`. Same URL, different content — the project pages themselves didn't need to change at all.
+Project pages on this site now return raw markdown when you send `Accept: text/markdown`. Same URL, different content - the project pages themselves didn't need to change at all.
 
 ```bash
 curl -H "Accept: text/markdown" https://larocque.dev/projects/larocque-dev-astro
@@ -17,13 +17,13 @@ curl -H "Accept: text/markdown" https://larocque.dev/projects/larocque-dev-astro
 
 ## Why bother
 
-Honestly this started as a "wouldn't it be neat" thought. LLMs and other tooling that wants to consume the content of a page without dealing with HTML would have a much better time getting back clean markdown. [Content negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation) — using the [`Accept` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) to serve different formats from the same URL — felt like the right pattern: the URL stays canonical, and clients just ask for what they want.
+Maybe I missed it elsewhere but I couldn't find official docs from Astro on how to do this, so my pal Claude helped me build it. LLMs like markdown more than ye olde HTML. [Content negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation) - using the [`Accept` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) to serve different formats from the same URL seems like the popular pattern: the URL stays canonical, and clients just ask for what they want.
 
 ## The constraint: this site is static
 
-The project pages are [prerendered at build time by Astro](https://docs.astro.build/en/basics/rendering-modes/#pre-rendered). Static pages don't receive HTTP requests at runtime — they're just files on a CDN. So there's no place to check an incoming `Accept` header in a static `.astro` file.
+The project pages are [prerendered at build time by Astro](https://docs.astro.build/en/basics/rendering-modes/#pre-rendered). Static pages don't receive HTTP requests at runtime — they're just files on a CDN. So there's no place to check an incoming `Accept` header in a static `.astro` file (someone please tell me if I'm missing something).
 
-The obvious fix would be to convert project pages to SSR (server-side rendering), but that felt like overkill. I'd be moving all that page-rendering complexity into a serverless function just to add a header check. There's a better way.
+Claude's first idea was to move project pages to SSR (server-side rendering), but the performance nerd deep within me got itchy thinking about it. There had to be a better way I told the VC subsidized robot. 
 
 ## Two pieces that work together
 
@@ -86,7 +86,7 @@ export const config: Config = { path: '/projects/*' };
 
 The edge function runs before Netlify's CDN serves any response, so it can intercept requests to fully prerendered static pages. If `Accept` doesn't include `text/markdown` — or if no `.md` file exists for the slug — it falls through to `context.next()` and the normal HTML page is served.
 
-## What this required from the Astro config
+## Astro config
 
 Adding [`@astrojs/netlify`](https://docs.astro.build/en/guides/integrations-guide/netlify/) as an adapter. That's it — in Astro 5, `output: 'static'` is the default and already supports a mix of prerendered pages and edge functions. No hybrid mode flag, no opting individual pages into SSR.
 
@@ -100,4 +100,4 @@ export default defineConfig({
 });
 ```
 
-The project pages themselves are untouched.
+The project pages themselves are untouched, I'm incredible at everything I do. 
