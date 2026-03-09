@@ -1,3 +1,30 @@
+@font-face {
+  font-family: 'Geist';
+  src: url('../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2')
+    format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../../node_modules/geist/dist/fonts/geist-sans/Geist-Italic[wght].woff2')
+    format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2')
+    format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 main > section {
   @apply mx-auto max-w-7xl py-7;
 }
@@ -5,7 +32,7 @@ main > section > section {
   @apply mx-auto max-w-7xl py-7;
 }
 main > section h1 {
-  @apply mb-5 text-5xl font-bold tracking-tight lg:text-6xl;
+  @apply mb-5 text-5xl font-black tracking-tight lg:text-6xl;
 }
 main > section h2 {
   @apply mb-3 text-4xl font-bold tracking-tight lg:text-5xl;

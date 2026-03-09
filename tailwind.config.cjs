@@ -9,6 +9,10 @@ module.exports = {
         background: { light: '#ffffff', dark: '#27272a' },
         foreground: { light: '#09090b', dark: '#fafafa' },
       },
+      fontFamily: {
+        sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+      },
     },
   },
   plugins: [],
