@@ -21,7 +21,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const accept = context.request.headers.get('Accept') ?? '';
 
   if (pathname.startsWith('/projects/') && accept.includes('text/markdown')) {
-    const slug = pathname.slice('/projects/'.length);
+    const slug = pathname.slice('/projects/'.length).replace(/\/$/, '');
     const loader =
       mdFiles[`/src/content/projects/${slug}.md`] ??
       mdxFiles[`/src/content/projects/${slug}.mdx`];
