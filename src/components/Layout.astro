@@ -31,6 +31,8 @@ const imageURL = ogImageURL({ ...ogInfo, origin });
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <meta name="generator" content={Astro.generator} />
+  <!-- Preload Geist font so it is ready before first paint -->
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -69,7 +71,7 @@ const imageURL = ogImageURL({ ...ogInfo, origin });
   </script>
 
   <body
-    class="bg-white p-2 text-zinc-900 transition-colors dark:bg-zinc-800 dark:text-white"
+    class="bg-white p-2 font-sans text-zinc-900 transition-colors dark:bg-zinc-800 dark:text-white"
   >
     <Nav />
     <slot />

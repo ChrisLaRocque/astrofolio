@@ -4,16 +4,16 @@ description: Treat content as data—actionable and scalable across your busines
 homepage: https://www.sanity.io/
 ---
 
-React react react, you pesky minx. I love you, I hate you, I'm largely indifferent to you, unlike the current jobs market.
+I've been working for Sanity since 2023, and at this point I wouldn't want to build another site without it as the content layer.
 
-## Brightcove
+## Customizability
 
-Brightcove.com was built with Gatsby, a React framework.
+Sanity's Studio is one of those rare tools where the ceiling feels genuinely unlimited. The schema system is fully code-driven, which means if you can describe it in JavaScript, you can model it in Sanity. Custom input components, conditional fields, live previews, custom dashboards - it's all there and it's all composable. I've yet to have a piece of functionality I couldn't build with Sanity.
 
-## Greenhouse jobs board
+## Pricing
 
-The jobs board was part of Brightcove.com's Gatsby app, but with it being client-side rendered via Gatsby's router, the dev experience was more in line with the traditional `create-react-app` workflow.
+The free tier is genuinely generous - enough to ship real projects without reaching for a credit card. And the pay-as-you-go model means costs scale with actual usage rather than arbitrary seat counts. It's one of the most honest on-ramps in the CMS space.
 
-## Porting larocque.dev from Nuxt to Gatsby/Next
+## More than a CMS
 
-The experience of recreating my portfolio site (originally built with Vue/Nuxt) was a great eye opener when it comes to the differences between the 2 front-end UI frameworks (React vs Vue).
+The biggest shift in how I think about Sanity is treating it less as a "CMS" and more as a content platform. Content becomes structured data that can power anything: websites, apps, personalization, AI pipelines. I've seen it firsthand with customers who come in thinking they need a blog editor and leave with a content architecture that touches every part of their business.
