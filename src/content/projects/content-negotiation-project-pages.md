@@ -12,7 +12,7 @@ site: https://www.larocque.dev/
 Project pages on this site now return raw markdown when you send `Accept: text/markdown`. Same URL, different content - the project pages themselves didn't need to change at all.
 
 ```bash
-curl -H "Accept: text/markdown" https://larocque.dev/projects/larocque-dev-astro
+curl -H "Accept: text/markdown" https://www.larocque.dev/projects/larocque-dev-astro
 ```
 
 ## Why bother
