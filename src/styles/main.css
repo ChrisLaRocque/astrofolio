@@ -4,7 +4,7 @@
     format('woff2');
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -13,7 +13,7 @@
     format('woff2');
   font-weight: 100 900;
   font-style: italic;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -22,11 +22,7 @@
     format('woff2');
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
-}
-
-body {
-  font-size-adjust: 0.5;
+  font-display: optional;
 }
 main > section {
   @apply mx-auto max-w-7xl py-7;

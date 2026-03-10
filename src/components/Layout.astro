@@ -4,6 +4,8 @@ import Footer from './Footer.astro';
 import '../styles/content.css';
 import '../styles/main.css';
 import ogImageURL from '../../utils/ogImageURL';
+import geistSansUrl from '../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2?url';
+import geistMonoUrl from '../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2?url';
 const { tags } = Astro.props;
 const { title, description, ogInfo } = tags;
 
@@ -31,10 +33,9 @@ const imageURL = ogImageURL({ ...ogInfo, origin });
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <meta name="generator" content={Astro.generator} />
-  <!-- Preload Geist font files to reduce CLS -->
-  <link rel="preload" href="/node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/node_modules/geist/dist/fonts/geist-sans/Geist-Italic[wght].woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Preload Geist font files so they are ready before first paint -->
+  <link rel="preload" href={geistSansUrl} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={geistMonoUrl} as="font" type="font/woff2" crossorigin />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
