@@ -1,5 +1,6 @@
-import type { CollectionEntry, z } from 'astro:content';
-import type { techItem } from '../src/content/config';
+import type { CollectionEntry } from 'astro:content';
+import type { z } from 'astro:content';
+import type { techItem } from '../src/content.config';
 
 export function sortByUpdatedAt(collection: CollectionEntry<'projects'>[]) {
   return collection.sort(function (a, b) {
@@ -19,7 +20,7 @@ export function relatedProjects(
     for (let i = 0; i < allProjects.length; i++) {
       if (
         allProjects[i]?.data.tech.includes(
-          tech.slug as z.infer<typeof techItem>
+          tech.id as z.infer<typeof techItem>
         )
       ) {
         relatedProjectCount += 1;

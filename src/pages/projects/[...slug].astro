@@ -1,25 +1,25 @@
 ---
-import { getCollection, z } from 'astro:content';
+import { getCollection, render, z } from 'astro:content';
 import Layout from '../../components/Layout.astro';
 import Icon from '../../components/Icon.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
-import { techItem } from '../../content/config';
+import { techItem } from '../../content.config';
 
 export async function getStaticPaths() {
   const allProjects = await getCollection('projects', ({ data }) => {
     return data.draft !== true;
   });
   return allProjects.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 
 const { title, description, tech, updatedAt } = entry.data;
-const relatedTech = await getCollection('tech', ({ slug }) => {
-  return tech.includes(slug as z.infer<typeof techItem>);
+const relatedTech = await getCollection('tech', ({ id }) => {
+  return tech.includes(id as z.infer<typeof techItem>);
 });
 const ogInfo = { title, subtitle: description };
 const localeString = new Date(updatedAt).toLocaleDateString();
@@ -47,17 +47,17 @@ const localeString = new Date(updatedAt).toLocaleDateString();
               <ul id="related-tech">
                 {tech.map((item) => {
                   const techItem = relatedTech.filter(
-                    (tech) => tech.slug == item
+                    (tech) => tech.id == item
                   )[0];
                   if (!techItem) return null;
                   return (
                     <li class="mb-2">
                       <a
-                        href={`/tech/${techItem.slug}`}
+                        href={`/tech/${techItem.id}`}
                         class="flex items-center font-medium text-blue-700 hover:underline dark:text-blue-400"
                       >
                         <div class="flex basis-7 items-center justify-center">
-                          <Icon icon={techItem.slug} />
+                          <Icon icon={techItem.id} />
                         </div>
                         <div class="ml-2 basis-36">{techItem?.data.title}</div>
                       </a>

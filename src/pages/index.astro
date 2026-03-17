@@ -3,7 +3,8 @@ import Layout from '../components/Layout.astro';
 import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
 import headshot from '../images/headshot.jpg';
-import { getCollection, CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { sortByUpdatedAt, relatedProjects } from '../../utils/collections';
 
 // Limit number of items listed under each column
@@ -19,7 +20,7 @@ if (allProjects) {
 // Slice allProjects to get us just what we need for the list
 const projectList = allProjects.slice(0, itemsPerPage);
 
-// Get the tech colletion
+// Get the tech collection
 const allTech = await getCollection('tech');
 let techList: (CollectionEntry<'tech'> & { relatedProjectCount: number })[] =
   [];
@@ -31,7 +32,6 @@ if (allTech) {
   })[];
 
   // Create relationships to projects
-  // TODO: remove this now that collection types can reference each other
   relatedProjects(techWithCount, allProjects);
 
   // Sort by most related projects
@@ -93,11 +93,11 @@ if (allTech) {
           Projects
         </h2>
         {
-          projectList.map(async ({ data, slug }) => {
+          projectList.map(async ({ data, id }) => {
             const localeString = new Date(data.updatedAt).toLocaleDateString();
             return (
               <a
-                href={`/projects/${slug}`}
+                href={`/projects/${id}`}
                 class="relative block border-b-2 border-zinc-300 p-9 hover:bg-zinc-100 dark:border-zinc-600 dark:hover:bg-zinc-600"
               >
                 <h3 class="mb-2 mt-0  text-2xl font-bold tracking-tight">
@@ -131,12 +131,12 @@ if (allTech) {
           techList.map((tech) => {
             return (
               <a
-                href={`/tech/${tech.slug}`}
+                href={`/tech/${tech.id}`}
                 class="relative block border-b-2 border-zinc-300 p-9 hover:bg-zinc-100 dark:border-zinc-600 dark:hover:bg-zinc-600"
               >
                 <h3 class="mb-2 mt-0 flex justify-between text-2xl font-bold tracking-tight">
                   {tech.data.title}
-                  <Icon icon={tech.slug} />
+                  <Icon icon={tech.id} />
                 </h3>
                 <p class="max-w-[49ch]">{tech.data.description}</p>
                 {tech.relatedProjectCount && (
