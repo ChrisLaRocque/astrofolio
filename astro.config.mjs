@@ -20,7 +20,9 @@ export default defineConfig({
       themes: ['andromeeda'],
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.endsWith('/404') && !page.endsWith('.md'),
+    }),
   ],
   site: 'https://larocque.dev',
   markdown: { remarkPlugins: [remarkReadingTime] },
