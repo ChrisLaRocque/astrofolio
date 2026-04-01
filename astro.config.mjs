@@ -4,6 +4,7 @@ import partytown from '@astrojs/partytown';
 import { remarkReadingTime } from './utils/remark-reading-time.mjs';
 import mdx from '@astrojs/mdx';
 import netlify from '@astrojs/netlify';
+import sitemap from '@astrojs/sitemap';
 
 import expressiveCode from 'astro-expressive-code';
 
@@ -19,7 +20,8 @@ export default defineConfig({
       themes: ['andromeeda'],
     }),
     mdx(),
+    sitemap(),
   ],
-  site: 'https://larocque.dev',
+  site: 'https://www.larocque.dev',
   markdown: { remarkPlugins: [remarkReadingTime] },
 });
