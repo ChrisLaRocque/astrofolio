@@ -21,7 +21,9 @@ export default defineConfig({
     }),
     mdx(),
     sitemap({
-      filter: (page) => !page.endsWith('/404') && !page.endsWith('.md'),
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
     }),
   ],
   site: 'https://larocque.dev',
