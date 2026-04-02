@@ -4,7 +4,7 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 export const getStaticPaths: GetStaticPaths = async () => {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
   return projects.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
   }));
 };
 

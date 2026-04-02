@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import partytown from '@astrojs/partytown';
 import { remarkReadingTime } from './utils/remark-reading-time.mjs';
 import mdx from '@astrojs/mdx';
@@ -12,7 +12,6 @@ import expressiveCode from 'astro-expressive-code';
 export default defineConfig({
   adapter: netlify(),
   integrations: [
-    tailwind(),
     partytown({
       config: { forward: [['dataLayer.push', { preserveBehavior: true }]] },
     }),
@@ -24,4 +23,7 @@ export default defineConfig({
   ],
   site: 'https://www.larocque.dev',
   markdown: { remarkPlugins: [remarkReadingTime] },
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
